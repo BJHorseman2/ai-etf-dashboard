@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Themed ETF Watchlist</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0e1a;
+      --surface:   #111827;
+      --surface2:  #1a2236;
+      --border:    #1f2d45;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --smh:       #7c3aed;
+      --pave:      #0ea5e9;
+      --grid:      #10b981;
+      --ibb:       #f59e0b;
+      --kre:       #f43f5e;
+      --green:     #22c55e;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 3rem;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1a1040 50%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 60%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+    header p {
+      color: var(--muted);
+      margin-top: .4rem;
+      font-size: .9rem;
+      position: relative;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(124,58,237,.2);
+      border: 1px solid rgba(124,58,237,.4);
+      color: #a78bfa;
+      border-radius: 999px;
+      padding: .18rem .75rem;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      margin-top: 2.5rem;
+    }
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Cards grid ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.25rem 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+    .card-ticker {
+      font-size: 1.85rem;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .card-name {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: .2rem;
+      margin-bottom: .8rem;
+    }
+    .card-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    .card-price {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .card-ytd {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--green);
+      background: rgba(34,197,94,.1);
+      border-radius: 6px;
+      padding: .1rem .45rem;
+    }
+    .card-rationale {
+      font-size: .74rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-top: .75rem;
+      border-top: 1px solid var(--border);
+      padding-top: .6rem;
+      line-height: 1.5;
+    }
+
+    /* ── Chart panels ── */
+    .chart-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .chart-panel canvas {
+      width: 100% !important;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 700px) {
+      .chart-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      font-size: .875rem;
+    }
+    thead tr {
+      background: var(--surface2);
+    }
+    th {
+      padding: .85rem 1rem;
+      text-align: left;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    td {
+      padding: .85rem 1rem;
+      border-top: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tr:hover td { background: rgba(255,255,255,.03); }
+    .ticker-cell {
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .rank-badge {
+      display: inline-block;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--surface2);
+      text-align: center;
+      line-height: 24px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-right: .4rem;
+    }
+    .rank-badge.gold   { background: #92400e; color: #fbbf24; }
+    .rank-badge.silver { background: #1e293b; color: #94a3b8; }
+    .rank-badge.bronze { background: #451a03; color: #f97316; }
+    .positive { color: var(--green); font-weight: 700; }
+    .bar-cell { min-width: 140px; }
+    .bar-bg { background: rgba(34,197,94,.1); border-radius: 4px; height: 8px; }
+    .bar-fg { background: var(--green); border-radius: 4px; height: 8px; }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Live Dashboard</div>
+  <h1>AI-Themed ETF Watchlist</h1>
+  <p>Infrastructure plays for the AI supercycle &mdash; Data: Yahoo Finance, Jun 26 2026</p>
+</header>
+
+<div class="container">
+
+  <!-- ── Summary Cards ── -->
+  <section>
+    <div class="section-title">ETF Snapshot</div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- ── Charts ── -->
+  <section>
+    <div class="section-title">Performance Charts</div>
+    <div class="chart-grid">
+      <div class="chart-panel">
+        <div style="font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:1rem;letter-spacing:.05em;text-transform:uppercase;">Monthly Price Performance</div>
+        <canvas id="lineChart" height="280"></canvas>
+      </div>
+      <div class="chart-panel">
+        <div style="font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:1rem;letter-spacing:.05em;text-transform:uppercase;">YTD Return Ranking</div>
+        <canvas id="barChart" height="280"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Table ── -->
+  <section>
+    <div class="section-title">Rankings by YTD Return</div>
+    <div class="table-wrap">
+      <table id="rankTable">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Ticker</th>
+            <th>Full Name</th>
+            <th>Baseline</th>
+            <th>Jun Price</th>
+            <th>YTD Return</th>
+            <th>Jan</th>
+            <th>Feb</th>
+            <th>Mar</th>
+            <th>Apr</th>
+            <th>May</th>
+            <th>Jun</th>
+            <th>Bar</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  &copy; 2026 &bull; AI-Themed ETF Dashboard &bull; Built with Chart.js 4.x &bull; Data: Yahoo Finance, Jun 26 2026
+</footer>
+
+<script>
+/* ─── DATA ─────────────────────────────────────────────────── */
+const ETFs = [
+  {
+    ticker:   'SMH',
+    name:     'VanEck Semiconductor ETF',
+    color:    '#7c3aed',
+    baseline: 368.95,
+    prices:   [403.46, 406.37, 383.40, 506.72, 598.93, 611.61],
+    ytd:      65.77,
+    rationale:'Still the core AI earnings engine, but volatile and crowded. Deloitte projects semiconductor sales to reach ~$975B in 2026, fueled by AI infrastructure.'
+  },
+  {
+    ticker:   'PAVE',
+    name:     'Global X Infrastructure ETF',
+    color:    '#0ea5e9',
+    baseline: 48.08,
+    prices:   [50.75, 55.09, 50.81, 56.79, 56.31, 58.84],
+    ytd:      22.38,
+    rationale:"AI data centers, grid buildout, defense spending, reshoring, and construction all feed into industrial demand. Schwab rates Industrials 'More Favored.'"
+  },
+  {
+    ticker:   'GRID',
+    name:     'First Trust Smart Grid ETF',
+    color:    '#10b981',
+    baseline: 154.77,
+    prices:   [164.87, 177.85, 163.58, 190.99, 193.07, 185.11],
+    ytd:      19.60,
+    rationale:"The 'AI power bottleneck' trade. Data centers and electrification are pushing electricity demand higher. Domestic power infrastructure benefits from AI expansion."
+  },
+  {
+    ticker:   'IBB',
+    name:     'iShares Biotechnology ETF',
+    color:    '#f59e0b',
+    baseline: 169.65,
+    prices:   [172.43, 175.37, 168.85, 168.69, 172.18, 187.36],
+    ytd:      10.44,
+    rationale:"Good mix of defense and innovation. Schwab rates Health Care 'More Favored' — aging demographics, health awareness, biotech innovation, and defensive demand."
+  },
+  {
+    ticker:   'KRE',
+    name:     'SPDR S&P Regional Banking ETF',
+    color:    '#f43f5e',
+    baseline: 64.91,
+    prices:   [68.81, 66.77, 65.15, 69.85, 69.61, 75.17],
+    ytd:      15.81,
+    rationale:'Worth watching: steeper yield curve, resilient credit, capital markets activity, and lower relative valuations could help. Schwab rates Financials neutral but positive on NII and fintech.'
+  }
+];
+
+/* Sorted descending by YTD for bar chart & table */
+const sorted = [...ETFs].sort((a, b) => b.ytd - a.ytd);
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+/* ─── CARDS ────────────────────────────────────────────────── */
+const cardsEl = document.getElementById('cards');
+ETFs.forEach(etf => {
+  const current = etf.prices[etf.prices.length - 1];
+  cardsEl.innerHTML += `
+    <div class="card" style="--accent:${etf.color}">
+      <div class="card-ticker">${etf.ticker}</div>
+      <div class="card-name">${etf.name}</div>
+      <div class="card-price-row">
+        <div class="card-price">$${current.toFixed(2)}</div>
+        <div class="card-ytd">+${etf.ytd.toFixed(2)}%</div>
+      </div>
+      <div class="card-rationale">${etf.rationale}</div>
+    </div>`;
+});
+
+/* ─── LINE CHART ────────────────────────────────────────────── */
+(function buildLineChart() {
+  const ctx = document.getElementById('lineChart').getContext('2d');
+
+  const datasets = ETFs.map(etf => {
+    /* gradient fill */
+    const grad = ctx.createLinearGradient(0, 0, 0, 400);
+    grad.addColorStop(0, etf.color + '55');
+    grad.addColorStop(1, etf.color + '00');
+
+    /* Normalise to % change from baseline for comparable display */
+    const pctData = etf.prices.map(p => +((p / etf.baseline - 1) * 100).toFixed(2));
+
+    return {
+      label: etf.ticker,
+      data: pctData,
+      borderColor: etf.color,
+      backgroundColor: grad,
+      fill: true,
+      tension: .45,
+      pointRadius: 4,
+      pointHoverRadius: 7,
+      pointBackgroundColor: etf.color,
+      borderWidth: 2.5
+    };
+  });
+
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          labels: { color: '#94a3b8', boxWidth: 14, font: { size: 11 } }
+        },
+        tooltip: {
+          backgroundColor: '#1e293b',
+          borderColor: '#334155',
+          borderWidth: 1,
+          titleColor: '#e2e8f0',
+          bodyColor: '#94a3b8',
+          callbacks: {
+            label(ctx) {
+              const etf = ETFs[ctx.datasetIndex];
+              const pct  = ctx.parsed.y;
+              const price = etf.prices[ctx.dataIndex];
+              return ` ${etf.ticker}  $${price.toFixed(2)}  (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}% vs baseline)`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: '#1f2d45' },
+          ticks: { color: '#64748b' }
+        },
+        y: {
+          grid: { color: '#1f2d45' },
+          ticks: {
+            color: '#64748b',
+            callback: v => v + '%'
+          }
+        }
+      }
+    }
+  });
+})();
+
+/* ─── BAR CHART ─────────────────────────────────────────────── */
+(function buildBarChart() {
+  const ctx = document.getElementById('barChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(e => e.ticker),
+      datasets: [{
+        label: 'YTD Return',
+        data: sorted.map(e => e.ytd),
+        backgroundColor: sorted.map(e => e.color + 'cc'),
+        borderColor:     sorted.map(e => e.color),
+        borderWidth: 1.5,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1e293b',
+          borderColor: '#334155',
+          borderWidth: 1,
+          titleColor: '#e2e8f0',
+          bodyColor: '#94a3b8',
+          callbacks: {
+            label: ctx => ` YTD +${ctx.parsed.x.toFixed(2)}%`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: '#1f2d45' },
+          ticks: {
+            color: '#64748b',
+            callback: v => v + '%'
+          }
+        },
+        y: {
+          grid: { display: false },
+          ticks: {
+            color: '#e2e8f0',
+            font: { weight: '700', size: 13 }
+          }
+        }
+      }
+    }
+  });
+})();
+
+/* ─── TABLE ─────────────────────────────────────────────────── */
+(function buildTable() {
+  const rankClasses = ['gold', 'silver', 'bronze'];
+  const maxYtd = sorted[0].ytd;
+  const tbody = document.querySelector('#rankTable tbody');
+
+  sorted.forEach((etf, i) => {
+    const rcls  = rankClasses[i] || '';
+    const current = etf.prices[etf.prices.length - 1];
+    const barPct  = (etf.ytd / maxYtd * 100).toFixed(1);
+    const priceRow = etf.prices.map(p => `<td>$${p.toFixed(2)}</td>`).join('');
+
+    tbody.innerHTML += `
+      <tr>
+        <td><span class="rank-badge ${rcls}">${i + 1}</span></td>
+        <td class="ticker-cell" style="color:${etf.color}">${etf.ticker}</td>
+        <td style="color:#94a3b8;font-size:.8rem">${etf.name}</td>
+        <td>$${etf.baseline.toFixed(2)}</td>
+        <td style="font-weight:700">$${current.toFixed(2)}</td>
+        <td class="positive">+${etf.ytd.toFixed(2)}%</td>
+        ${priceRow}
+        <td class="bar-cell">
+          <div class="bar-bg"><div class="bar-fg" style="width:${barPct}%"></div></div>
+        </td>
+      </tr>`;
+  });
+})();
+</script>
+</body>
+</html>
