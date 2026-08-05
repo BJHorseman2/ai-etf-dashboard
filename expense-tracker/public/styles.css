@@ -107,6 +107,7 @@ nav { display: flex; gap: .2rem; flex: 1; flex-wrap: wrap; }
 }
 .tab:hover { color: var(--text); background: var(--surface2); }
 .tab.active { color: var(--accent); background: var(--accent-dim); font-weight: 600; }
+.tab-icon { display: none; }
 .header-right { display: flex; align-items: center; gap: .7rem; }
 .badge {
   background: #78350f; color: #fcd34d; border: 1px solid #b45309;
@@ -300,4 +301,41 @@ dialog::backdrop { background: rgba(3, 7, 18, .75); }
   .audit-row { grid-template-columns: 1fr; gap: .1rem; }
   .txn { grid-template-columns: 1fr auto; }
   .txn .icon { display: none; }
+}
+
+/* ── Phone layout: compact header + iOS-style bottom tab bar ── */
+@media (max-width: 700px) {
+  header {
+    display: flex; flex-wrap: nowrap; justify-content: space-between;
+    gap: .6rem;
+    padding: calc(.6rem + env(safe-area-inset-top)) 1rem .6rem;
+  }
+  .brand { font-size: 1.02rem; white-space: nowrap; }
+  nav {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 20;
+    display: flex; justify-content: space-around; gap: 0; flex: none;
+    background: rgba(17, 24, 39, .96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: .35rem .2rem calc(.35rem + env(safe-area-inset-bottom));
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: .1rem;
+    flex: 1; padding: .25rem .1rem;
+    font-size: .62rem; letter-spacing: .01em;
+  }
+  .tab.active { background: none; }
+  .tab-icon { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .tab-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+  main { padding: 1rem .9rem calc(4.6rem + env(safe-area-inset-bottom)); }
+  .stat .value { font-size: 1.15rem; }
+  .stat-row { grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .card { padding: 1rem; }
+  .sub-card { grid-template-columns: 1fr; }
+  .sub-card .sub-cost { text-align: left; }
+  dialog { max-height: 88vh; padding: 1.1rem 1.2rem; }
+  .kv { grid-template-columns: 110px 1fr; font-size: .84rem; }
 }

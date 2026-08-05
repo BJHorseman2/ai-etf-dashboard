@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Expense Tracker</title>
+  <meta name="theme-color" content="#0a0e1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Expenses" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -43,11 +51,11 @@
     <header>
       <div class="brand"><span class="brand-mark">◈</span> Expense Tracker</div>
       <nav>
-        <button class="tab active" data-tab="overview">Overview</button>
-        <button class="tab" data-tab="transactions">Transactions</button>
-        <button class="tab" data-tab="subscriptions">Subscriptions</button>
-        <button class="tab" data-tab="accounts">Accounts</button>
-        <button class="tab" data-tab="security">Security</button>
+        <button class="tab active" data-tab="overview"><span class="tab-icon">📊</span><span class="tab-label">Overview</span></button>
+        <button class="tab" data-tab="transactions"><span class="tab-icon">🧾</span><span class="tab-label">Charges</span></button>
+        <button class="tab" data-tab="subscriptions"><span class="tab-icon">🔁</span><span class="tab-label">Subscriptions</span></button>
+        <button class="tab" data-tab="accounts"><span class="tab-icon">🏦</span><span class="tab-label">Accounts</span></button>
+        <button class="tab" data-tab="security"><span class="tab-icon">🛡️</span><span class="tab-label">Security</span></button>
       </nav>
       <div class="header-right">
         <span id="demo-badge" class="badge hidden" title="No Plaid API keys configured — showing sample data">DEMO MODE</span>
