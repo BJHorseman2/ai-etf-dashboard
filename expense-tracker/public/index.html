@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- ── Auth screen ── -->
+  <div id="auth-screen" class="auth-wrap hidden">
+    <div class="auth-card">
+      <div class="brand">
+        <span class="brand-mark">◈</span>
+        <h1>Expense Tracker</h1>
+      </div>
+      <p class="tagline">Every account. Every charge. Explained.</p>
+
+      <form id="auth-form" autocomplete="on">
+        <h2 id="auth-title">Sign in</h2>
+        <p id="auth-sub" class="muted"></p>
+        <label>Email
+          <input type="email" id="auth-email" required maxlength="254" autocomplete="username" />
+        </label>
+        <label>Password
+          <input type="password" id="auth-password" required minlength="10" maxlength="200"
+                 autocomplete="current-password" />
+        </label>
+        <p id="auth-error" class="error hidden"></p>
+        <button type="submit" class="btn primary" id="auth-submit">Sign in</button>
+      </form>
+
+      <ul class="security-notes">
+        <li>🔒 Bank credentials are entered only in your bank's secure widget — never stored here</li>
+        <li>🔐 Access tokens encrypted at rest with AES-256-GCM</li>
+        <li>🛡️ Rate-limited sign-in, hardened session cookies, full audit log</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── App shell ── -->
+  <div id="app" class="hidden">
+    <header>
+      <div class="brand"><span class="brand-mark">◈</span> Expense Tracker</div>
+      <nav>
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="transactions">Transactions</button>
+        <button class="tab" data-tab="subscriptions">Subscriptions</button>
+        <button class="tab" data-tab="accounts">Accounts</button>
+        <button class="tab" data-tab="security">Security</button>
+      </nav>
+      <div class="header-right">
+        <span id="demo-badge" class="badge hidden" title="No Plaid API keys configured — showing sample data">DEMO MODE</span>
+        <button id="logout-btn" class="btn ghost small">Sign out</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Overview -->
+      <section id="tab-overview" class="tab-panel">
+        <div id="empty-state" class="empty hidden">
+          <h2>Link your first account</h2>
+          <p>Connect your bank accounts and credit/debit cards to see every charge in one place.</p>
+          <button id="link-btn-empty" class="btn primary big">＋ Link an account</button>
+        </div>
+        <div id="overview-content" class="hidden">
+          <div class="stat-row" id="stat-row"></div>
+          <div class="grid-2">
+            <div class="card">
+              <h3>Monthly spending</h3>
+              <div id="monthly-chart" class="bar-chart"></div>
+            </div>
+            <div class="card">
+              <h3>Top categories · last 30 days</h3>
+              <div id="category-chart" class="hbar-chart"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Recent charges</h3>
+              <button class="btn ghost small" data-goto="transactions">See all →</button>
+            </div>
+            <div id="recent-txns"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transactions -->
+      <section id="tab-transactions" class="tab-panel hidden">
+        <div class="toolbar">
+          <input type="search" id="txn-search" placeholder="Search charges, merchants, processors…" />
+          <select id="txn-account-filter"><option value="">All accounts</option></select>
+          <button id="sync-btn" class="btn ghost small">↻ Sync</button>
+        </div>
+        <p class="hint">Click any charge to see exactly where it originated — decoded merchant, payment processor, and location.</p>
+        <div id="txn-list"></div>
+      </section>
+
+      <!-- Subscriptions -->
+      <section id="tab-subscriptions" class="tab-panel hidden">
+        <div class="card highlight">
+          <h3>Subscription radar</h3>
+          <p class="muted">Recurring charges detected automatically from your transactions. Cancel any of them from here.</p>
+          <div class="stat-row" id="sub-stats"></div>
+        </div>
+        <div id="sub-list"></div>
+      </section>
+
+      <!-- Accounts -->
+      <section id="tab-accounts" class="tab-panel hidden">
+        <div class="toolbar">
+          <button id="link-btn" class="btn primary">＋ Link an account</button>
+        </div>
+        <div id="account-list"></div>
+      </section>
+
+      <!-- Security -->
+      <section id="tab-security" class="tab-panel hidden">
+        <div class="card">
+          <h3>How your data is protected</h3>
+          <ul class="security-notes wide">
+            <li><strong>Credentials never touch this app.</strong> Bank sign-in happens inside Plaid's hosted widget; this server only receives a scoped, revocable access token.</li>
+            <li><strong>Encryption at rest.</strong> Access tokens are encrypted with AES-256-GCM before being written to the local database.</li>
+            <li><strong>Hardened sessions.</strong> Session cookies are httpOnly, SameSite=Strict, and stored server-side only as SHA-256 hashes with 12-hour expiry.</li>
+            <li><strong>Brute-force protection.</strong> Sign-in attempts are rate-limited; passwords are hashed with bcrypt (cost 12).</li>
+            <li><strong>CSRF &amp; clickjacking defenses.</strong> State-changing requests require a custom header; strict Content-Security-Policy and frame-ancestors 'none'.</li>
+            <li><strong>Local-first.</strong> Your data stays in a local SQLite database on your machine — nothing is sent to third parties except Plaid for account syncing.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Recent account activity (audit log)</h3>
+          <div id="audit-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ── Charge detail modal ── -->
+  <dialog id="txn-modal">
+    <div class="modal-head">
+      <h3>Where did this charge come from?</h3>
+      <button class="btn ghost small" data-close>✕</button>
+    </div>
+    <div id="txn-modal-body"></div>
+  </dialog>
+
+  <!-- ── Cancel subscription modal ── -->
+  <dialog id="cancel-modal">
+    <div class="modal-head">
+      <h3 id="cancel-title">Cancel subscription</h3>
+      <button class="btn ghost small" data-close>✕</button>
+    </div>
+    <div id="cancel-modal-body"></div>
+  </dialog>
+
+  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
