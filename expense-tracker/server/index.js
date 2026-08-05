@@ -30,6 +30,10 @@ app.use(helmet({
       baseUri: ["'self'"],
       formAction: ["'self'"],
       frameAncestors: ["'none'"],
+      // Removed (helmet default): it breaks CSS/JS loading when the app is
+      // served over plain HTTP on a LAN/Tailscale IP — Safari upgrades asset
+      // requests to https, which the server doesn't speak on that port.
+      upgradeInsecureRequests: null,
     },
   },
   referrerPolicy: { policy: 'no-referrer' },
