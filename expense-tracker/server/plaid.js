@@ -2,7 +2,7 @@ import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
 import db from './db.js';
 import { encrypt, decrypt } from './crypto.js';
 import { decodeDescriptor } from './merchant-decoder.js';
-import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_ENV, DEMO_MODE } from './config.js';
+import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_ENV, DEMO_MODE, APP_URL } from './config.js';
 
 // Real bank/card linking via Plaid. The user's bank credentials are entered in
 // Plaid's hosted Link widget — they NEVER touch this server. We only receive a
@@ -32,6 +32,9 @@ export async function createLinkToken(userId) {
     products: ['transactions'],
     country_codes: ['US'],
     language: 'en',
+    // OAuth banks redirect back here after login; must be registered in the
+    // Plaid dashboard under Allowed redirect URIs.
+    ...(APP_URL ? { redirect_uri: `${APP_URL}/oauth-return.html` } : {}),
   });
   return resp.data.link_token;
 }

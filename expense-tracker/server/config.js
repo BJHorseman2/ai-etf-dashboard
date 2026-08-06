@@ -12,6 +12,10 @@ fs.mkdirSync(DATA_DIR, { recursive: true, mode: 0o700 });
 export const PORT = Number(process.env.PORT) || 3000;
 export const SECURE_COOKIES = process.env.SECURE_COOKIES === 'true';
 
+// Public HTTPS base URL of this app (e.g. https://marks-mac-mini.tailXXXX.ts.net).
+// Required for banks that use OAuth logins (Chase, BofA, Wells Fargo, ...).
+export const APP_URL = (process.env.APP_URL || '').replace(/\/+$/, '');
+
 export const PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID || '';
 export const PLAID_SECRET = process.env.PLAID_SECRET || '';
 export const PLAID_ENV = process.env.PLAID_ENV || 'sandbox';

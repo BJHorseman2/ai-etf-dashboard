@@ -390,15 +390,20 @@ async function linkAccount() {
   }
   // Real linking via Plaid Link — credentials are entered in Plaid's widget.
   const { link_token } = await api('/link/token', { method: 'POST' });
+  // Saved so oauth-return.html can resume the session after an OAuth bank
+  // (Chase, BofA, ...) redirects back to us.
+  localStorage.setItem('plaid_link_token', link_token);
   const handler = Plaid.create({
     token: link_token,
     onSuccess: async (public_token, metadata) => {
+      localStorage.removeItem('plaid_link_token');
       await api('/link/exchange', {
         method: 'POST',
         body: { public_token, institution_name: metadata.institution?.name },
       });
       await refreshAll();
     },
+    onExit: () => localStorage.removeItem('plaid_link_token'),
   });
   handler.open();
 }

@@ -35,6 +35,8 @@ ENCRYPTION_KEY=$KEY
 PLAID_CLIENT_ID=
 PLAID_SECRET=
 PLAID_ENV=sandbox
+# Public HTTPS URL (tailscale serve), needed for OAuth banks:
+APP_URL=
 # Set to true if you serve over HTTPS (e.g. tailscale serve):
 SECURE_COOKIES=false
 EOF
