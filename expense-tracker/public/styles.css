@@ -85,6 +85,8 @@ body {
 }
 #auth-form input:focus, .toolbar input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
 #auth-form button { width: 100%; margin-top: 1.2rem; }
+.policy-link { margin-top: 1rem; font-size: .8rem; }
+.policy-link a { color: var(--blue); }
 .security-notes { list-style: none; margin-top: 1.5rem; font-size: .8rem; color: var(--muted); }
 .security-notes li { margin: .45rem 0; }
 .security-notes.wide { font-size: .92rem; }
