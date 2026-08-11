@@ -274,13 +274,13 @@ def move_messages(conn, matches, folder):
     return moved
 
 
-def format_report(matches, dry_run):
+def format_report(matches, dry_run, folder):
     lines = []
     verb = "WOULD MOVE" if dry_run else "MOVED"
     for _, rule, info in matches:
         lines.append(
-            "%s -> Agent Review\n  rule:    %s\n  from:    %s <%s>\n  subject: %s\n  date:    %s"
-            % (verb, rule.get("label", rule.get("id", "?")),
+            "%s -> %s\n  rule:    %s\n  from:    %s <%s>\n  subject: %s\n  date:    %s"
+            % (verb, folder, rule.get("label", rule.get("id", "?")),
                info["from_name"] or "(no display name)", info["from_addr"],
                info["subject"] or "(no subject)", info["date"]))
     return "\n".join(lines)
@@ -304,7 +304,8 @@ def run(dry_run):
     if not account:
         log("ERROR: no account configured (config.json 'account')")
         return 2
-    if not dry_run and not config.get("enabled"):
+    enabled = config.get("enabled") or os.environ.get("AOL_CLEANER_ENABLED") == "1"
+    if not dry_run and not enabled:
         log("cleanup not enabled yet (config 'enabled' is false); refusing to move mail")
         return 2
 
@@ -325,7 +326,8 @@ def run(dry_run):
         return 2
 
     state = load_json(STATE_PATH, {}) if not dry_run else {}
-    lookback = int(config.get("lookback_days", 30))
+    lookback = int(os.environ.get("AOL_CLEANER_LOOKBACK",
+                                  config.get("lookback_days", 30)))
 
     try:
         conn = imap_connect(account, password)
@@ -346,7 +348,7 @@ def run(dry_run):
         log("scan: %d message(s) examined, %d match(es)" % (scanned, len(matches)))
 
         if dry_run:
-            report = format_report(matches, dry_run=True)
+            report = format_report(matches, dry_run=True, folder=folder)
             print("\n===== DRY RUN REPORT =====")
             print(report if matches else "No matching messages in the last %d days." % lookback)
             print("==========================")
@@ -356,13 +358,18 @@ def run(dry_run):
         state["last_uid"] = highest_uid
         save_json(STATE_PATH, state)
 
+        quiet = os.environ.get("AOL_CLEANER_QUIET") == "1"
         for _, rule, info in moved:
-            log('moved: [%s] %s <%s> — "%s"'
-                % (rule.get("label"), info["from_name"], info["from_addr"],
-                   info["subject"]))
+            if quiet:
+                # public CI logs: rule label only, no sender/subject details
+                log("moved: [%s] 1 message" % rule.get("label"))
+            else:
+                log('moved: [%s] %s <%s> — "%s"'
+                    % (rule.get("label"), info["from_name"], info["from_addr"],
+                       info["subject"]))
         if moved:
             notify(config, "AOL cleaner: moved %d message(s) to \"%s\":\n\n%s"
-                   % (len(moved), folder, format_report(moved, dry_run=False)))
+                   % (len(moved), folder, format_report(moved, dry_run=False, folder=folder)))
         return 0
     except Exception as e:
         log("ERROR: run failed: %s: %s" % (type(e).__name__, e))

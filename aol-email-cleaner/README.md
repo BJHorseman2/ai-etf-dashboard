@@ -2,11 +2,29 @@
 
 Deterministic, rule-based cleaner for an AOL inbox. Every 4 hours it scans the
 Inbox over IMAP/SSL (`imap.aol.com:993`) and moves messages that match known
-unwanted-sender rules into an AOL folder called **Agent Review** (nothing is
-permanently deleted). No LLM is involved in deciding what is junk — matching is
-exact addresses and explicit display-name substrings only.
+unwanted-sender rules into the AOL **Spam** folder. No LLM is involved in
+deciding what is junk — matching is exact addresses and explicit display-name
+substrings only.
 
-## Install (one command on the Mac)
+## Option A: run in the cloud via GitHub Actions (no Mac needed)
+
+The workflow `.github/workflows/aol-email-cleanup.yml` runs the cleaner on
+GitHub's servers every 4 hours. One-time setup, all doable from a phone:
+
+1. Generate an AOL **app password** (see iPhone steps below).
+2. In this repo: **Settings → Secrets and variables → Actions → New
+   repository secret**, add:
+   - `AOL_EMAIL` — your full AOL address
+   - `AOL_APP_PASSWORD` — the app password
+3. Run the workflow manually once in `dry-run` mode (Actions tab → AOL email
+   cleanup → Run workflow) to see what would move. Scheduled runs only start
+   once this workflow file is on the `main` branch.
+
+Secrets are encrypted by GitHub and never appear in logs. Scheduled runs log
+only rule names and counts (no senders/subjects), since Actions logs on a
+public repo are visible.
+
+## Option B: install on a Mac (one command)
 
 ```bash
 git clone https://github.com/BJHorseman2/ai-etf-dashboard.git /tmp/aol-setup \

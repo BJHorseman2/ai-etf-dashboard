@@ -1,0 +1,52 @@
+name: AOL email cleanup
+
+on:
+  schedule:
+    # every 4 hours (minute offset avoids GitHub's top-of-hour congestion)
+    - cron: "23 */4 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "dry-run (report only) or run (move matching mail)"
+        type: choice
+        default: dry-run
+        options: [dry-run, run]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aol-email-cleanup
+  cancel-in-progress: false
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check secrets are configured
+        env:
+          AOL_EMAIL: ${{ secrets.AOL_EMAIL }}
+          AOL_APP_PASSWORD: ${{ secrets.AOL_APP_PASSWORD }}
+        run: |
+          if [ -z "$AOL_EMAIL" ] || [ -z "$AOL_APP_PASSWORD" ]; then
+            echo "::error::Repository secrets AOL_EMAIL and AOL_APP_PASSWORD are not set (Settings -> Secrets and variables -> Actions)."
+            exit 1
+          fi
+
+      - name: Run cleaner
+        env:
+          AOL_ACCOUNT: ${{ secrets.AOL_EMAIL }}
+          AOL_APP_PASSWORD: ${{ secrets.AOL_APP_PASSWORD }}
+          AOL_CLEANER_DIR: ${{ github.workspace }}/aol-email-cleaner
+          AOL_CLEANER_LOG: ${{ runner.temp }}/aol-email-cleaner.log
+          AOL_CLEANER_ENABLED: "1"
+          # scheduled runs keep public logs minimal (no senders/subjects);
+          # manual dry-runs print full detail for approval
+          AOL_CLEANER_QUIET: ${{ github.event_name == 'schedule' && '1' || '0' }}
+          MODE: ${{ github.event_name == 'schedule' && 'run' || (inputs.mode || 'dry-run') }}
+        run: |
+          echo "mode: $MODE"
+          python3 aol-email-cleaner/aol_email_cleaner.py "--$MODE"

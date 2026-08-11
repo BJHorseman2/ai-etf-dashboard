@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "target_folder": "Agent Review",
+  "target_folder": "Spam",
   "rules": [
     {
       "id": "fast5g-internet",
