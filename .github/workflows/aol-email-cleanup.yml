@@ -55,6 +55,14 @@ jobs:
         run: |
           echo "mode: $MODE"
           python3 aol-email-cleaner/aol_email_cleaner.py "--$MODE"
+          # dry-run: emit the report base64-encoded so the operator can
+          # retrieve it from the job log without a plaintext public listing
+          if [ "$MODE" = "dry-run" ] && [ -f "$AOL_CLEANER_REPORT" ]; then
+            echo "REPORT-B64-BEGIN"
+            base64 -w0 "$AOL_CLEANER_REPORT"
+            echo ""
+            echo "REPORT-B64-END"
+          fi
 
       - name: Upload dry-run report (expires in 1 day)
         if: always()
