@@ -349,9 +349,20 @@ def run(dry_run):
 
         if dry_run:
             report = format_report(matches, dry_run=True, folder=folder)
-            print("\n===== DRY RUN REPORT =====")
-            print(report if matches else "No matching messages in the last %d days." % lookback)
-            print("==========================")
+            if not matches:
+                report = "No matching messages in the last %d days." % lookback
+            report_path = os.environ.get("AOL_CLEANER_REPORT")
+            if report_path:
+                # write details to a file (e.g. a CI artifact) and keep
+                # stdout — which may be publicly visible — to counts only
+                with open(report_path, "w") as f:
+                    f.write(report + "\n")
+                print("dry run: %d match(es); details written to report file"
+                      % len(matches))
+            else:
+                print("\n===== DRY RUN REPORT =====")
+                print(report)
+                print("==========================")
             return 0
 
         moved = move_messages(conn, matches, folder)
