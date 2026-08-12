@@ -286,6 +286,16 @@ def format_report(matches, dry_run, folder):
     return "\n".join(lines)
 
 
+def write_stats(data):
+    """Write run stats JSON for the dashboard (path via AOL_CLEANER_STATS)."""
+    path = os.environ.get("AOL_CLEANER_STATS")
+    if path:
+        try:
+            save_json(path, data)
+        except OSError:
+            pass
+
+
 def notify(config, message):
     """Send a notification via the configured command (message on stdin)."""
     cmd = config.get("notify_command")
@@ -329,16 +339,23 @@ def run(dry_run):
     lookback = int(os.environ.get("AOL_CLEANER_LOOKBACK",
                                   config.get("lookback_days", 30)))
 
+    now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    mode = "dry-run" if dry_run else "run"
+
     try:
         conn = imap_connect(account, password)
     except imaplib.IMAP4.error as e:
         log("ERROR: IMAP authentication failed: %s" % e)
         notify(config, "AOL cleaner: AUTHENTICATION FAILED — the app password "
                        "may have been revoked. A new one is needed.")
+        write_stats({"time": now_iso, "mode": mode, "ok": False,
+                     "error": "authentication failed"})
         return 1
     except (OSError, ssl.SSLError) as e:
         log("ERROR: could not connect to %s: %s" % (IMAP_HOST, e))
         notify(config, "AOL cleaner ERROR: could not connect to AOL IMAP (%s)" % e)
+        write_stats({"time": now_iso, "mode": mode, "ok": False,
+                     "error": "connection failed"})
         return 1
 
     try:
@@ -351,6 +368,13 @@ def run(dry_run):
             report = format_report(matches, dry_run=True, folder=folder)
             if not matches:
                 report = "No matching messages in the last %d days." % lookback
+            by_rule = {}
+            for _, rule, _info in matches:
+                label = rule.get("label", rule.get("id", "?"))
+                by_rule[label] = by_rule.get(label, 0) + 1
+            write_stats({"time": now_iso, "mode": mode, "ok": True,
+                         "scanned": scanned, "matched": len(matches),
+                         "moved": 0, "by_rule": by_rule})
             report_path = os.environ.get("AOL_CLEANER_REPORT")
             if report_path:
                 # write details to a file (e.g. a CI artifact) and keep
@@ -378,6 +402,13 @@ def run(dry_run):
                 log('moved: [%s] %s <%s> — "%s"'
                     % (rule.get("label"), info["from_name"], info["from_addr"],
                        info["subject"]))
+        by_rule = {}
+        for _, rule, _info in moved:
+            label = rule.get("label", rule.get("id", "?"))
+            by_rule[label] = by_rule.get(label, 0) + 1
+        write_stats({"time": now_iso, "mode": mode, "ok": True,
+                     "scanned": scanned, "matched": len(matches),
+                     "moved": len(moved), "by_rule": by_rule})
         if moved:
             notify(config, "AOL cleaner: moved %d message(s) to \"%s\":\n\n%s"
                    % (len(moved), folder, format_report(moved, dry_run=False, folder=folder)))
@@ -385,6 +416,8 @@ def run(dry_run):
     except Exception as e:
         log("ERROR: run failed: %s: %s" % (type(e).__name__, e))
         notify(config, "AOL cleaner ERROR: %s: %s" % (type(e).__name__, e))
+        write_stats({"time": now_iso, "mode": mode, "ok": False,
+                     "error": "%s: %s" % (type(e).__name__, e)})
         return 1
     finally:
         try:
