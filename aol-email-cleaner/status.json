@@ -1,11 +1,27 @@
 {
-  "total_moved": 0,
-  "totals_by_rule": {},
-  "history": [],
-  "last_run": null,
-  "last_mode": null,
-  "last_ok": null,
+  "total_moved": 52,
+  "totals_by_rule": {
+    "The Prof G Pod": 2,
+    "NBA Top Shot": 15,
+    "The Economist Today": 20,
+    "AI Automation Agency Hub (Skool)": 6,
+    "Costa Dentistry": 2,
+    "Fast5GInternet": 5,
+    "YCharts": 1,
+    "Scott Galloway / Prof G Media": 1
+  },
+  "history": [
+    {
+      "t": "2026-08-12T17:47:19Z",
+      "moved": 52,
+      "scanned": 987,
+      "ok": true
+    }
+  ],
+  "last_run": "2026-08-12T17:47:19Z",
+  "last_mode": "run",
+  "last_ok": true,
   "last_error": null,
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_scanned": 987,
+  "last_moved": 52
 }
