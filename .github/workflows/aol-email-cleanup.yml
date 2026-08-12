@@ -1,0 +1,122 @@
+name: AOL email cleanup
+
+on:
+  schedule:
+    # every 4 hours (minute offset avoids GitHub's top-of-hour congestion)
+    - cron: "23 */4 * * *"
+  push:
+    branches: ["claude/aol-email-cleanup-w6ro50"]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "dry-run (report only) or run (move matching mail)"
+        type: choice
+        default: dry-run
+        options: [dry-run, run]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aol-email-cleanup
+  cancel-in-progress: false
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # skip pushes made by the status-update step below
+    if: ${{ !contains(github.event.head_commit.message, '[skip-clean]') }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check secrets are configured
+        env:
+          AOL_EMAIL: ${{ secrets.AOL_EMAIL }}
+          AOL_APP_PASSWORD: ${{ secrets.AOL_APP_PASSWORD }}
+        run: |
+          if [ -z "$AOL_EMAIL" ] || [ -z "$AOL_APP_PASSWORD" ]; then
+            echo "::error::Repository secrets AOL_EMAIL and AOL_APP_PASSWORD are not set (Settings -> Secrets and variables -> Actions)."
+            exit 1
+          fi
+
+      - name: Run cleaner
+        env:
+          AOL_ACCOUNT: ${{ secrets.AOL_EMAIL }}
+          AOL_APP_PASSWORD: ${{ secrets.AOL_APP_PASSWORD }}
+          AOL_CLEANER_DIR: ${{ github.workspace }}/aol-email-cleaner
+          AOL_CLEANER_LOG: ${{ runner.temp }}/aol-email-cleaner.log
+          AOL_CLEANER_ENABLED: "1"
+          # public logs stay minimal (no senders/subjects); dry-run details
+          # go to a short-lived artifact instead
+          AOL_CLEANER_QUIET: "1"
+          AOL_CLEANER_REPORT: ${{ runner.temp }}/dry-run-report.txt
+          AOL_CLEANER_STATS: ${{ runner.temp }}/run-stats.json
+          # schedule = real run; push = dry-run unless the commit message
+          # says [real-run]; manual dispatch = whichever mode was chosen
+          MODE: ${{ github.event_name == 'schedule' && 'run' || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[real-run]') && 'run' || 'dry-run')) || inputs.mode }}
+        run: |
+          echo "mode: $MODE"
+          python3 aol-email-cleaner/aol_email_cleaner.py "--$MODE"
+          # dry-run: emit the report base64-encoded so the operator can
+          # retrieve it from the job log without a plaintext public listing
+          if [ "$MODE" = "dry-run" ] && [ -f "$AOL_CLEANER_REPORT" ]; then
+            echo "REPORT-B64-BEGIN"
+            base64 -w0 "$AOL_CLEANER_REPORT"
+            echo ""
+            echo "REPORT-B64-END"
+          fi
+
+      - name: Upload dry-run report (expires in 1 day)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dry-run-report
+          path: ${{ runner.temp }}/dry-run-report.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+      - name: Update dashboard status
+        # only real runs update the dashboard (scheduled, or [real-run] push)
+        if: ${{ always() && (github.event_name == 'schedule' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[real-run]'))) }}
+        env:
+          STATS_FILE: ${{ runner.temp }}/run-stats.json
+        run: |
+          python3 - << 'EOF'
+          import json, os, sys
+          stats_path = os.environ["STATS_FILE"]
+          status_path = "aol-email-cleaner/status.json"
+          try:
+              stats = json.load(open(stats_path))
+          except Exception:
+              stats = {"time": None, "mode": "run", "ok": False,
+                       "error": "run produced no stats (crashed early)"}
+          try:
+              status = json.load(open(status_path))
+          except Exception:
+              status = {}
+          status.setdefault("total_moved", 0)
+          status.setdefault("totals_by_rule", {})
+          status.setdefault("history", [])
+          status["last_run"] = stats.get("time")
+          status["last_mode"] = stats.get("mode")
+          status["last_ok"] = stats.get("ok", False)
+          status["last_error"] = stats.get("error")
+          status["last_scanned"] = stats.get("scanned", 0)
+          status["last_moved"] = stats.get("moved", 0)
+          status["total_moved"] += stats.get("moved", 0)
+          for rule, n in (stats.get("by_rule") or {}).items():
+              status["totals_by_rule"][rule] = status["totals_by_rule"].get(rule, 0) + n
+          status["history"].append({
+              "t": stats.get("time"), "moved": stats.get("moved", 0),
+              "scanned": stats.get("scanned", 0), "ok": stats.get("ok", False)})
+          status["history"] = status["history"][-90:]
+          json.dump(status, open(status_path, "w"), indent=2)
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add aol-email-cleaner/status.json
+          git diff --cached --quiet || {
+            git commit -m "Update cleaner status [skip-clean]"
+            git push
+          }

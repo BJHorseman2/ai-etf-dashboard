@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "target_folder": "Spam",
+  "rules": [
+    {
+      "id": "fast5g-internet",
+      "label": "Fast5GInternet",
+      "from_email": "shop@dailycartstore.info"
+    },
+    {
+      "id": "profg-media-substack",
+      "label": "Scott Galloway / Prof G Media",
+      "from_email": "profgmedia@substack.com"
+    },
+    {
+      "id": "ai-automation-agency-skool",
+      "label": "AI Automation Agency Hub (Skool)",
+      "from_email": "noreply@skool.com",
+      "display_name_contains": "AI Automation Agency"
+    },
+    {
+      "id": "economist-today",
+      "label": "The Economist Today",
+      "display_name_contains": "The Economist Today"
+    },
+    {
+      "id": "nba-top-shot",
+      "label": "NBA Top Shot",
+      "display_name_contains": "NBA Top Shot"
+    },
+    {
+      "id": "manifold",
+      "label": "Manifold",
+      "display_name_contains": "Manifold"
+    },
+    {
+      "id": "prof-g-pod",
+      "label": "The Prof G Pod",
+      "display_name_contains": "The Prof G Pod"
+    },
+    {
+      "id": "horsepowerduck",
+      "label": "HorsepowerDuck",
+      "display_name_contains": "HorsepowerDuck"
+    },
+    {
+      "id": "h0rsep0werduck",
+      "label": "H0rsep0werDuck",
+      "display_name_contains": "H0rsep0werDuck"
+    },
+    {
+      "id": "costa-dentistry",
+      "label": "Costa Dentistry",
+      "display_name_contains": "Costa Dentistry"
+    },
+    {
+      "id": "ycharts",
+      "label": "YCharts",
+      "display_name_contains": "YCharts"
+    }
+  ]
+}

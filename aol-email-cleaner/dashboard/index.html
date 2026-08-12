@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Email Cleaner">
+<title>Email Cleaner</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --surface: #ffffff; --ink: #1a1d21; --ink-2: #5c6470;
+    --ink-3: #8a919c; --line: #e4e7eb; --accent: #2f6fed;
+    --good: #1a7f37; --good-bg: #e6f4ea;
+    --warn: #9a6700; --warn-bg: #fff8e1;
+    --bad: #c62828; --bad-bg: #fdecea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101318; --surface: #1a1f26; --ink: #e8eaed; --ink-2: #a8b0ba;
+      --ink-3: #737b86; --line: #2a313a; --accent: #6b9dff;
+      --good: #4caf6d; --good-bg: #16281c;
+      --warn: #d9a53f; --warn-bg: #2b2415;
+      --bad: #ef6e62; --bad-bg: #2e1a18;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--ink);
+    padding: max(16px, env(safe-area-inset-top)) 16px 32px;
+    max-width: 640px; margin: 0 auto;
+  }
+  header { display: flex; align-items: baseline; justify-content: space-between;
+           margin: 8px 2px 16px; }
+  h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-3); font-size: 13px; }
+  .pill { display: inline-flex; align-items: center; gap: 7px; font-size: 14px;
+          font-weight: 600; border-radius: 999px; padding: 7px 14px; margin-bottom: 16px; }
+  .pill.good { color: var(--good); background: var(--good-bg); }
+  .pill.warn { color: var(--warn); background: var(--warn-bg); }
+  .pill.bad  { color: var(--bad);  background: var(--bad-bg); }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+  .tile { background: var(--surface); border: 1px solid var(--line);
+          border-radius: 14px; padding: 14px 16px; }
+  .tile .num { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums;
+               letter-spacing: -0.02em; }
+  .tile .lbl { color: var(--ink-2); font-size: 13px; margin-top: 2px; }
+  section { background: var(--surface); border: 1px solid var(--line);
+            border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  h2 { font-size: 13px; font-weight: 600; text-transform: uppercase;
+       letter-spacing: 0.05em; color: var(--ink-3); margin-bottom: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  td { padding: 8px 0; border-top: 1px solid var(--line); }
+  tr:first-child td { border-top: none; }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .rule-type { color: var(--ink-3); font-size: 12.5px; display: block; }
+  .hist { list-style: none; font-size: 14px; }
+  .hist li { display: flex; justify-content: space-between; padding: 7px 0;
+             border-top: 1px solid var(--line); color: var(--ink-2); }
+  .hist li:first-child { border-top: none; }
+  .hist .moved { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .empty { color: var(--ink-3); font-size: 14px; padding: 6px 0; }
+  footer { color: var(--ink-3); font-size: 12.5px; text-align: center; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Email Cleaner</h1>
+  <span class="sub">AOL inbox &middot; every 4 h</span>
+</header>
+
+<div id="status" class="pill warn"><span>&#9679;</span><span>Loading&hellip;</span></div>
+
+<div class="tiles">
+  <div class="tile"><div class="num" id="t-last">&ndash;</div><div class="lbl">Moved last run</div></div>
+  <div class="tile"><div class="num" id="t-total">&ndash;</div><div class="lbl">Moved all-time</div></div>
+  <div class="tile"><div class="num" id="t-scanned">&ndash;</div><div class="lbl">Scanned last run</div></div>
+  <div class="tile"><div class="num" id="t-rules">&ndash;</div><div class="lbl">Senders blocked</div></div>
+</div>
+
+<section>
+  <h2>Moved, by sender</h2>
+  <table id="by-rule"></table>
+  <div id="by-rule-empty" class="empty" hidden>Nothing moved yet.</div>
+</section>
+
+<section>
+  <h2>Block list</h2>
+  <table id="rules"></table>
+</section>
+
+<section>
+  <h2>Recent runs</h2>
+  <ul class="hist" id="hist"></ul>
+  <div id="hist-empty" class="empty" hidden>No runs recorded yet.</div>
+</section>
+
+<footer id="foot">Moves mail to the AOL Spam folder &middot; updates after each run</footer>
+
+<script>
+const RAW = "https://raw.githubusercontent.com/BJHorseman2/ai-etf-dashboard/main/aol-email-cleaner/";
+
+async function fetchJson(name) {
+  try {
+    const r = await fetch("../" + name, {cache: "no-store"});
+    if (r.ok) return await r.json();
+  } catch (e) {}
+  const r = await fetch(RAW + name + "?t=" + Date.now(), {cache: "no-store"});
+  if (!r.ok) throw new Error(name);
+  return await r.json();
+}
+
+function rel(iso) {
+  if (!iso) return "never";
+  const mins = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return mins + " min ago";
+  const h = Math.round(mins / 60);
+  if (h < 48) return h + " h ago";
+  return Math.round(h / 24) + " days ago";
+}
+
+function setStatus(cls, symbol, text) {
+  const el = document.getElementById("status");
+  el.className = "pill " + cls;
+  el.innerHTML = "<span>" + symbol + "</span><span>" + text + "</span>";
+}
+
+(async () => {
+  let status = null, rules = null;
+  try { rules = await fetchJson("rules.json"); } catch (e) {}
+  try { status = await fetchJson("status.json"); } catch (e) {}
+
+  if (rules) {
+    document.getElementById("t-rules").textContent = rules.rules.length;
+    document.getElementById("rules").innerHTML = rules.rules.map(r => {
+      const what = r.from_email
+        ? (r.display_name_contains
+            ? r.from_email + " + name has “" + r.display_name_contains + "”"
+            : "address: " + r.from_email)
+        : "name has “" + r.display_name_contains + "”";
+      return "<tr><td>" + (r.label || r.id) +
+             "<span class='rule-type'>" + what + "</span></td></tr>";
+    }).join("");
+  }
+
+  if (!status) { setStatus("bad", "&#9888;", "Can’t load status"); return; }
+
+  document.getElementById("t-last").textContent = status.last_moved ?? 0;
+  document.getElementById("t-total").textContent = status.total_moved ?? 0;
+  document.getElementById("t-scanned").textContent = status.last_scanned ?? 0;
+
+  const ageH = status.last_run
+    ? (Date.now() - new Date(status.last_run).getTime()) / 3600000 : null;
+  if (status.last_run === null) {
+    setStatus("warn", "&#9679;", "Waiting for first run");
+  } else if (status.last_ok === false) {
+    setStatus("bad", "&#9888;", "Error: " + (status.last_error || "last run failed"));
+  } else if (ageH !== null && ageH > 5) {
+    setStatus("warn", "&#9679;", "Run overdue · last " + rel(status.last_run));
+  } else {
+    setStatus("good", "&#10003;", "Running · last " + rel(status.last_run));
+  }
+
+  const byRule = Object.entries(status.totals_by_rule || {}).sort((a, b) => b[1] - a[1]);
+  if (byRule.length) {
+    document.getElementById("by-rule").innerHTML = byRule.map(([k, v]) =>
+      "<tr><td>" + k + "</td><td class='n'>" + v + "</td></tr>").join("");
+  } else {
+    document.getElementById("by-rule-empty").hidden = false;
+  }
+
+  const hist = (status.history || []).slice(-10).reverse();
+  if (hist.length) {
+    document.getElementById("hist").innerHTML = hist.map(h =>
+      "<li><span>" + rel(h.t) + (h.ok ? "" : " · failed") + "</span>" +
+      "<span class='moved'>" + h.moved + " moved</span></li>").join("");
+  } else {
+    document.getElementById("hist-empty").hidden = false;
+  }
+})();
+</script>
+</body>
+</html>
