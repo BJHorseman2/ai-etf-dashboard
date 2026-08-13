@@ -97,6 +97,43 @@
       "id": "productreportcard-name",
       "label": "ProductReportCard.com (by name)",
       "display_name_contains": "ProductReportCard"
+    },
+    {
+      "id": "bloomingdales-loyallist",
+      "label": "Bloomingdale's Loyallist",
+      "display_name_contains": "Loyallist"
+    },
+    {
+      "id": "rye-recreation",
+      "label": "Rye Recreation (CommunityPass)",
+      "from_email": "info@communitypass.net",
+      "display_name_contains": "Rye Recreation"
+    },
+    {
+      "id": "smartcartnow-spam",
+      "label": "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)",
+      "from_email": "hello@smartcartnow.net"
+    },
+    {
+      "id": "indigo-mastercard-spam",
+      "label": "Indigo Mastercard offer spam",
+      "from_email": "visible@visiblecreditline.net"
+    },
+    {
+      "id": "capitol-theatre",
+      "label": "The Capitol Theatre",
+      "display_name_contains": "The Capitol Theatre"
+    },
+    {
+      "id": "stubhub-events",
+      "label": "StubHub events",
+      "display_name_contains": "stubhub"
+    },
+    {
+      "id": "yorkville-tennis",
+      "label": "Yorkville Tennis Club (Mindbody)",
+      "from_email": "confirm@mindbodyonline.com",
+      "display_name_contains": "Yorkville Tennis Club"
     }
   ]
 }

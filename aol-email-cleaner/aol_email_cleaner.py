@@ -454,6 +454,17 @@ TEST_CASES = [
     ("Lend ing F0R BAD Cred it <zznewrandom@other-spam-domain.example>", "", "loan-spam-name"),
     ("ProductReportCard.com <support@productreportcard.com>", "", "productreportcard-address"),
     ("ProductReportCard.com <bulk@some-esp.example>", "", "productreportcard-name"),
+    ("Bloomingdale's Loyallist <bloomingdalesloyallist@loyallist.bloomingdales.com>", "", "bloomingdales-loyallist"),
+    ("Rye Recreation <info@communitypass.net>", "", "rye-recreation"),
+    ("libertyroofingupgrade <hello@smartcartnow.net>", "", "smartcartnow-spam"),
+    ("ReliefMDBetterLiving <hello@smartcartnow.net>", "", "smartcartnow-spam"),
+    ("IndigoMastercardOffer <visible@visiblecreditline.net>", "", "indigo-mastercard-spam"),
+    ("The Capitol Theatre <thecapitoltheatre@engage.ticketmaster.com>", "", "capitol-theatre"),
+    ("events_at_mail_stubhub_com_kbfhk86xk4_18b287e2 <events_at_mail_stubhub_com_kbfhk86xk4_18b287e2@privaterelay.appleid.com>", "", "stubhub-events"),
+    ("Yorkville Tennis Club LLC <confirm@mindbodyonline.com>", "", "yorkville-tennis"),
+    # other towns / businesses on shared platforms must NOT match
+    ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
+    ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),
     # innocents must not match
     ("Mom <mom@example.com>", "", None),
     ("Chase <no.reply.alerts@chase.com>", "", None),
