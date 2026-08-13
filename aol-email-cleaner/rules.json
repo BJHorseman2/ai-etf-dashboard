@@ -57,6 +57,46 @@
       "id": "ycharts",
       "label": "YCharts",
       "display_name_contains": "YCharts"
+    },
+    {
+      "id": "fake-aflac-address",
+      "label": "Fake Aflac (westlanehomes.in)",
+      "from_email": "westlanehomes@westlanehomes.in"
+    },
+    {
+      "id": "yourinsuranceteam-name",
+      "label": "YourInsuranceTeam (fake insurance)",
+      "display_name_contains": "YourInsuranceTeam"
+    },
+    {
+      "id": "discord",
+      "label": "Discord",
+      "from_email": "noreply@discord.com"
+    },
+    {
+      "id": "yutori",
+      "label": "Yutori",
+      "display_name_contains": "Yutori"
+    },
+    {
+      "id": "loan-spam-address",
+      "label": "Loan spam (wish-montenegro.com)",
+      "from_email": "pldaxswkqetmvra@wish-montenegro.com"
+    },
+    {
+      "id": "loan-spam-name",
+      "label": "Loan spam (F0R BAD Cred)",
+      "display_name_contains": "F0R BAD Cred"
+    },
+    {
+      "id": "productreportcard-address",
+      "label": "ProductReportCard.com",
+      "from_email": "support@productreportcard.com"
+    },
+    {
+      "id": "productreportcard-name",
+      "label": "ProductReportCard.com (by name)",
+      "display_name_contains": "ProductReportCard"
     }
   ]
 }

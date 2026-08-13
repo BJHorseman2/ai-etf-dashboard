@@ -446,6 +446,14 @@ TEST_CASES = [
     ("YCharts <team@ycharts.com>", "", "ycharts"),
     # match via Reply-To address
     ("Random Display <bounce@mailer.example>", "Shop <shop@dailycartstore.info>", "fast5g-internet"),
+    ("YourInsuranceTeamataflac <westlanehomes@westlanehomes.in>", "", "fake-aflac-address"),
+    ("YourInsuranceTeam-Aflac <random123@other-domain.example>", "", "yourinsuranceteam-name"),
+    ("Discord <noreply@discord.com>", "", "discord"),
+    ("Yutori <notifications_at_yutori_com_x@privaterelay.appleid.com>", "", "yutori"),
+    ("Lend ing F0R BAD Cred it <pldaxswkqetmvra@wish-montenegro.com>", "", "loan-spam-address"),
+    ("Lend ing F0R BAD Cred it <zznewrandom@other-spam-domain.example>", "", "loan-spam-name"),
+    ("ProductReportCard.com <support@productreportcard.com>", "", "productreportcard-address"),
+    ("ProductReportCard.com <bulk@some-esp.example>", "", "productreportcard-name"),
     # innocents must not match
     ("Mom <mom@example.com>", "", None),
     ("Chase <no.reply.alerts@chase.com>", "", None),
