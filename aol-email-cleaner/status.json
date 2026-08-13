@@ -1,12 +1,12 @@
 {
-  "total_moved": 93,
+  "total_moved": 94,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 16,
     "The Economist Today": 22,
     "AI Automation Agency Hub (Skool)": 7,
     "Costa Dentistry": 2,
-    "Fast5GInternet": 5,
+    "Fast5GInternet": 6,
     "YCharts": 1,
     "Scott Galloway / Prof G Media": 1,
     "Rye Recreation (CommunityPass)": 7,
@@ -48,12 +48,18 @@
       "moved": 37,
       "scanned": 900,
       "ok": true
+    },
+    {
+      "t": "2026-08-13T13:54:23Z",
+      "moved": 1,
+      "scanned": 873,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-13T09:37:16Z",
+  "last_run": "2026-08-13T13:54:23Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 900,
-  "last_moved": 37
+  "last_scanned": 873,
+  "last_moved": 1
 }
