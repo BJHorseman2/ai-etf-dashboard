@@ -462,6 +462,8 @@ TEST_CASES = [
     ("The Capitol Theatre <thecapitoltheatre@engage.ticketmaster.com>", "", "capitol-theatre"),
     ("events_at_mail_stubhub_com_kbfhk86xk4_18b287e2 <events_at_mail_stubhub_com_kbfhk86xk4_18b287e2@privaterelay.appleid.com>", "", "stubhub-events"),
     ("Yorkville Tennis Club LLC <confirm@mindbodyonline.com>", "", "yorkville-tennis"),
+    ("Acme Markets <acmemarkets@p.acmemarkets.com>", "", "acme-markets-address"),
+    ("Acme Markets <deals@other.acmemarkets.com>", "", "acme-markets-name"),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),
