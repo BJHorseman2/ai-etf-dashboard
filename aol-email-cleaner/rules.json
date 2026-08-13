@@ -134,6 +134,16 @@
       "label": "Yorkville Tennis Club (Mindbody)",
       "from_email": "confirm@mindbodyonline.com",
       "display_name_contains": "Yorkville Tennis Club"
+    },
+    {
+      "id": "acme-markets-address",
+      "label": "Acme Markets",
+      "from_email": "acmemarkets@p.acmemarkets.com"
+    },
+    {
+      "id": "acme-markets-name",
+      "label": "Acme Markets (by name)",
+      "display_name_contains": "Acme Markets"
     }
   ]
 }
