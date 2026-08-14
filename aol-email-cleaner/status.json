@@ -1,5 +1,5 @@
 {
-  "total_moved": 108,
+  "total_moved": 109,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 17,
@@ -11,7 +11,7 @@
     "Scott Galloway / Prof G Media": 1,
     "Rye Recreation (CommunityPass)": 7,
     "StubHub events": 6,
-    "Discord": 8,
+    "Discord": 9,
     "The Capitol Theatre": 4,
     "Yutori": 5,
     "Acme Markets": 6,
@@ -82,12 +82,18 @@
       "moved": 11,
       "scanned": 896,
       "ok": true
+    },
+    {
+      "t": "2026-08-14T05:52:01Z",
+      "moved": 1,
+      "scanned": 887,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-14T03:04:08Z",
+  "last_run": "2026-08-14T05:52:01Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 896,
-  "last_moved": 11
+  "last_scanned": 887,
+  "last_moved": 1
 }
