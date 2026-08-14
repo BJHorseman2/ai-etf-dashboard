@@ -464,6 +464,8 @@ TEST_CASES = [
     ("Yorkville Tennis Club LLC <confirm@mindbodyonline.com>", "", "yorkville-tennis"),
     ("Acme Markets <acmemarkets@p.acmemarkets.com>", "", "acme-markets-address"),
     ("Acme Markets <deals@other.acmemarkets.com>", "", "acme-markets-name"),
+    ("Robert Guest at The Economist <newsletters_at_e_economist_com_bdthcywf5s_2f0f01cb@privaterelay.appleid.com>", "", "economist-today"),
+    ("Anonymous Sender <newsletters_at_e_economist_com_bdthcywf5s_2f0f01cb@privaterelay.appleid.com>", "", "economist-relay"),
     ("Reddit <noreply_at_redditmail_com_zrjbnry8sg_c9f7a9cf@privaterelay.appleid.com>", "", "reddit"),
     ("NFL Preseason <NFL@email.nfl.com>", "", "nfl"),
     ("Elevate NY <elevate.ny@loyalty-plus.com>", "", "elevate-ny"),

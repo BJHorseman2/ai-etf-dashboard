@@ -21,7 +21,17 @@
     {
       "id": "economist-today",
       "label": "The Economist Today",
-      "display_name_contains": "The Economist Today"
+      "display_name_contains": "The Economist"
+    },
+    {
+      "id": "economist-address",
+      "label": "The Economist (direct address)",
+      "from_email": "newsletters@e.economist.com"
+    },
+    {
+      "id": "economist-relay",
+      "label": "The Economist (relay address)",
+      "from_email": "newsletters_at_e_economist_com_bdthcywf5s_2f0f01cb@privaterelay.appleid.com"
     },
     {
       "id": "nba-top-shot",
