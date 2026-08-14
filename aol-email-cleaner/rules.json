@@ -144,6 +144,31 @@
       "id": "acme-markets-name",
       "label": "Acme Markets (by name)",
       "display_name_contains": "Acme Markets"
+    },
+    {
+      "id": "reddit",
+      "label": "Reddit",
+      "display_name_contains": "Reddit"
+    },
+    {
+      "id": "nfl",
+      "label": "NFL",
+      "from_email": "nfl@email.nfl.com"
+    },
+    {
+      "id": "elevate-ny",
+      "label": "Elevate NY (dispensary)",
+      "from_email": "elevate.ny@loyalty-plus.com"
+    },
+    {
+      "id": "american-collectors-address",
+      "label": "American Collectors Insurance",
+      "from_email": "info@americancollectors.com"
+    },
+    {
+      "id": "american-collectors-name",
+      "label": "American Collectors Insurance (by name)",
+      "display_name_contains": "American Collectors Insurance"
     }
   ]
 }
