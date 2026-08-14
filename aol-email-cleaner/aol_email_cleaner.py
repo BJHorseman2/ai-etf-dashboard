@@ -464,6 +464,10 @@ TEST_CASES = [
     ("Yorkville Tennis Club LLC <confirm@mindbodyonline.com>", "", "yorkville-tennis"),
     ("Acme Markets <acmemarkets@p.acmemarkets.com>", "", "acme-markets-address"),
     ("Acme Markets <deals@other.acmemarkets.com>", "", "acme-markets-name"),
+    ("Reddit <noreply_at_redditmail_com_zrjbnry8sg_c9f7a9cf@privaterelay.appleid.com>", "", "reddit"),
+    ("NFL Preseason <NFL@email.nfl.com>", "", "nfl"),
+    ("Elevate NY <elevate.ny@loyalty-plus.com>", "", "elevate-ny"),
+    ("American Collectors Insurance <info@americancollectors.com>", "", "american-collectors-address"),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),
