@@ -116,7 +116,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add aol-email-cleaner/status.json
+          # status is bookkeeping: retry around concurrent pushes, and never
+          # fail the run over it — the mail cleaning already succeeded
           git diff --cached --quiet || {
             git commit -m "Update cleaner status [skip-clean]"
-            git push
+            for i in 1 2 3; do
+              git push && break
+              git pull --rebase -X theirs || git rebase --abort
+              sleep 3
+            done || echo "::warning::status push failed after retries (bookkeeping only)"
           }
