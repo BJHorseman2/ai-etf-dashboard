@@ -1,5 +1,5 @@
 {
-  "total_moved": 110,
+  "total_moved": 113,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 17,
@@ -16,7 +16,9 @@
     "Yutori": 5,
     "Acme Markets": 6,
     "Bloomingdale's Loyallist": 1,
-    "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 1
+    "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 1,
+    "Facebook reminders": 2,
+    "Appointment Trader (by name)": 1
   },
   "history": [
     {
@@ -84,12 +86,18 @@
       "moved": 0,
       "scanned": 888,
       "ok": true
+    },
+    {
+      "t": "2026-08-16T05:59:50Z",
+      "moved": 3,
+      "scanned": 883,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-16T05:43:49Z",
+  "last_run": "2026-08-16T05:59:50Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 888,
-  "last_moved": 0
+  "last_scanned": 883,
+  "last_moved": 3
 }
