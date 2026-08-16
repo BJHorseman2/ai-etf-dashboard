@@ -470,6 +470,9 @@ TEST_CASES = [
     ("NFL Preseason <NFL@email.nfl.com>", "", "nfl"),
     ("Elevate NY <elevate.ny@loyalty-plus.com>", "", "elevate-ny"),
     ("American Collectors Insurance <info@americancollectors.com>", "", "american-collectors-address"),
+    ("Facebook <reminders@facebookmail.com>", "", "facebook-reminders"),
+    ("Facebook <security@facebookmail.com>", "", None),
+    ("Appointment Trader <community@appointment-trader.com>", "", "appointment-trader-address"),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),

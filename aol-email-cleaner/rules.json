@@ -179,6 +179,21 @@
       "id": "american-collectors-name",
       "label": "American Collectors Insurance (by name)",
       "display_name_contains": "American Collectors Insurance"
+    },
+    {
+      "id": "facebook-reminders",
+      "label": "Facebook reminders",
+      "from_email": "reminders@facebookmail.com"
+    },
+    {
+      "id": "appointment-trader-address",
+      "label": "Appointment Trader",
+      "from_email": "community@appointment-trader.com"
+    },
+    {
+      "id": "appointment-trader-name",
+      "label": "Appointment Trader (by name)",
+      "display_name_contains": "Appointment Trader"
     }
   ]
 }
