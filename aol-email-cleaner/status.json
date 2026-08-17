@@ -198,12 +198,18 @@
       "moved": 6,
       "scanned": 901,
       "ok": true
+    },
+    {
+      "t": "2026-08-17T01:58:59Z",
+      "moved": 0,
+      "scanned": 876,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-16T20:39:42Z",
+  "last_run": "2026-08-17T01:58:59Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 901,
-  "last_moved": 6
+  "last_scanned": 876,
+  "last_moved": 0
 }
