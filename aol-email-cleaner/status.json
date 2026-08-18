@@ -1,5 +1,5 @@
 {
-  "total_moved": 157,
+  "total_moved": 158,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 19,
@@ -22,7 +22,8 @@
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 2,
     "Facebook reminders": 2,
-    "Appointment Trader (by name)": 1
+    "Appointment Trader (by name)": 1,
+    "Manifold": 1
   },
   "history": [
     {
@@ -240,12 +241,18 @@
       "moved": 4,
       "scanned": 905,
       "ok": true
+    },
+    {
+      "t": "2026-08-18T01:55:48Z",
+      "moved": 1,
+      "scanned": 889,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-17T20:49:36Z",
+  "last_run": "2026-08-18T01:55:48Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 905,
-  "last_moved": 4
+  "last_scanned": 889,
+  "last_moved": 1
 }
