@@ -473,6 +473,11 @@ TEST_CASES = [
     ("Facebook <reminders@facebookmail.com>", "", "facebook-reminders"),
     ("Facebook <security@facebookmail.com>", "", None),
     ("Appointment Trader <community@appointment-trader.com>", "", "appointment-trader-address"),
+    ("Vehicle Protections U S A Affiliates <hello@buyexpresshub.com>", "", "buyexpresshub-spam"),
+    (".H.G.VPromo. <reminder@bestbuybasket.info>", "", "bestbuybasket-spam"),
+    ("Joshua Kliniske <hajiagas7@gmail.com>", "", "geeksquad-scam-1"),
+    ("Offeredge <kaniadaliya521@gmail.com>", "", "geeksquad-scam-2"),
+    ("msbb224 <Xavrunqelomizatrekivo@rfhsolid.com>", "", "rfhsolid-spam"),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),
