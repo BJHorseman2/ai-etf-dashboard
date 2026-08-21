@@ -194,6 +194,46 @@
       "id": "appointment-trader-name",
       "label": "Appointment Trader (by name)",
       "display_name_contains": "Appointment Trader"
+    },
+    {
+      "id": "buyexpresshub-spam",
+      "label": "BuyExpressHub spam (Vehicle Protections, ...)",
+      "from_email": "hello@buyexpresshub.com"
+    },
+    {
+      "id": "vehicle-protections-name",
+      "label": "Vehicle Protections spam (by name)",
+      "display_name_contains": "Vehicle Protections"
+    },
+    {
+      "id": "bestbuybasket-spam",
+      "label": "BestBuyBasket spam (HGV promo, ...)",
+      "from_email": "reminder@bestbuybasket.info"
+    },
+    {
+      "id": "hgv-promo-name",
+      "label": "HGV promo spam (by name)",
+      "display_name_contains": "H.G.VPromo"
+    },
+    {
+      "id": "geeksquad-scam-1",
+      "label": "Fake invoice scam (Joshua Kliniske)",
+      "from_email": "hajiagas7@gmail.com"
+    },
+    {
+      "id": "geeksquad-scam-2",
+      "label": "Fake invoice scam (Offeredge)",
+      "from_email": "kaniadaliya521@gmail.com"
+    },
+    {
+      "id": "offeredge-name",
+      "label": "Offeredge scam (by name)",
+      "display_name_contains": "Offeredge"
+    },
+    {
+      "id": "rfhsolid-spam",
+      "label": "Prize scam (rfhsolid.com)",
+      "from_email": "xavrunqelomizatrekivo@rfhsolid.com"
     }
   ]
 }
