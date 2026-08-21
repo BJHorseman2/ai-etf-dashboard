@@ -1,5 +1,5 @@
 {
-  "total_moved": 120,
+  "total_moved": 126,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 17,
@@ -18,7 +18,12 @@
     "Bloomingdale's Loyallist": 1,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 1,
     "Facebook reminders": 2,
-    "Appointment Trader (by name)": 1
+    "Appointment Trader (by name)": 1,
+    "BuyExpressHub spam (Vehicle Protections, ...)": 2,
+    "BestBuyBasket spam (HGV promo, ...)": 1,
+    "Fake invoice scam (Joshua Kliniske)": 1,
+    "Fake invoice scam (Offeredge)": 1,
+    "Prize scam (rfhsolid.com)": 1
   },
   "history": [
     {
@@ -110,12 +115,18 @@
       "moved": 1,
       "scanned": 878,
       "ok": true
+    },
+    {
+      "t": "2026-08-21T02:59:25Z",
+      "moved": 6,
+      "scanned": 921,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-17T13:40:58Z",
+  "last_run": "2026-08-21T02:59:25Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 878,
-  "last_moved": 1
+  "last_scanned": 921,
+  "last_moved": 6
 }
