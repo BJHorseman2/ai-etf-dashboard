@@ -1,9 +1,9 @@
 {
-  "total_moved": 200,
+  "total_moved": 202,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 24,
-    "The Economist Today": 63,
+    "The Economist Today": 64,
     "AI Automation Agency Hub (Skool)": 11,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -24,7 +24,7 @@
     "Facebook reminders": 4,
     "Appointment Trader (by name)": 2,
     "Manifold": 1,
-    "BuyExpressHub spam (Vehicle Protections, ...)": 3,
+    "BuyExpressHub spam (Vehicle Protections, ...)": 4,
     "BestBuyBasket spam (HGV promo, ...)": 1,
     "Fake invoice scam (Joshua Kliniske)": 1,
     "Fake invoice scam (Offeredge)": 1,
@@ -450,12 +450,18 @@
       "moved": 0,
       "scanned": 945,
       "ok": true
+    },
+    {
+      "t": "2026-08-23T13:07:43Z",
+      "moved": 2,
+      "scanned": 950,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-23T08:54:37Z",
+  "last_run": "2026-08-23T13:07:43Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 945,
-  "last_moved": 0
+  "last_scanned": 950,
+  "last_moved": 2
 }
