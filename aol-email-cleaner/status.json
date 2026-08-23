@@ -1,5 +1,5 @@
 {
-  "total_moved": 199,
+  "total_moved": 200,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 24,
@@ -21,7 +21,7 @@
     "NFL": 2,
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 2,
-    "Facebook reminders": 3,
+    "Facebook reminders": 4,
     "Appointment Trader (by name)": 2,
     "Manifold": 1,
     "BuyExpressHub spam (Vehicle Protections, ...)": 3,
@@ -438,12 +438,18 @@
       "moved": 0,
       "scanned": 943,
       "ok": true
+    },
+    {
+      "t": "2026-08-23T04:58:31Z",
+      "moved": 1,
+      "scanned": 945,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-23T02:06:53Z",
+  "last_run": "2026-08-23T04:58:31Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 943,
-  "last_moved": 0
+  "last_scanned": 945,
+  "last_moved": 1
 }
