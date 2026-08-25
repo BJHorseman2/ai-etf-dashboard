@@ -1,17 +1,17 @@
 {
-  "total_moved": 213,
+  "total_moved": 217,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 25,
-    "The Economist Today": 68,
-    "AI Automation Agency Hub (Skool)": 11,
+    "The Economist Today": 69,
+    "AI Automation Agency Hub (Skool)": 12,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
     "YCharts": 3,
-    "Scott Galloway / Prof G Media": 2,
+    "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 12,
     "StubHub events": 12,
-    "Discord": 14,
+    "Discord": 15,
     "The Capitol Theatre": 4,
     "Yutori": 10,
     "Acme Markets": 11,
@@ -504,12 +504,18 @@
       "moved": 4,
       "scanned": 972,
       "ok": true
+    },
+    {
+      "t": "2026-08-25T01:57:20Z",
+      "moved": 4,
+      "scanned": 961,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-24T20:54:50Z",
+  "last_run": "2026-08-25T01:57:20Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 972,
+  "last_scanned": 961,
   "last_moved": 4
 }
