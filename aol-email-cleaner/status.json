@@ -1,5 +1,5 @@
 {
-  "total_moved": 224,
+  "total_moved": 227,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 27,
@@ -9,9 +9,9 @@
     "Fast5GInternet": 6,
     "YCharts": 3,
     "Scott Galloway / Prof G Media": 3,
-    "Rye Recreation (CommunityPass)": 14,
+    "Rye Recreation (CommunityPass)": 15,
     "StubHub events": 12,
-    "Discord": 15,
+    "Discord": 16,
     "The Capitol Theatre": 4,
     "Yutori": 10,
     "Acme Markets": 11,
@@ -20,7 +20,7 @@
     "Reddit": 5,
     "NFL": 2,
     "American Collectors Insurance": 2,
-    "Elevate NY (dispensary)": 2,
+    "Elevate NY (dispensary)": 3,
     "Facebook reminders": 4,
     "Appointment Trader (by name)": 2,
     "Manifold": 2,
@@ -540,12 +540,18 @@
       "moved": 6,
       "scanned": 988,
       "ok": true
+    },
+    {
+      "t": "2026-08-26T02:06:18Z",
+      "moved": 3,
+      "scanned": 982,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-25T20:52:01Z",
+  "last_run": "2026-08-26T02:06:18Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 988,
-  "last_moved": 6
+  "last_scanned": 982,
+  "last_moved": 3
 }
