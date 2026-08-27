@@ -1,9 +1,9 @@
 {
-  "total_moved": 234,
+  "total_moved": 241,
   "totals_by_rule": {
     "The Prof G Pod": 3,
-    "NBA Top Shot": 29,
-    "The Economist Today": 73,
+    "NBA Top Shot": 30,
+    "The Economist Today": 77,
     "AI Automation Agency Hub (Skool)": 13,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -13,14 +13,14 @@
     "StubHub events": 12,
     "Discord": 17,
     "The Capitol Theatre": 4,
-    "Yutori": 12,
+    "Yutori": 13,
     "Acme Markets": 11,
     "Bloomingdale's Loyallist": 1,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 5,
     "NFL": 2,
     "American Collectors Insurance": 2,
-    "Elevate NY (dispensary)": 3,
+    "Elevate NY (dispensary)": 4,
     "Facebook reminders": 4,
     "Appointment Trader (by name)": 2,
     "Manifold": 2,
@@ -31,12 +31,6 @@
     "Prize scam (rfhsolid.com)": 1
   },
   "history": [
-    {
-      "t": "2026-08-13T03:05:07Z",
-      "moved": 1,
-      "scanned": 935,
-      "ok": true
-    },
     {
       "t": "2026-08-13T05:53:10Z",
       "moved": 0,
@@ -570,12 +564,18 @@
       "moved": 1,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-08-27T22:26:35Z",
+      "moved": 7,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-27T10:02:26Z",
+  "last_run": "2026-08-27T22:26:35Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 1
+  "last_moved": 7
 }
