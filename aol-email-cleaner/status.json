@@ -1,5 +1,5 @@
 {
-  "total_moved": 233,
+  "total_moved": 234,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 29,
@@ -11,7 +11,7 @@
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 15,
     "StubHub events": 12,
-    "Discord": 16,
+    "Discord": 17,
     "The Capitol Theatre": 4,
     "Yutori": 12,
     "Acme Markets": 11,
@@ -31,12 +31,6 @@
     "Prize scam (rfhsolid.com)": 1
   },
   "history": [
-    {
-      "t": "2026-08-12T21:10:08Z",
-      "moved": 3,
-      "scanned": 954,
-      "ok": true
-    },
     {
       "t": "2026-08-13T03:05:07Z",
       "moved": 1,
@@ -570,12 +564,18 @@
       "moved": 4,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-08-27T10:02:26Z",
+      "moved": 1,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-26T23:48:48Z",
+  "last_run": "2026-08-27T10:02:26Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 4
+  "last_moved": 1
 }
