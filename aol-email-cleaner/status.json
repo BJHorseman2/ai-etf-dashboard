@@ -1,9 +1,9 @@
 {
-  "total_moved": 249,
+  "total_moved": 252,
   "totals_by_rule": {
     "The Prof G Pod": 3,
-    "NBA Top Shot": 31,
-    "The Economist Today": 79,
+    "NBA Top Shot": 32,
+    "The Economist Today": 81,
     "AI Automation Agency Hub (Skool)": 14,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -31,12 +31,6 @@
     "Prize scam (rfhsolid.com)": 1
   },
   "history": [
-    {
-      "t": "2026-08-13T17:25:45Z",
-      "moved": 0,
-      "scanned": 884,
-      "ok": true
-    },
     {
       "t": "2026-08-13T20:30:46Z",
       "moved": 2,
@@ -570,12 +564,18 @@
       "moved": 1,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-08-29T13:53:06Z",
+      "moved": 3,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-29T07:12:21Z",
+  "last_run": "2026-08-29T13:53:06Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 1
+  "last_moved": 3
 }
