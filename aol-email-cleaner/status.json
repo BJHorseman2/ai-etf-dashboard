@@ -1,5 +1,5 @@
 {
-  "total_moved": 255,
+  "total_moved": 256,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 32,
@@ -22,7 +22,7 @@
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 4,
     "Facebook reminders": 4,
-    "Appointment Trader (by name)": 2,
+    "Appointment Trader (by name)": 3,
     "Manifold": 2,
     "BuyExpressHub spam (Vehicle Protections, ...)": 4,
     "BestBuyBasket spam (HGV promo, ...)": 1,
@@ -31,12 +31,6 @@
     "Prize scam (rfhsolid.com)": 1
   },
   "history": [
-    {
-      "t": "2026-08-13T21:10:26Z",
-      "moved": 1,
-      "scanned": 910,
-      "ok": true
-    },
     {
       "t": "2026-08-14T03:04:08Z",
       "moved": 11,
@@ -570,12 +564,18 @@
       "moved": 3,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-08-29T22:41:56Z",
+      "moved": 1,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-29T19:26:18Z",
+  "last_run": "2026-08-29T22:41:56Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 3
+  "last_moved": 1
 }
