@@ -1,15 +1,15 @@
 {
-  "total_moved": 264,
+  "total_moved": 267,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 32,
-    "The Economist Today": 87,
+    "The Economist Today": 89,
     "AI Automation Agency Hub (Skool)": 14,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
     "YCharts": 4,
     "Scott Galloway / Prof G Media": 3,
-    "Rye Recreation (CommunityPass)": 16,
+    "Rye Recreation (CommunityPass)": 17,
     "StubHub events": 14,
     "Discord": 19,
     "The Capitol Theatre": 4,
@@ -31,12 +31,6 @@
     "Prize scam (rfhsolid.com)": 1
   },
   "history": [
-    {
-      "t": "2026-08-14T20:51:58Z",
-      "moved": 4,
-      "scanned": 931,
-      "ok": true
-    },
     {
       "t": "2026-08-15T01:54:37Z",
       "moved": 0,
@@ -570,12 +564,18 @@
       "moved": 2,
       "scanned": 978,
       "ok": true
+    },
+    {
+      "t": "2026-08-31T21:31:34Z",
+      "moved": 3,
+      "scanned": 989,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-31T16:14:52Z",
+  "last_run": "2026-08-31T21:31:34Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 978,
-  "last_moved": 2
+  "last_scanned": 989,
+  "last_moved": 3
 }
