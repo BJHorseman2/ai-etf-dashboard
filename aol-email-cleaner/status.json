@@ -1,5 +1,5 @@
 {
-  "total_moved": 126,
+  "total_moved": 132,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 17,
@@ -23,7 +23,11 @@
     "BestBuyBasket spam (HGV promo, ...)": 1,
     "Fake invoice scam (Joshua Kliniske)": 1,
     "Fake invoice scam (Offeredge)": 1,
-    "Prize scam (rfhsolid.com)": 1
+    "Prize scam (rfhsolid.com)": 1,
+    "SaveEveryday spam (libertyroofing, ...)": 2,
+    "ModernCartHub spam (KeepsHairGrowth, ...)": 2,
+    "BuyMoreMarket spam (SPHomeWarranty, ...)": 1,
+    "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
     {
@@ -121,12 +125,18 @@
       "moved": 6,
       "scanned": 921,
       "ok": true
+    },
+    {
+      "t": "2026-09-01T03:41:34Z",
+      "moved": 6,
+      "scanned": 948,
+      "ok": true
     }
   ],
-  "last_run": "2026-08-21T02:59:25Z",
+  "last_run": "2026-09-01T03:41:34Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 921,
+  "last_scanned": 948,
   "last_moved": 6
 }
