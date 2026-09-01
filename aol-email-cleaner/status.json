@@ -1,5 +1,5 @@
 {
-  "total_moved": 273,
+  "total_moved": 275,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 32,
@@ -14,7 +14,7 @@
     "Discord": 19,
     "The Capitol Theatre": 4,
     "Yutori": 14,
-    "Acme Markets": 12,
+    "Acme Markets": 13,
     "Bloomingdale's Loyallist": 1,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 6,
@@ -30,17 +30,11 @@
     "Fake invoice scam (Offeredge)": 1,
     "Prize scam (rfhsolid.com)": 1,
     "SaveEveryday spam (libertyroofing, ...)": 2,
-    "ModernCartHub spam (KeepsHairGrowth, ...)": 2,
+    "ModernCartHub spam (KeepsHairGrowth, ...)": 3,
     "BuyMoreMarket spam (SPHomeWarranty, ...)": 1,
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-15T08:51:01Z",
-      "moved": 1,
-      "scanned": 896,
-      "ok": true
-    },
     {
       "t": "2026-08-15T13:04:34Z",
       "moved": 4,
@@ -574,12 +568,18 @@
       "moved": 0,
       "scanned": 946,
       "ok": true
+    },
+    {
+      "t": "2026-09-01T13:34:16Z",
+      "moved": 2,
+      "scanned": 962,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-01T05:22:22Z",
+  "last_run": "2026-09-01T13:34:16Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 946,
-  "last_moved": 0
+  "last_scanned": 962,
+  "last_moved": 2
 }
