@@ -1,5 +1,5 @@
 {
-  "total_moved": 275,
+  "total_moved": 276,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 32,
@@ -11,7 +11,7 @@
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 17,
     "StubHub events": 14,
-    "Discord": 19,
+    "Discord": 20,
     "The Capitol Theatre": 4,
     "Yutori": 14,
     "Acme Markets": 13,
@@ -35,12 +35,6 @@
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-15T13:04:34Z",
-      "moved": 4,
-      "scanned": 903,
-      "ok": true
-    },
     {
       "t": "2026-08-15T16:46:38Z",
       "moved": 1,
@@ -574,12 +568,18 @@
       "moved": 2,
       "scanned": 962,
       "ok": true
+    },
+    {
+      "t": "2026-09-01T19:27:04Z",
+      "moved": 1,
+      "scanned": 990,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-01T13:34:16Z",
+  "last_run": "2026-09-01T19:27:04Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 962,
-  "last_moved": 2
+  "last_scanned": 990,
+  "last_moved": 1
 }
