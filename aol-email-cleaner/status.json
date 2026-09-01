@@ -1,9 +1,9 @@
 {
-  "total_moved": 276,
+  "total_moved": 279,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 32,
-    "The Economist Today": 89,
+    "The Economist Today": 91,
     "AI Automation Agency Hub (Skool)": 14,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -20,7 +20,7 @@
     "Reddit": 6,
     "NFL": 2,
     "American Collectors Insurance": 2,
-    "Elevate NY (dispensary)": 4,
+    "Elevate NY (dispensary)": 5,
     "Facebook reminders": 4,
     "Appointment Trader (by name)": 3,
     "Manifold": 2,
@@ -35,12 +35,6 @@
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-15T16:46:38Z",
-      "moved": 1,
-      "scanned": 910,
-      "ok": true
-    },
     {
       "t": "2026-08-15T20:44:22Z",
       "moved": 2,
@@ -574,12 +568,18 @@
       "moved": 1,
       "scanned": 990,
       "ok": true
+    },
+    {
+      "t": "2026-09-01T22:40:14Z",
+      "moved": 3,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-01T19:27:04Z",
+  "last_run": "2026-09-01T22:40:14Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 990,
-  "last_moved": 1
+  "last_scanned": 1000,
+  "last_moved": 3
 }
