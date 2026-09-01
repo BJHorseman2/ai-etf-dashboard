@@ -234,6 +234,46 @@
       "id": "rfhsolid-spam",
       "label": "Prize scam (rfhsolid.com)",
       "from_email": "xavrunqelomizatrekivo@rfhsolid.com"
+    },
+    {
+      "id": "moderncarthub-spam",
+      "label": "ModernCartHub spam (KeepsHairGrowth, ...)",
+      "from_email": "modern@moderncarthub.com"
+    },
+    {
+      "id": "keepshairgrowth-name",
+      "label": "KeepsHairGrowth spam (by name)",
+      "display_name_contains": "KeepsHairGrowth"
+    },
+    {
+      "id": "buymoremarket-spam",
+      "label": "BuyMoreMarket spam (SPHomeWarranty, ...)",
+      "from_email": "market@buymoremarket.com"
+    },
+    {
+      "id": "sphomewarranty-name",
+      "label": "SPHomeWarranty spam (by name)",
+      "display_name_contains": "SPHomeWarranty"
+    },
+    {
+      "id": "saveeveryday-spam",
+      "label": "SaveEveryday spam (libertyroofing, ...)",
+      "from_email": "noreply@saveeveryday.info"
+    },
+    {
+      "id": "libertyroofing-name",
+      "label": "LibertyRoofing spam (by name)",
+      "display_name_contains": "libertyroofingupgrade"
+    },
+    {
+      "id": "yours-autoinsurance-name",
+      "label": "Your's_AutoInsurance spam (by name)",
+      "display_name_contains": "Your's_AutoInsurance"
+    },
+    {
+      "id": "geeksquad-scam-3",
+      "label": "Fake invoice scam (Mikayla Parisian)",
+      "from_email": "keirbrbnrshdbbdbd@gmail.com"
     }
   ]
 }
