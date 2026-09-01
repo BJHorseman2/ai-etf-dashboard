@@ -478,6 +478,12 @@ TEST_CASES = [
     ("Joshua Kliniske <hajiagas7@gmail.com>", "", "geeksquad-scam-1"),
     ("Offeredge <kaniadaliya521@gmail.com>", "", "geeksquad-scam-2"),
     ("msbb224 <Xavrunqelomizatrekivo@rfhsolid.com>", "", "rfhsolid-spam"),
+    ("KeepsHairGrowthSecret <Modern@moderncarthub.com>", "", "moderncarthub-spam"),
+    ("SPHomeWarranty <market@buymoremarket.com>", "", "buymoremarket-spam"),
+    ("libertyroofingupgrade <noreply@saveeveryday.info>", "", "saveeveryday-spam"),
+    ("libertyroofingupgrade <whatever@next-new-domain.example>", "", "libertyroofing-name"),
+    ("Your's_AutoInsurance. <anything@rotating.example>", "", "yours-autoinsurance-name"),
+    ("Mikayla Parisian <keirbrbnrshdbbdbd@gmail.com>", "", "geeksquad-scam-3"),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),
