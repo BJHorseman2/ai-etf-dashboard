@@ -267,8 +267,8 @@
     },
     {
       "id": "yours-autoinsurance-name",
-      "label": "Your's_AutoInsurance spam (by name)",
-      "display_name_contains": "Your's_AutoInsurance"
+      "label": "AutoInsurance spam (by name)",
+      "display_name_contains": "_AutoInsurance"
     },
     {
       "id": "geeksquad-scam-3",

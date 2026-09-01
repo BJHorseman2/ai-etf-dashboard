@@ -482,6 +482,7 @@ TEST_CASES = [
     ("SPHomeWarranty <market@buymoremarket.com>", "", "buymoremarket-spam"),
     ("libertyroofingupgrade <noreply@saveeveryday.info>", "", "saveeveryday-spam"),
     ("libertyroofingupgrade <whatever@next-new-domain.example>", "", "libertyroofing-name"),
+    ("Your’s_AutoInsurance. <anything@rotating.example>", "", "yours-autoinsurance-name"),
     ("Your's_AutoInsurance. <anything@rotating.example>", "", "yours-autoinsurance-name"),
     ("Mikayla Parisian <keirbrbnrshdbbdbd@gmail.com>", "", "geeksquad-scam-3"),
     # other towns / businesses on shared platforms must NOT match
