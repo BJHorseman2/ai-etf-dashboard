@@ -1,5 +1,5 @@
 {
-  "total_moved": 307,
+  "total_moved": 309,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 33,
@@ -13,7 +13,7 @@
     "StubHub events": 14,
     "Discord": 21,
     "The Capitol Theatre": 4,
-    "Yutori": 16,
+    "Yutori": 17,
     "Acme Markets": 15,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
@@ -22,7 +22,7 @@
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 5,
     "Facebook reminders": 4,
-    "Appointment Trader (by name)": 3,
+    "Appointment Trader (by name)": 4,
     "Manifold": 2,
     "BuyExpressHub spam (Vehicle Protections, ...)": 4,
     "BestBuyBasket spam (HGV promo, ...)": 1,
@@ -35,12 +35,6 @@
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-18T04:58:49Z",
-      "moved": 0,
-      "scanned": 886,
-      "ok": true
-    },
     {
       "t": "2026-08-18T09:00:15Z",
       "moved": 0,
@@ -574,9 +568,15 @@
       "moved": 2,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-05T22:07:01Z",
+      "moved": 2,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-05T18:26:39Z",
+  "last_run": "2026-09-05T22:07:01Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
