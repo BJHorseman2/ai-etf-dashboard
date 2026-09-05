@@ -1,9 +1,9 @@
 {
-  "total_moved": 305,
+  "total_moved": 307,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 33,
-    "The Economist Today": 101,
+    "The Economist Today": 103,
     "AI Automation Agency Hub (Skool)": 16,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -35,12 +35,6 @@
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-18T01:55:48Z",
-      "moved": 1,
-      "scanned": 889,
-      "ok": true
-    },
     {
       "t": "2026-08-18T04:58:49Z",
       "moved": 0,
@@ -574,12 +568,18 @@
       "moved": 0,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-05T18:26:39Z",
+      "moved": 2,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-05T15:22:38Z",
+  "last_run": "2026-09-05T18:26:39Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 0
+  "last_moved": 2
 }
