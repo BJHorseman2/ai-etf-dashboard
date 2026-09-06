@@ -1,19 +1,19 @@
 {
-  "total_moved": 312,
+  "total_moved": 317,
   "totals_by_rule": {
     "The Prof G Pod": 3,
     "NBA Top Shot": 33,
-    "The Economist Today": 106,
+    "The Economist Today": 107,
     "AI Automation Agency Hub (Skool)": 16,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
     "YCharts": 4,
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 21,
-    "StubHub events": 14,
-    "Discord": 21,
+    "StubHub events": 16,
+    "Discord": 22,
     "The Capitol Theatre": 4,
-    "Yutori": 17,
+    "Yutori": 18,
     "Acme Markets": 15,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
@@ -35,12 +35,6 @@
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-19T01:57:21Z",
-      "moved": 1,
-      "scanned": 914,
-      "ok": true
-    },
     {
       "t": "2026-08-19T04:58:47Z",
       "moved": 0,
@@ -574,12 +568,18 @@
       "moved": 2,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-06T22:10:59Z",
+      "moved": 5,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-06T18:25:53Z",
+  "last_run": "2026-09-06T22:10:59Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 2
+  "last_moved": 5
 }
