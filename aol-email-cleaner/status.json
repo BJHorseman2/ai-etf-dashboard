@@ -1,5 +1,5 @@
 {
-  "total_moved": 333,
+  "total_moved": 334,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
@@ -13,7 +13,7 @@
     "StubHub events": 16,
     "Discord": 22,
     "The Capitol Theatre": 4,
-    "Yutori": 19,
+    "Yutori": 20,
     "Acme Markets": 16,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
@@ -35,12 +35,6 @@
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-20T20:52:26Z",
-      "moved": 8,
-      "scanned": 969,
-      "ok": true
-    },
     {
       "t": "2026-08-21T02:03:23Z",
       "moved": 1,
@@ -574,12 +568,18 @@
       "moved": 0,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-09T19:20:35Z",
+      "moved": 1,
+      "scanned": 959,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-09T13:02:01Z",
+  "last_run": "2026-09-09T19:20:35Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1000,
-  "last_moved": 0
+  "last_scanned": 959,
+  "last_moved": 1
 }
