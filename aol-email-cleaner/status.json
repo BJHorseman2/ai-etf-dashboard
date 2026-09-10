@@ -1,5 +1,5 @@
 {
-  "total_moved": 339,
+  "total_moved": 340,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
@@ -17,7 +17,7 @@
     "Acme Markets": 16,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
-    "Reddit": 8,
+    "Reddit": 9,
     "NFL": 2,
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 6,
@@ -35,12 +35,6 @@
     "Fake invoice scam (Mikayla Parisian)": 1
   },
   "history": [
-    {
-      "t": "2026-08-21T02:59:25Z",
-      "moved": 6,
-      "scanned": 921,
-      "ok": true
-    },
     {
       "t": "2026-08-21T05:00:29Z",
       "moved": 0,
@@ -574,12 +568,18 @@
       "moved": 5,
       "scanned": 981,
       "ok": true
+    },
+    {
+      "t": "2026-09-10T04:57:11Z",
+      "moved": 1,
+      "scanned": 961,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-09T22:38:43Z",
+  "last_run": "2026-09-10T04:57:11Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 981,
-  "last_moved": 5
+  "last_scanned": 961,
+  "last_moved": 1
 }
