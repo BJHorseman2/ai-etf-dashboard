@@ -1,5 +1,5 @@
 {
-  "total_moved": 357,
+  "total_moved": 358,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
@@ -10,7 +10,7 @@
     "YCharts": 5,
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 26,
-    "StubHub events": 16,
+    "StubHub events": 17,
     "Discord": 24,
     "The Capitol Theatre": 4,
     "Yutori": 20,
@@ -37,12 +37,6 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-22T04:56:03Z",
-      "moved": 0,
-      "scanned": 946,
-      "ok": true
-    },
     {
       "t": "2026-08-22T08:53:58Z",
       "moved": 0,
@@ -576,12 +570,18 @@
       "moved": 8,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-11T19:12:01Z",
+      "moved": 1,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-11T15:15:36Z",
+  "last_run": "2026-09-11T19:12:01Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 8
+  "last_moved": 1
 }
