@@ -1,5 +1,5 @@
 {
-  "total_moved": 349,
+  "total_moved": 357,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
@@ -32,15 +32,11 @@
     "SaveEveryday spam (libertyroofing, ...)": 2,
     "ModernCartHub spam (KeepsHairGrowth, ...)": 5,
     "BuyMoreMarket spam (SPHomeWarranty, ...)": 1,
-    "Fake invoice scam (Mikayla Parisian)": 1
+    "Fake invoice scam (Mikayla Parisian)": 1,
+    "Fake invoice scam (PDF named after this mailbox, empty body)": 7,
+    "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-22T01:55:09Z",
-      "moved": 1,
-      "scanned": 945,
-      "ok": true
-    },
     {
       "t": "2026-08-22T04:56:03Z",
       "moved": 0,
@@ -574,12 +570,18 @@
       "moved": 1,
       "scanned": 991,
       "ok": true
+    },
+    {
+      "t": "2026-09-11T15:15:36Z",
+      "moved": 8,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-11T12:53:45Z",
+  "last_run": "2026-09-11T15:15:36Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 991,
-  "last_moved": 1
+  "last_scanned": 1000,
+  "last_moved": 8
 }
