@@ -294,7 +294,7 @@
       ],
       "attachment_types_any": ["application/pdf"],
       "attachment_name_regex": "^\\d{8}_{account_local}_[A-Za-z0-9-]+\\.pdf$",
-      "max_text_chars": 200
+      "max_text_chars": 100
     },
     {
       "id": "fake-invoice-pdf-order-subject",
@@ -303,9 +303,9 @@
         "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
         "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
       ],
-      "subject_regex": "^\\s*(re:\\s*)?thank you for your order\\b",
+      "subject_regex": "^\\s*(re:\\s*)?thank you for your order\\s+[A-Z0-9]{10,}\\s*$",
       "attachment_types_any": ["application/pdf"],
-      "max_text_chars": 200
+      "max_text_chars": 60
     }
   ]
 }
