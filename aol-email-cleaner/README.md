@@ -73,6 +73,17 @@ Rules live in [`rules.json`](rules.json). Two matchers, both deterministic:
 - If a rule has **both**, both must match. That's how
   `noreply@skool.com` is only caught when the display name contains
   "AI Automation Agency" — skool.com is not blocked globally.
+- `from_domain_in` / `subject_regex` — extra header-level gates.
+- `body_contains_all` / `body_contains_any` — **content signatures** for
+  scams that rotate sender names and addresses every blast (e.g. fake
+  "Geek Squad" invoices). The message body is fetched only after every
+  header-level gate on the rule passes, so a signature gated to free-mail
+  domains never touches newsletters or real store receipts. All phrases in
+  `body_contains_all` must appear (case-insensitive, HTML stripped), plus at
+  least one from `body_contains_any`.
+
+Every condition on a rule is ANDed; a message is matched by the first rule
+that passes.
 
 Before every scheduled run the cleaner re-downloads `rules.json` from this
 repo (`rules_url` in config), falling back to the local copy on any failure.
