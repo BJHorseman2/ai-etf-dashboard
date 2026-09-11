@@ -18,7 +18,9 @@ Usage:
 import argparse
 import email
 import email.header
+import email.policy
 import email.utils
+import html as html_module
 import imaplib
 import json
 import os
@@ -136,38 +138,106 @@ def parse_addr(header_value):
     return name.strip(), addr.strip().lower()
 
 
-def match_rule(rule, from_name, from_addr, reply_name, reply_addr):
+def match_rule(rule, ctx):
     """Deterministic match. Returns True if the message matches this rule.
 
+    Header-level conditions (cheap, always evaluated first):
     - from_email: exact (case-insensitive) match on the From address, or the
       Reply-To address as a fallback.
     - display_name_contains: case-insensitive substring on the From or
       Reply-To display name.
-    - When both fields are present, BOTH must match (e.g. the skool.com rule
-      must not block all skool.com mail).
+    - from_domain_in: From address domain is one of the listed domains.
+    - subject_regex: case-insensitive regex on the decoded Subject.
+
+    Content conditions (body fetched lazily, only if the header conditions
+    above all passed):
+    - body_contains_all: every phrase must appear in the message text.
+    - body_contains_any: at least one phrase must appear.
+
+    Every condition present on a rule must hold (AND), so e.g. the skool.com
+    rule does not block all skool.com mail, and a content signature gated to
+    free-mail domains never touches newsletters or real receipts.
     """
     want_email = rule.get("from_email", "").strip().lower()
     want_name = rule.get("display_name_contains", "").strip().lower()
+    want_domains = [d.strip().lower() for d in rule.get("from_domain_in", [])]
+    subject_re = rule.get("subject_regex", "")
+    body_all = [p.lower() for p in rule.get("body_contains_all", [])]
+    body_any = [p.lower() for p in rule.get("body_contains_any", [])]
 
-    email_ok = True
-    if want_email:
-        email_ok = from_addr == want_email or reply_addr == want_email
-
-    name_ok = True
-    if want_name:
-        haystack = ("%s %s" % (from_name, reply_name)).lower()
-        name_ok = want_name in haystack
-
-    if not want_email and not want_name:
+    if not (want_email or want_name or want_domains or subject_re
+            or body_all or body_any):
         return False
-    return email_ok and name_ok
+
+    if want_email and not (ctx["from_addr"] == want_email
+                           or ctx["reply_addr"] == want_email):
+        return False
+    if want_name:
+        haystack = ("%s %s" % (ctx["from_name"], ctx["reply_name"])).lower()
+        if want_name not in haystack:
+            return False
+    if want_domains:
+        domain = ctx["from_addr"].rsplit("@", 1)[-1]
+        if domain not in want_domains:
+            return False
+    if subject_re and not re.search(subject_re, ctx["subject"], re.I):
+        return False
+
+    if body_all or body_any:
+        body = ctx["get_body"]()
+        if body is None:
+            return False
+        if body_all and not all(p in body for p in body_all):
+            return False
+        if body_any and not any(p in body for p in body_any):
+            return False
+    return True
 
 
-def find_matching_rule(rules, msg_headers):
+def html_to_text(html):
+    text = re.sub(r"(?is)<(script|style).*?</\1>", " ", html)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html_module.unescape(text)
+    return re.sub(r"\s+", " ", text)
+
+
+def message_text(msg):
+    """Lower-cased plain text of all text/plain and text/html parts."""
+    chunks = []
+    for part in msg.walk():
+        ctype = part.get_content_type()
+        if ctype not in ("text/plain", "text/html"):
+            continue
+        payload = part.get_payload(decode=True)
+        if not payload:
+            continue
+        charset = part.get_content_charset() or "utf-8"
+        try:
+            text = payload.decode(charset, errors="replace")
+        except LookupError:
+            text = payload.decode("utf-8", errors="replace")
+        chunks.append(html_to_text(text) if ctype == "text/html" else text)
+    return re.sub(r"\s+", " ", " ".join(chunks)).lower()
+
+
+def find_matching_rule(rules, msg_headers, get_body=lambda: ""):
     from_name, from_addr = parse_addr(msg_headers.get("From", ""))
     reply_name, reply_addr = parse_addr(msg_headers.get("Reply-To", ""))
+    cache = {}
+
+    def cached_body():
+        if "body" not in cache:
+            cache["body"] = get_body()
+        return cache["body"]
+
+    ctx = {
+        "from_name": from_name, "from_addr": from_addr,
+        "reply_name": reply_name, "reply_addr": reply_addr,
+        "subject": decode_header_str(msg_headers.get("Subject", "")).strip(),
+        "get_body": cached_body,
+    }
     for rule in rules:
-        if match_rule(rule, from_name, from_addr, reply_name, reply_addr):
+        if match_rule(rule, ctx):
             return rule
     return None
 
@@ -211,6 +281,28 @@ def fetch_headers(conn, uid):
     return email.message_from_bytes(raw)
 
 
+BODY_FETCH_LIMIT = 200_000  # bytes; enough for any HTML invoice template
+
+
+def fetch_body_text(conn, uid):
+    """Fetch (a bounded prefix of) the message and return its lower-cased
+    text, or None on failure. Only called for messages whose header-level
+    conditions already matched a content rule."""
+    try:
+        typ, data = conn.uid("FETCH", uid, "(BODY.PEEK[]<0.%d>)" % BODY_FETCH_LIMIT)
+    except imaplib.IMAP4.error:
+        return None
+    if typ != "OK" or not data or data[0] is None:
+        return None
+    for part in data:
+        if isinstance(part, tuple):
+            try:
+                return message_text(email.message_from_bytes(part[1]))
+            except Exception:
+                return None
+    return None
+
+
 def scan(conn, rules, state, lookback_days):
     """Yield (uid, rule, info) for inbox messages matching a rule."""
     typ, _ = conn.select("INBOX")
@@ -245,7 +337,8 @@ def scan(conn, rules, state, lookback_days):
         headers = fetch_headers(conn, uid)
         if headers is None:
             continue
-        rule = find_matching_rule(rules, headers)
+        rule = find_matching_rule(
+            rules, headers, get_body=lambda u=uid: fetch_body_text(conn, u))
         if rule:
             from_name, from_addr = parse_addr(headers.get("From", ""))
             matches.append((uid, rule, {
@@ -495,6 +588,36 @@ TEST_CASES = [
 ]
 
 
+SCAM_BODY = """<html><body><table><tr><td><b>GEEK</b> SQUAD</td></tr></table>
+DATE: 10 Sep 2026 HELP DESK:+1 (816) 216-8408
+<p>Dear msbb224@aol.com,</p><p>We hope you&rsquo;ve been enjoying our services.
+We have renewed your Geek Squad subscription.</p><b>Billing Summary:</b>
+Invoice Id: OQ-R2PE-L3BT2WFQRLNAPQ Transaction Id: 846821
+<table><tr><td>Personal Subscription Plan</td><td>Internet Security Plan</td>
+<td>Auto Debit</td><td>$234.99</td><td>Successful</td></tr></table>
+<p>If you did not authorize this transaction, you have 12 hours to initiate a
+cancellation ... HELP DESK:+1 (816) 216-8408</p>
+<small>Copyright, 2024 Windows Defender. All Rights Reserved.</small></body></html>"""
+
+# (From header, Subject, raw body, expected rule id or None)
+BODY_TEST_CASES = [
+    # the rotating-identity scam: new name, new gmail address, same template
+    ("Jayne Mann <qzv81hd@gmail.com>", "Re: Thank You for Your Order UCTVDI06OHE8P32",
+     SCAM_BODY, "fake-invoice-scam-content"),
+    ("Jordan Flores <lkj3h2g@outlook.com>", "Re: Thank You for Your Order PZEF7K13F3",
+     SCAM_BODY, "fake-invoice-scam-content"),
+    # identical body from a corporate domain is outside the free-mail gate
+    ("Best Buy <receipts@emailinfo.bestbuy.com>", "Your Geek Squad renewal",
+     SCAM_BODY, None),
+    # a real person on gmail mentioning one of the phrases must not match
+    ("Old Friend <friend@gmail.com>", "trip costs",
+     "<p>Hey! Billing summary for the trip is attached. Lunch Friday?</p>", None),
+    # a genuine-looking receipt lacking the scam hooks must not match
+    ("Some Store <orders@gmail.com>", "Your order",
+     "<p>Thanks for your order. Billing Summary: $20. Questions? Reply here.</p>", None),
+]
+
+
 def self_test():
     here = os.path.dirname(os.path.abspath(__file__))
     ruleset = load_json(os.path.join(here, "rules.json")) or load_json(RULES_PATH)
@@ -507,7 +630,19 @@ def self_test():
         if got != expected:
             failures += 1
         print("%s  From=%-55s expected=%-28s got=%s" % (status, from_h, expected, got))
-    print("\n%d/%d passed" % (len(TEST_CASES) - failures, len(TEST_CASES)))
+    for from_h, subject, body, expected in BODY_TEST_CASES:
+        msg = email.message_from_string(body, policy=email.policy.default)
+        msg.set_type("text/html")
+        text = message_text(msg)
+        rule = find_matching_rule(rules, {"From": from_h, "Subject": subject},
+                                  get_body=lambda t=text: t)
+        got = rule["id"] if rule else None
+        status = "PASS" if got == expected else "FAIL"
+        if got != expected:
+            failures += 1
+        print("%s  From=%-55s expected=%-28s got=%s  [body]" % (status, from_h, expected, got))
+    total = len(TEST_CASES) + len(BODY_TEST_CASES)
+    print("\n%d/%d passed" % (total - failures, total))
     return 0 if failures == 0 else 1
 
 
