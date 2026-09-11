@@ -284,10 +284,8 @@ def fetch_headers(conn, uid):
 BODY_FETCH_LIMIT = 200_000  # bytes; enough for any HTML invoice template
 
 
-def fetch_body_text(conn, uid):
-    """Fetch (a bounded prefix of) the message and return its lower-cased
-    text, or None on failure. Only called for messages whose header-level
-    conditions already matched a content rule."""
+def fetch_message(conn, uid):
+    """Fetch (a bounded prefix of) the full message, parsed, or None."""
     try:
         typ, data = conn.uid("FETCH", uid, "(BODY.PEEK[]<0.%d>)" % BODY_FETCH_LIMIT)
     except imaplib.IMAP4.error:
@@ -297,14 +295,58 @@ def fetch_body_text(conn, uid):
     for part in data:
         if isinstance(part, tuple):
             try:
-                return message_text(email.message_from_bytes(part[1]))
+                return email.message_from_bytes(part[1])
             except Exception:
                 return None
     return None
 
 
-def scan(conn, rules, state, lookback_days):
-    """Yield (uid, rule, info) for inbox messages matching a rule."""
+def fetch_body_text(conn, uid):
+    """Lower-cased text of the message, or None. Only called for messages
+    whose header-level conditions already matched a content rule."""
+    msg = fetch_message(conn, uid)
+    return message_text(msg) if msg is not None else None
+
+
+def content_rule_terms(rules):
+    """Union of gate domains and body phrases across content rules, for
+    diagnostics."""
+    domains, phrases = set(), set()
+    for r in rules:
+        if r.get("body_contains_all") or r.get("body_contains_any"):
+            domains.update(d.lower() for d in r.get("from_domain_in", []))
+            phrases.update(p.lower() for p in r.get("body_contains_all", []))
+            phrases.update(p.lower() for p in r.get("body_contains_any", []))
+    return domains, sorted(phrases)
+
+
+def diagnose_message(conn, uid, headers, phrases):
+    """Describe what a content rule would see in this message."""
+    msg = fetch_message(conn, uid)
+    if msg is None:
+        return "  (fetch failed)"
+    parts = []
+    for p in msg.walk():
+        if p.is_multipart():
+            continue
+        fn = p.get_filename() or ""
+        parts.append(p.get_content_type() + ((" [%s]" % fn) if fn else ""))
+    text = message_text(msg)
+    hits = [ph for ph in phrases if ph in text]
+    misses = [ph for ph in phrases if ph not in text]
+    return ("  parts:   %s\n  text:    %d chars, starts: %r\n  hits:    %s\n  misses:  %s"
+            % (", ".join(parts) or "(none)", len(text), text[:100],
+               ", ".join(hits) or "-", ", ".join(misses) or "-"))
+
+
+def scan(conn, rules, state, lookback_days, diag=None):
+    """Return (matches, highest_uid, examined_count).
+
+    matches: list of (uid, rule, info) for inbox messages matching a rule.
+    diag:    if a list is given, append a diagnostic line per recent message
+             from a content-rule gate domain (dry-run troubleshooting)."""
+    diag_domains, diag_phrases = content_rule_terms(rules) if diag is not None else (set(), [])
+    diag_cutoff = time.time() - int(os.environ.get("AOL_CLEANER_DIAG_DAYS", "4")) * 86400
     typ, _ = conn.select("INBOX")
     if typ != "OK":
         raise RuntimeError("could not select INBOX")
@@ -339,6 +381,17 @@ def scan(conn, rules, state, lookback_days):
             continue
         rule = find_matching_rule(
             rules, headers, get_body=lambda u=uid: fetch_body_text(conn, u))
+        if diag is not None:
+            d_name, d_addr = parse_addr(headers.get("From", ""))
+            d_dt = email.utils.parsedate_to_datetime(headers.get("Date", "")) \
+                if headers.get("Date") else None
+            recent = d_dt is None or d_dt.timestamp() >= diag_cutoff
+            if recent and d_addr.rsplit("@", 1)[-1] in diag_domains:
+                diag.append("%s <%s>\n  subject: %s\n  matched: %s\n%s" % (
+                    d_name, d_addr,
+                    decode_header_str(headers.get("Subject", "")).strip()[:90],
+                    rule.get("id") if rule else "-",
+                    diagnose_message(conn, uid, headers, diag_phrases)))
         if rule:
             from_name, from_addr = parse_addr(headers.get("From", ""))
             matches.append((uid, rule, {
@@ -454,13 +507,17 @@ def run(dry_run):
     try:
         if not dry_run:
             ensure_folder(conn, folder)
-        matches, highest_uid, scanned = scan(conn, rules, state, lookback)
+        diag = [] if (dry_run and os.environ.get("AOL_CLEANER_DIAG") == "1") else None
+        matches, highest_uid, scanned = scan(conn, rules, state, lookback, diag=diag)
         log("scan: %d message(s) examined, %d match(es)" % (scanned, len(matches)))
 
         if dry_run:
             report = format_report(matches, dry_run=True, folder=folder)
             if not matches:
                 report = "No matching messages in the last %d days." % lookback
+            if diag is not None:
+                report += ("\n\n===== CONTENT-RULE DIAGNOSTICS (%d recent free-mail messages) =====\n"
+                           % len(diag)) + "\n\n".join(diag)
             by_rule = {}
             for _, rule, _info in matches:
                 label = rule.get("label", rule.get("id", "?"))
