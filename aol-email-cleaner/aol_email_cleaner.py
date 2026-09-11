@@ -149,10 +149,16 @@ def match_rule(rule, ctx):
     - from_domain_in: From address domain is one of the listed domains.
     - subject_regex: case-insensitive regex on the decoded Subject.
 
-    Content conditions (body fetched lazily, only if the header conditions
+    Content conditions (message fetched lazily, only if the header conditions
     above all passed):
     - body_contains_all: every phrase must appear in the message text.
     - body_contains_any: at least one phrase must appear.
+    - max_text_chars: the message text is at most this long (near-empty
+      bodies whose payload is an attachment).
+    - attachment_types_any: at least one attachment has one of these MIME
+      types (e.g. application/pdf).
+    - attachment_name_regex: at least one attachment filename matches.
+      The token {account_local} expands to the mailbox's local part.
 
     Every condition present on a rule must hold (AND), so e.g. the skool.com
     rule does not block all skool.com mail, and a content signature gated to
@@ -164,9 +170,13 @@ def match_rule(rule, ctx):
     subject_re = rule.get("subject_regex", "")
     body_all = [p.lower() for p in rule.get("body_contains_all", [])]
     body_any = [p.lower() for p in rule.get("body_contains_any", [])]
+    max_text = rule.get("max_text_chars")
+    att_types = [t.lower() for t in rule.get("attachment_types_any", [])]
+    att_name_re = rule.get("attachment_name_regex", "")
 
     if not (want_email or want_name or want_domains or subject_re
-            or body_all or body_any):
+            or body_all or body_any or max_text is not None
+            or att_types or att_name_re):
         return False
 
     if want_email and not (ctx["from_addr"] == want_email
@@ -183,7 +193,7 @@ def match_rule(rule, ctx):
     if subject_re and not re.search(subject_re, ctx["subject"], re.I):
         return False
 
-    if body_all or body_any:
+    if body_all or body_any or max_text is not None:
         body = ctx["get_body"]()
         if body is None:
             return False
@@ -191,7 +201,46 @@ def match_rule(rule, ctx):
             return False
         if body_any and not any(p in body for p in body_any):
             return False
+        if max_text is not None and len(body.strip()) > int(max_text):
+            return False
+
+    if att_types or att_name_re:
+        atts = ctx["get_attachments"]()
+        if atts is None:
+            return False
+        if att_types and not any(ct in att_types for ct, _fn in atts):
+            return False
+        if att_name_re and not any(re.search(att_name_re, fn, re.I)
+                                   for _ct, fn in atts if fn):
+            return False
     return True
+
+
+def message_attachments(msg):
+    """[(content_type, filename)] for every non-multipart part that carries
+    a filename or is not a plain text/html body part."""
+    out = []
+    for part in msg.walk():
+        if part.is_multipart():
+            continue
+        fn = part.get_filename() or ""
+        ctype = part.get_content_type().lower()
+        if fn or ctype not in ("text/plain", "text/html"):
+            out.append((ctype, fn))
+    return out
+
+
+def prepare_rules(rules, account):
+    """Expand {account_local} in regex fields to the mailbox local part."""
+    local = re.escape((account or "").split("@")[0])
+    prepared = []
+    for r in rules:
+        r = dict(r)
+        for key in ("subject_regex", "attachment_name_regex"):
+            if r.get(key):
+                r[key] = r[key].replace("{account_local}", local)
+        prepared.append(r)
+    return prepared
 
 
 def html_to_text(html):
@@ -220,21 +269,39 @@ def message_text(msg):
     return re.sub(r"\s+", " ", " ".join(chunks)).lower()
 
 
-def find_matching_rule(rules, msg_headers, get_body=lambda: ""):
+def find_matching_rule(rules, msg_headers, get_msg=lambda: None, get_body=None):
+    """get_msg lazily returns the parsed full message (or None); get_body may
+    override the text source (used by tests)."""
     from_name, from_addr = parse_addr(msg_headers.get("From", ""))
     reply_name, reply_addr = parse_addr(msg_headers.get("Reply-To", ""))
     cache = {}
 
+    def cached_msg():
+        if "msg" not in cache:
+            cache["msg"] = get_msg()
+        return cache["msg"]
+
     def cached_body():
         if "body" not in cache:
-            cache["body"] = get_body()
+            if get_body is not None:
+                cache["body"] = get_body()
+            else:
+                m = cached_msg()
+                cache["body"] = message_text(m) if m is not None else None
         return cache["body"]
+
+    def cached_attachments():
+        if "atts" not in cache:
+            m = cached_msg()
+            cache["atts"] = message_attachments(m) if m is not None else None
+        return cache["atts"]
 
     ctx = {
         "from_name": from_name, "from_addr": from_addr,
         "reply_name": reply_name, "reply_addr": reply_addr,
         "subject": decode_header_str(msg_headers.get("Subject", "")).strip(),
         "get_body": cached_body,
+        "get_attachments": cached_attachments,
     }
     for rule in rules:
         if match_rule(rule, ctx):
@@ -284,10 +351,8 @@ def fetch_headers(conn, uid):
 BODY_FETCH_LIMIT = 200_000  # bytes; enough for any HTML invoice template
 
 
-def fetch_body_text(conn, uid):
-    """Fetch (a bounded prefix of) the message and return its lower-cased
-    text, or None on failure. Only called for messages whose header-level
-    conditions already matched a content rule."""
+def fetch_message(conn, uid):
+    """Fetch (a bounded prefix of) the full message, parsed, or None."""
     try:
         typ, data = conn.uid("FETCH", uid, "(BODY.PEEK[]<0.%d>)" % BODY_FETCH_LIMIT)
     except imaplib.IMAP4.error:
@@ -297,14 +362,58 @@ def fetch_body_text(conn, uid):
     for part in data:
         if isinstance(part, tuple):
             try:
-                return message_text(email.message_from_bytes(part[1]))
+                return email.message_from_bytes(part[1])
             except Exception:
                 return None
     return None
 
 
-def scan(conn, rules, state, lookback_days):
-    """Yield (uid, rule, info) for inbox messages matching a rule."""
+def fetch_body_text(conn, uid):
+    """Lower-cased text of the message, or None. Only called for messages
+    whose header-level conditions already matched a content rule."""
+    msg = fetch_message(conn, uid)
+    return message_text(msg) if msg is not None else None
+
+
+def content_rule_terms(rules):
+    """Union of gate domains and body phrases across content rules, for
+    diagnostics."""
+    domains, phrases = set(), set()
+    for r in rules:
+        if r.get("body_contains_all") or r.get("body_contains_any"):
+            domains.update(d.lower() for d in r.get("from_domain_in", []))
+            phrases.update(p.lower() for p in r.get("body_contains_all", []))
+            phrases.update(p.lower() for p in r.get("body_contains_any", []))
+    return domains, sorted(phrases)
+
+
+def diagnose_message(conn, uid, headers, phrases):
+    """Describe what a content rule would see in this message."""
+    msg = fetch_message(conn, uid)
+    if msg is None:
+        return "  (fetch failed)"
+    parts = []
+    for p in msg.walk():
+        if p.is_multipart():
+            continue
+        fn = p.get_filename() or ""
+        parts.append(p.get_content_type() + ((" [%s]" % fn) if fn else ""))
+    text = message_text(msg)
+    hits = [ph for ph in phrases if ph in text]
+    misses = [ph for ph in phrases if ph not in text]
+    return ("  parts:   %s\n  text:    %d chars, starts: %r\n  hits:    %s\n  misses:  %s"
+            % (", ".join(parts) or "(none)", len(text), text[:100],
+               ", ".join(hits) or "-", ", ".join(misses) or "-"))
+
+
+def scan(conn, rules, state, lookback_days, diag=None):
+    """Return (matches, highest_uid, examined_count).
+
+    matches: list of (uid, rule, info) for inbox messages matching a rule.
+    diag:    if a list is given, append a diagnostic line per recent message
+             from a content-rule gate domain (dry-run troubleshooting)."""
+    diag_domains, diag_phrases = content_rule_terms(rules) if diag is not None else (set(), [])
+    diag_cutoff = time.time() - int(os.environ.get("AOL_CLEANER_DIAG_DAYS", "4")) * 86400
     typ, _ = conn.select("INBOX")
     if typ != "OK":
         raise RuntimeError("could not select INBOX")
@@ -338,7 +447,18 @@ def scan(conn, rules, state, lookback_days):
         if headers is None:
             continue
         rule = find_matching_rule(
-            rules, headers, get_body=lambda u=uid: fetch_body_text(conn, u))
+            rules, headers, get_msg=lambda u=uid: fetch_message(conn, u))
+        if diag is not None:
+            d_name, d_addr = parse_addr(headers.get("From", ""))
+            d_dt = email.utils.parsedate_to_datetime(headers.get("Date", "")) \
+                if headers.get("Date") else None
+            recent = d_dt is None or d_dt.timestamp() >= diag_cutoff
+            if recent and d_addr.rsplit("@", 1)[-1] in diag_domains:
+                diag.append("%s <%s>\n  subject: %s\n  matched: %s\n%s" % (
+                    d_name, d_addr,
+                    decode_header_str(headers.get("Subject", "")).strip()[:90],
+                    rule.get("id") if rule else "-",
+                    diagnose_message(conn, uid, headers, diag_phrases)))
         if rule:
             from_name, from_addr = parse_addr(headers.get("From", ""))
             matches.append((uid, rule, {
@@ -418,7 +538,7 @@ def run(dry_run):
         log("ERROR: rules.json missing or invalid at %s" % RULES_PATH)
         notify(config, "AOL cleaner ERROR: rules.json missing or invalid")
         return 2
-    rules = ruleset["rules"]
+    rules = prepare_rules(ruleset["rules"], account)
     folder = ruleset.get("target_folder", "Agent Review")
 
     password = get_password(account)
@@ -454,13 +574,17 @@ def run(dry_run):
     try:
         if not dry_run:
             ensure_folder(conn, folder)
-        matches, highest_uid, scanned = scan(conn, rules, state, lookback)
+        diag = [] if (dry_run and os.environ.get("AOL_CLEANER_DIAG") == "1") else None
+        matches, highest_uid, scanned = scan(conn, rules, state, lookback, diag=diag)
         log("scan: %d message(s) examined, %d match(es)" % (scanned, len(matches)))
 
         if dry_run:
             report = format_report(matches, dry_run=True, folder=folder)
             if not matches:
                 report = "No matching messages in the last %d days." % lookback
+            if diag is not None:
+                report += ("\n\n===== CONTENT-RULE DIAGNOSTICS (%d recent free-mail messages) =====\n"
+                           % len(diag)) + "\n\n".join(diag)
             by_rule = {}
             for _, rule, _info in matches:
                 label = rule.get("label", rule.get("id", "?"))
@@ -618,11 +742,70 @@ BODY_TEST_CASES = [
 ]
 
 
+def _mime(from_h, subject, text, pdf_name=None, html=None):
+    """Build a realistic multipart message for tests."""
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    from email.mime.application import MIMEApplication
+    m = MIMEMultipart("mixed")
+    m["From"], m["Subject"] = from_h, subject
+    if html:
+        alt = MIMEMultipart("alternative")
+        alt.attach(MIMEText(text, "plain"))
+        alt.attach(MIMEText(html, "html"))
+        m.attach(alt)
+    else:
+        m.attach(MIMEText(text, "plain"))
+    if pdf_name:
+        pdf = MIMEApplication(b"%PDF-1.4 x", "pdf", Name=pdf_name)
+        pdf.add_header("Content-Disposition", "attachment", filename=pdf_name)
+        m.attach(pdf)
+    return email.message_from_bytes(m.as_bytes())
+
+
+# (message, expected rule id or None) — full-message (attachment) tests,
+# evaluated with the mailbox local part fixed to "msbb224".
+def MIME_TEST_CASES():
+    return [
+        # the PDF-invoice scam family: random gmail identity, code-only body
+        (_mime("Jayne Mann <failasufmiftachul8946@gmail.com>",
+               "Re: Thank You for Your Order UCTVDI06OHE8P32", "UCTVDI06OHE8P32",
+               pdf_name="20260910_msbb224_OQ-R2PE-L3BT.pdf"), "fake-invoice-pdf-named-for-account"),
+        # same family, different subject wording -> still caught by the filename
+        (_mime("Mikayla Parisian <keirbrbnrshdb@gmail.com>",
+               "This invoice 735PM includes", "9B33TU",
+               pdf_name="20260831_msbb224_JMDA0202F.pdf"), "fake-invoice-pdf-named-for-account"),
+        # order-subject variant with a differently named PDF
+        (_mime("Brandon Johnson <faisallinggar8636@gmail.com>",
+               "Thank You for Your Order V3FPNKA4WL05LZ8", "V3FPNKA4WL05LZ8",
+               pdf_name="invoice.pdf"), "fake-invoice-pdf-order-subject"),
+        # family member on gmail with a real note and a PDF: must NOT match
+        (_mime("Allison Baumrind <abaumrind09@gmail.com>", "Re: Welcome to Math AIS!",
+               "Hi Nicole, thank you for reaching out! Attached is the form we talked "
+               "about, let me know if anything else is needed for Mollie's schedule.",
+               pdf_name="20260910_schedule_final.pdf"), None),
+        # a friend forwarding a genuine receipt with a long body: must NOT match
+        (_mime("Friend <friend@gmail.com>", "Re: Thank you for your order",
+               "Here's the receipt for the thing you asked me to grab; "
+               "let me know if the size is right and I'll return it otherwise.",
+               pdf_name="receipt.pdf"), None),
+        # code-only body but no attachment at all: must NOT match
+        (_mime("Someone <someone@gmail.com>", "Re: Thank You for Your Order ABC123", "ABC123"), None),
+    ]
+
+
 def self_test():
     here = os.path.dirname(os.path.abspath(__file__))
     ruleset = load_json(os.path.join(here, "rules.json")) or load_json(RULES_PATH)
-    rules = ruleset["rules"]
+    rules = prepare_rules(ruleset["rules"], "msbb224@aol.com")
     failures = 0
+    for msg, expected in MIME_TEST_CASES():
+        rule = find_matching_rule(rules, msg, get_msg=lambda m=msg: m)
+        got = rule["id"] if rule else None
+        status = "PASS" if got == expected else "FAIL"
+        if got != expected:
+            failures += 1
+        print("%s  From=%-55s expected=%-28s got=%s  [mime]" % (status, msg["From"], expected, got))
     for from_h, reply_h, expected in TEST_CASES:
         rule = find_matching_rule(rules, {"From": from_h, "Reply-To": reply_h})
         got = rule["id"] if rule else None
@@ -641,7 +824,7 @@ def self_test():
         if got != expected:
             failures += 1
         print("%s  From=%-55s expected=%-28s got=%s  [body]" % (status, from_h, expected, got))
-    total = len(TEST_CASES) + len(BODY_TEST_CASES)
+    total = len(TEST_CASES) + len(BODY_TEST_CASES) + len(MIME_TEST_CASES())
     print("\n%d/%d passed" % (total - failures, total))
     return 0 if failures == 0 else 1
 

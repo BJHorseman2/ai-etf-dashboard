@@ -284,6 +284,28 @@
       ],
       "body_contains_all": ["billing summary", "help desk", "did not authorize"],
       "body_contains_any": ["geek squad", "windows defender", "norton", "mcafee", "best buy", "paypal"]
+    },
+    {
+      "id": "fake-invoice-pdf-named-for-account",
+      "label": "Fake invoice scam (PDF named after this mailbox, empty body)",
+      "from_domain_in": [
+        "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
+        "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
+      ],
+      "attachment_types_any": ["application/pdf"],
+      "attachment_name_regex": "^\\d{8}_{account_local}_[A-Za-z0-9-]+\\.pdf$",
+      "max_text_chars": 200
+    },
+    {
+      "id": "fake-invoice-pdf-order-subject",
+      "label": "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)",
+      "from_domain_in": [
+        "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
+        "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
+      ],
+      "subject_regex": "^\\s*(re:\\s*)?thank you for your order\\b",
+      "attachment_types_any": ["application/pdf"],
+      "max_text_chars": 200
     }
   ]
 }
