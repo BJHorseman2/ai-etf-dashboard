@@ -1,5 +1,5 @@
 {
-  "total_moved": 368,
+  "total_moved": 369,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
@@ -22,7 +22,7 @@
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 7,
     "Facebook reminders": 5,
-    "Appointment Trader (by name)": 4,
+    "Appointment Trader (by name)": 5,
     "Manifold": 3,
     "BuyExpressHub spam (Vehicle Protections, ...)": 4,
     "BestBuyBasket spam (HGV promo, ...)": 1,
@@ -37,12 +37,6 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-23T04:58:31Z",
-      "moved": 1,
-      "scanned": 945,
-      "ok": true
-    },
     {
       "t": "2026-08-23T08:54:37Z",
       "moved": 0,
@@ -576,12 +570,18 @@
       "moved": 3,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-12T22:24:49Z",
+      "moved": 1,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-12T18:31:41Z",
+  "last_run": "2026-09-12T22:24:49Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 3
+  "last_moved": 1
 }
