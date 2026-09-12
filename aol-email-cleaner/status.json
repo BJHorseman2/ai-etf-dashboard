@@ -1,9 +1,9 @@
 {
-  "total_moved": 365,
+  "total_moved": 368,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
-    "The Economist Today": 121,
+    "The Economist Today": 123,
     "AI Automation Agency Hub (Skool)": 18,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -20,7 +20,7 @@
     "Reddit": 11,
     "NFL": 2,
     "American Collectors Insurance": 2,
-    "Elevate NY (dispensary)": 6,
+    "Elevate NY (dispensary)": 7,
     "Facebook reminders": 5,
     "Appointment Trader (by name)": 4,
     "Manifold": 3,
@@ -37,12 +37,6 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-23T02:06:53Z",
-      "moved": 0,
-      "scanned": 943,
-      "ok": true
-    },
     {
       "t": "2026-08-23T04:58:31Z",
       "moved": 1,
@@ -576,12 +570,18 @@
       "moved": 0,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-12T18:31:41Z",
+      "moved": 3,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-12T15:39:23Z",
+  "last_run": "2026-09-12T18:31:41Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1000,
-  "last_moved": 0
+  "last_moved": 3
 }
