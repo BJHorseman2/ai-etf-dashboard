@@ -1,9 +1,9 @@
 {
-  "total_moved": 371,
+  "total_moved": 372,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
-    "The Economist Today": 123,
+    "The Economist Today": 124,
     "AI Automation Agency Hub (Skool)": 18,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -37,12 +37,6 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-23T13:07:43Z",
-      "moved": 2,
-      "scanned": 950,
-      "ok": true
-    },
     {
       "t": "2026-08-23T16:47:52Z",
       "moved": 0,
@@ -576,12 +570,18 @@
       "moved": 2,
       "scanned": 984,
       "ok": true
+    },
+    {
+      "t": "2026-09-13T13:22:02Z",
+      "moved": 1,
+      "scanned": 991,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-13T05:01:52Z",
+  "last_run": "2026-09-13T13:22:02Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 984,
-  "last_moved": 2
+  "last_scanned": 991,
+  "last_moved": 1
 }
