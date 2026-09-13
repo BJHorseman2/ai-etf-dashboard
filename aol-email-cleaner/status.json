@@ -1,5 +1,5 @@
 {
-  "total_moved": 369,
+  "total_moved": 371,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
@@ -17,11 +17,11 @@
     "Acme Markets": 19,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
-    "Reddit": 11,
+    "Reddit": 12,
     "NFL": 2,
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 7,
-    "Facebook reminders": 5,
+    "Facebook reminders": 6,
     "Appointment Trader (by name)": 5,
     "Manifold": 3,
     "BuyExpressHub spam (Vehicle Protections, ...)": 4,
@@ -37,12 +37,6 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-23T08:54:37Z",
-      "moved": 0,
-      "scanned": 945,
-      "ok": true
-    },
     {
       "t": "2026-08-23T13:07:43Z",
       "moved": 2,
@@ -576,12 +570,18 @@
       "moved": 1,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-13T05:01:52Z",
+      "moved": 2,
+      "scanned": 984,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-12T22:24:49Z",
+  "last_run": "2026-09-13T05:01:52Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1000,
-  "last_moved": 1
+  "last_scanned": 984,
+  "last_moved": 2
 }
