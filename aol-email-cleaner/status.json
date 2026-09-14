@@ -1,5 +1,5 @@
 {
-  "total_moved": 376,
+  "total_moved": 378,
   "totals_by_rule": {
     "The Prof G Pod": 5,
     "NBA Top Shot": 33,
@@ -10,14 +10,14 @@
     "YCharts": 5,
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 26,
-    "StubHub events": 18,
+    "StubHub events": 19,
     "Discord": 24,
     "The Capitol Theatre": 4,
     "Yutori": 20,
     "Acme Markets": 19,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
-    "Reddit": 12,
+    "Reddit": 13,
     "NFL": 2,
     "American Collectors Insurance": 2,
     "Elevate NY (dispensary)": 7,
@@ -37,12 +37,6 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-24T02:03:13Z",
-      "moved": 0,
-      "scanned": 943,
-      "ok": true
-    },
     {
       "t": "2026-08-24T05:07:41Z",
       "moved": 0,
@@ -576,12 +570,18 @@
       "moved": 1,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-14T05:11:14Z",
+      "moved": 2,
+      "scanned": 971,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-13T22:30:02Z",
+  "last_run": "2026-09-14T05:11:14Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1000,
-  "last_moved": 1
+  "last_scanned": 971,
+  "last_moved": 2
 }
