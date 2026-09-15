@@ -38,12 +38,6 @@
   },
   "history": [
     {
-      "t": "2026-08-25T01:57:20Z",
-      "moved": 4,
-      "scanned": 961,
-      "ok": true
-    },
-    {
       "t": "2026-08-25T05:00:47Z",
       "moved": 0,
       "scanned": 957,
@@ -576,12 +570,18 @@
       "moved": 0,
       "scanned": 980,
       "ok": true
+    },
+    {
+      "t": "2026-09-15T19:44:01Z",
+      "moved": 0,
+      "scanned": 0,
+      "ok": false
     }
   ],
-  "last_run": "2026-09-15T13:42:20Z",
+  "last_run": "2026-09-15T19:44:01Z",
   "last_mode": "run",
-  "last_ok": true,
-  "last_error": null,
-  "last_scanned": 980,
+  "last_ok": false,
+  "last_error": "abort: command: UID => IMAP4rev1 Server logging out",
+  "last_scanned": 0,
   "last_moved": 0
 }
