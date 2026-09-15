@@ -1,19 +1,19 @@
 {
-  "total_moved": 389,
+  "total_moved": 395,
   "totals_by_rule": {
     "The Prof G Pod": 6,
     "NBA Top Shot": 33,
-    "The Economist Today": 129,
+    "The Economist Today": 131,
     "AI Automation Agency Hub (Skool)": 19,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
     "YCharts": 6,
     "Scott Galloway / Prof G Media": 3,
-    "Rye Recreation (CommunityPass)": 28,
+    "Rye Recreation (CommunityPass)": 30,
     "StubHub events": 19,
-    "Discord": 25,
+    "Discord": 26,
     "The Capitol Theatre": 4,
-    "Yutori": 21,
+    "Yutori": 22,
     "Acme Markets": 20,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
@@ -37,12 +37,6 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1
   },
   "history": [
-    {
-      "t": "2026-08-25T05:00:47Z",
-      "moved": 0,
-      "scanned": 957,
-      "ok": true
-    },
     {
       "t": "2026-08-25T09:04:59Z",
       "moved": 1,
@@ -576,12 +570,18 @@
       "moved": 0,
       "scanned": 0,
       "ok": false
+    },
+    {
+      "t": "2026-09-15T22:59:16Z",
+      "moved": 6,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-15T19:44:01Z",
+  "last_run": "2026-09-15T22:59:16Z",
   "last_mode": "run",
-  "last_ok": false,
-  "last_error": "abort: command: UID => IMAP4rev1 Server logging out",
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_ok": true,
+  "last_error": null,
+  "last_scanned": 1000,
+  "last_moved": 6
 }
