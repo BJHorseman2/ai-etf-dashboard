@@ -1,5 +1,5 @@
 {
-  "total_moved": 410,
+  "total_moved": 431,
   "totals_by_rule": {
     "The Prof G Pod": 6,
     "NBA Top Shot": 33,
@@ -41,21 +41,15 @@
     "LendWyse loan spam (by name)": 2,
     "Fake State Farm (brand name from a non-State Farm domain)": 1,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
-    "Fake State Farm (dearhunk.com)": 1
+    "Fake State Farm (dearhunk.com)": 1,
+    "Throwaway shop-domain spam (naming pattern)": 10,
+    "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 5,
+    "GrandShopHub spam (SouthUniversity, ...)": 3,
+    "Window Nation offers from a non-Window Nation domain": 1,
+    "Personal - Loan spam (by name)": 1,
+    "Fake invoice scam (Philip M. Lawson)": 1
   },
   "history": [
-    {
-      "t": "2026-08-25T20:52:01Z",
-      "moved": 6,
-      "scanned": 988,
-      "ok": true
-    },
-    {
-      "t": "2026-08-26T02:06:18Z",
-      "moved": 3,
-      "scanned": 982,
-      "ok": true
-    },
     {
       "t": "2026-08-26T05:01:38Z",
       "moved": 0,
@@ -583,12 +577,24 @@
       "moved": 14,
       "scanned": 981,
       "ok": true
+    },
+    {
+      "t": "2026-09-16T17:44:40Z",
+      "moved": 20,
+      "scanned": 951,
+      "ok": true
+    },
+    {
+      "t": "2026-09-16T17:51:18Z",
+      "moved": 1,
+      "scanned": 925,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-16T17:36:35Z",
+  "last_run": "2026-09-16T17:51:18Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 981,
-  "last_moved": 14
+  "last_scanned": 925,
+  "last_moved": 1
 }
