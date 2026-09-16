@@ -73,7 +73,18 @@ Rules live in [`rules.json`](rules.json). Two matchers, both deterministic:
 - If a rule has **both**, both must match. That's how
   `noreply@skool.com` is only caught when the display name contains
   "AI Automation Agency" — skool.com is not blocked globally.
+- Display-name matching is **lookalike-proof**: accents are stripped and
+  Cyrillic/Greek lookalikes, `I`/`1`-for-`l` and `0`-for-`o` tricks are
+  normalized before comparison, so "AutóInsurancé" or "Iibertyroofing" still
+  match the plain rule text.
 - `from_domain_in` / `subject_regex` — extra header-level gates.
+- `from_domain_not_in` — with `display_name_contains`, catches **brand
+  impersonation**: the brand's name sent from a domain the brand does not
+  own (e.g. "State Farm" from anything but statefarm.com). Subdomains of a
+  listed domain count as the domain.
+- `attachment_types_any` / `attachment_name_regex` / `max_text_chars` —
+  structural signatures for scams whose payload is an attachment with an
+  empty body; `{account_local}` in a regex expands to the mailbox name.
 - `body_contains_all` / `body_contains_any` — **content signatures** for
   scams that rotate sender names and addresses every blast (e.g. fake
   "Geek Squad" invoices). The message body is fetched only after every

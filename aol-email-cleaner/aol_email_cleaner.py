@@ -30,6 +30,7 @@ import ssl
 import subprocess
 import sys
 import time
+import unicodedata
 import urllib.request
 
 APP_DIR = os.environ.get(
@@ -138,15 +139,50 @@ def parse_addr(header_value):
     return name.strip(), addr.strip().lower()
 
 
+# Characters spammers substitute for Latin letters to slip past word filters:
+# Cyrillic and Greek lookalikes, plus digits/capitals that mimic letters.
+_CONFUSABLES = str.maketrans({
+    "а": "a", "е": "e", "о": "o", "р": "p", "с": "c", "у": "y", "х": "x",
+    "і": "i", "ј": "j", "ѕ": "s", "һ": "h", "ԁ": "d", "ɡ": "g", "ԛ": "q",
+    "А": "A", "В": "B", "Е": "E", "К": "K", "М": "M", "Н": "H", "О": "O",
+    "Р": "P", "С": "C", "Т": "T", "Х": "X", "І": "I",
+    "α": "a", "ε": "e", "ι": "i", "κ": "k", "ν": "v", "ο": "o", "ρ": "p",
+    "τ": "t", "υ": "u", "χ": "x",
+    "​": "", "‌": "‍", "‍": "", "‎": "", "‏": "",
+    "﻿": "", "­": "",
+})
+
+
+def fold_text(s):
+    """Normalize text for lookalike-proof comparison: strip accents, map
+    confusable characters to Latin, lowercase, then collapse the i/l/I/1
+    family to one letter and 0 to o (a capital I is used by spammers for
+    both l and i). Applied identically to rule patterns and message headers,
+    so ordinary names still match themselves."""
+    s = unicodedata.normalize("NFKD", s or "")
+    s = "".join(ch for ch in s if not unicodedata.combining(ch))
+    s = s.translate(_CONFUSABLES).lower()
+    return s.replace("l", "i").replace("1", "i").replace("0", "o")
+
+
+def domain_in(domain, entries):
+    """True if domain equals an entry or is a subdomain of one."""
+    domain = (domain or "").lower()
+    return any(domain == e or domain.endswith("." + e) for e in entries)
+
+
 def match_rule(rule, ctx):
     """Deterministic match. Returns True if the message matches this rule.
 
     Header-level conditions (cheap, always evaluated first):
     - from_email: exact (case-insensitive) match on the From address, or the
       Reply-To address as a fallback.
-    - display_name_contains: case-insensitive substring on the From or
-      Reply-To display name.
-    - from_domain_in: From address domain is one of the listed domains.
+    - display_name_contains: substring on the From or Reply-To display name,
+      compared after fold_text() (case-, accent- and lookalike-insensitive).
+    - from_domain_in: From address domain is (a subdomain of) one listed.
+    - from_domain_not_in: From address domain is NOT (a subdomain of) any
+      listed — for brand impersonation: the brand's name from a domain the
+      brand does not own.
     - subject_regex: case-insensitive regex on the decoded Subject.
 
     Content conditions (message fetched lazily, only if the header conditions
@@ -165,8 +201,9 @@ def match_rule(rule, ctx):
     free-mail domains never touches newsletters or real receipts.
     """
     want_email = rule.get("from_email", "").strip().lower()
-    want_name = rule.get("display_name_contains", "").strip().lower()
+    want_name = fold_text(rule.get("display_name_contains", "").strip())
     want_domains = [d.strip().lower() for d in rule.get("from_domain_in", [])]
+    banned_domains = [d.strip().lower() for d in rule.get("from_domain_not_in", [])]
     subject_re = rule.get("subject_regex", "")
     body_all = [p.lower() for p in rule.get("body_contains_all", [])]
     body_any = [p.lower() for p in rule.get("body_contains_any", [])]
@@ -177,19 +214,20 @@ def match_rule(rule, ctx):
     if not (want_email or want_name or want_domains or subject_re
             or body_all or body_any or max_text is not None
             or att_types or att_name_re):
-        return False
+        return False  # from_domain_not_in alone is never a rule
 
     if want_email and not (ctx["from_addr"] == want_email
                            or ctx["reply_addr"] == want_email):
         return False
     if want_name:
-        haystack = ("%s %s" % (ctx["from_name"], ctx["reply_name"])).lower()
+        haystack = fold_text("%s %s" % (ctx["from_name"], ctx["reply_name"]))
         if want_name not in haystack:
             return False
-    if want_domains:
-        domain = ctx["from_addr"].rsplit("@", 1)[-1]
-        if domain not in want_domains:
-            return False
+    domain = ctx["from_addr"].rsplit("@", 1)[-1]
+    if want_domains and not domain_in(domain, want_domains):
+        return False
+    if banned_domains and domain_in(domain, banned_domains):
+        return False
     if subject_re and not re.search(subject_re, ctx["subject"], re.I):
         return False
 
@@ -658,7 +696,8 @@ TEST_CASES = [
     ("Manifold <no-reply@manifold.markets>", "", "manifold"),
     ("The Prof G Pod <podcast@profgmedia.com>", "", "prof-g-pod"),
     ("HorsepowerDuck <hp@duck.example>", "", "horsepowerduck"),
-    ("H0rsep0werDuck <hp0@duck.example>", "", "h0rsep0werduck"),
+    # folding makes H0rsep0werDuck equal to HorsepowerDuck; the earlier rule wins
+    ("H0rsep0werDuck <hp0@duck.example>", "", "horsepowerduck"),
     ("Costa Dentistry <office@costadentistry.com>", "", "costa-dentistry"),
     ("YCharts <team@ycharts.com>", "", "ycharts"),
     # match via Reply-To address
@@ -702,6 +741,24 @@ TEST_CASES = [
     ("Your’s_AutoInsurance. <anything@rotating.example>", "", "yours-autoinsurance-name"),
     ("Your's_AutoInsurance. <anything@rotating.example>", "", "yours-autoinsurance-name"),
     ("Mikayla Parisian <keirbrbnrshdbbdbd@gmail.com>", "", "geeksquad-scam-3"),
+    # rotating-name spam mill on one address
+    ("lendwysefundIng <newsletters@shopping-choicepro.com>", "", "shopping-choicepro-spam"),
+    ("Big Screen Deals <newsletters@shopping-choicepro.com>", "", "shopping-choicepro-spam"),
+    # lookalike characters: capital I for l, accents, Cyrillic letters
+    ("lendwysefundIng <x@brand-new-domain.example>", "", "lendwyse-name"),
+    # (the name rules sit earlier in the list, so they win over the address rules)
+    ("Iibertyroofingupgrade. <hello@buymorestore.info>", "", "libertyroofing-name"),
+    ("Iibertyroofingupgrade. <x@fourth-domain.example>", "", "libertyroofing-name"),
+    ("AutóInsurancé <noreply@dreamhome-space.info>", "", "yours-autoinsurance-name"),
+    ("AutóInsurancé <x@fifth-domain.example>", "", "yours-autoinsurance-name"),
+    ("Some Newsletter <noreply@dreamhome-space.info>", "", "dreamhome-space-spam"),
+    ("Some Newsletter <hello@buymorestore.info>", "", "buymorestore-spam"),
+    ("Тhе Ecоnomist Today <x@relay.example>", "", "economist-today"),
+    # brand impersonation: brand name from a domain the brand doesn't own
+    ("State Farm Insurance <redstorm@dearhunk.com>", "", "fake-statefarm-address"),
+    ("State Farm Insurance <promo@some-random-host.example>", "", "fake-statefarm-name"),
+    # ... but the real brand from its own (sub)domain is left alone
+    ("State Farm <statefarm@email.statefarm.com>", "", None),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),

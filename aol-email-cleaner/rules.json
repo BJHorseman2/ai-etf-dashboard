@@ -268,7 +268,7 @@
     {
       "id": "yours-autoinsurance-name",
       "label": "AutoInsurance spam (by name)",
-      "display_name_contains": "_AutoInsurance"
+      "display_name_contains": "AutoInsurance"
     },
     {
       "id": "geeksquad-scam-3",
@@ -306,6 +306,37 @@
       "subject_regex": "^\\s*(re:\\s*)?thank you for your order\\s+[A-Z0-9]{10,}\\s*$",
       "attachment_types_any": ["application/pdf"],
       "max_text_chars": 60
+    },
+    {
+      "id": "shopping-choicepro-spam",
+      "label": "ShoppingChoicePro spam (LendWyse, Big Screen Deals, ...)",
+      "from_email": "newsletters@shopping-choicepro.com"
+    },
+    {
+      "id": "lendwyse-name",
+      "label": "LendWyse loan spam (by name)",
+      "display_name_contains": "lendwysefunding"
+    },
+    {
+      "id": "buymorestore-spam",
+      "label": "BuyMoreStore spam (libertyroofing, ...)",
+      "from_email": "hello@buymorestore.info"
+    },
+    {
+      "id": "dreamhome-space-spam",
+      "label": "DreamHome-Space spam (AutoInsurance, ...)",
+      "from_email": "noreply@dreamhome-space.info"
+    },
+    {
+      "id": "fake-statefarm-address",
+      "label": "Fake State Farm (dearhunk.com)",
+      "from_email": "redstorm@dearhunk.com"
+    },
+    {
+      "id": "fake-statefarm-name",
+      "label": "Fake State Farm (brand name from a non-State Farm domain)",
+      "display_name_contains": "State Farm",
+      "from_domain_not_in": ["statefarm.com"]
     }
   ]
 }
