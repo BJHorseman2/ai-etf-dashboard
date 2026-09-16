@@ -337,6 +337,31 @@
       "label": "Fake State Farm (brand name from a non-State Farm domain)",
       "display_name_contains": "State Farm",
       "from_domain_not_in": ["statefarm.com"]
+    },
+    {
+      "id": "grandshophub-spam",
+      "label": "GrandShopHub spam (SouthUniversity, ...)",
+      "from_email": "shop@grandshophub.info"
+    },
+    {
+      "id": "southuniversity-name",
+      "label": "SouthUniversity spam (by name)",
+      "display_name_contains": "SouthUniversity"
+    },
+    {
+      "id": "trendyshop-zone-spam",
+      "label": "TrendyShop-Zone spam (Personal - Loan, ...)",
+      "from_email": "concierge@trendyshop-zone.com"
+    },
+    {
+      "id": "personal-loan-name",
+      "label": "Personal - Loan spam (by name)",
+      "display_name_contains": "Personal - Loan"
+    },
+    {
+      "id": "zip-hudhomes-name",
+      "label": "Zip-HUDHomes spam (by name)",
+      "display_name_contains": "Zip-HUDHomes"
     }
   ]
 }
