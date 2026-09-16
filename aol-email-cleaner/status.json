@@ -1,9 +1,9 @@
 {
-  "total_moved": 431,
+  "total_moved": 436,
   "totals_by_rule": {
     "The Prof G Pod": 6,
     "NBA Top Shot": 33,
-    "The Economist Today": 131,
+    "The Economist Today": 133,
     "AI Automation Agency Hub (Skool)": 20,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -11,7 +11,7 @@
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 30,
     "StubHub events": 19,
-    "Discord": 26,
+    "Discord": 27,
     "The Capitol Theatre": 4,
     "Yutori": 22,
     "Acme Markets": 20,
@@ -33,7 +33,7 @@
     "ModernCartHub spam (KeepsHairGrowth, ...)": 5,
     "BuyMoreMarket spam (SPHomeWarranty, ...)": 1,
     "Fake invoice scam (Mikayla Parisian)": 1,
-    "Fake invoice scam (PDF named after this mailbox, empty body)": 7,
+    "Fake invoice scam (PDF named after this mailbox, empty body)": 8,
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1,
     "LibertyRoofing spam (by name)": 3,
     "Vehicle Protections spam (by name)": 1,
@@ -44,18 +44,12 @@
     "Fake State Farm (dearhunk.com)": 1,
     "Throwaway shop-domain spam (naming pattern)": 10,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 5,
-    "GrandShopHub spam (SouthUniversity, ...)": 3,
+    "GrandShopHub spam (SouthUniversity, ...)": 4,
     "Window Nation offers from a non-Window Nation domain": 1,
     "Personal - Loan spam (by name)": 1,
     "Fake invoice scam (Philip M. Lawson)": 1
   },
   "history": [
-    {
-      "t": "2026-08-26T09:07:55Z",
-      "moved": 0,
-      "scanned": 982,
-      "ok": true
-    },
     {
       "t": "2026-08-26T13:31:16Z",
       "moved": 0,
@@ -589,12 +583,18 @@
       "moved": 0,
       "scanned": 926,
       "ok": true
+    },
+    {
+      "t": "2026-09-16T23:03:59Z",
+      "moved": 5,
+      "scanned": 939,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-16T19:36:53Z",
+  "last_run": "2026-09-16T23:03:59Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 926,
-  "last_moved": 0
+  "last_scanned": 939,
+  "last_moved": 5
 }
