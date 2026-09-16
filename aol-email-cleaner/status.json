@@ -1,10 +1,10 @@
 {
-  "total_moved": 140,
+  "total_moved": 154,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 17,
     "The Economist Today": 38,
-    "AI Automation Agency Hub (Skool)": 7,
+    "AI Automation Agency Hub (Skool)": 8,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
     "YCharts": 2,
@@ -29,7 +29,14 @@
     "BuyMoreMarket spam (SPHomeWarranty, ...)": 1,
     "Fake invoice scam (Mikayla Parisian)": 1,
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1,
-    "Fake invoice scam (PDF named after this mailbox, empty body)": 7
+    "Fake invoice scam (PDF named after this mailbox, empty body)": 7,
+    "LibertyRoofing spam (by name)": 3,
+    "Vehicle Protections spam (by name)": 1,
+    "AutoInsurance spam (by name)": 3,
+    "LendWyse loan spam (by name)": 2,
+    "Fake State Farm (brand name from a non-State Farm domain)": 1,
+    "BuyMoreStore spam (libertyroofing, ...)": 2,
+    "Fake State Farm (dearhunk.com)": 1
   },
   "history": [
     {
@@ -145,12 +152,18 @@
       "moved": 8,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-16T17:36:35Z",
+      "moved": 14,
+      "scanned": 981,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-11T15:15:36Z",
+  "last_run": "2026-09-16T17:36:35Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1000,
-  "last_moved": 8
+  "last_scanned": 981,
+  "last_moved": 14
 }
