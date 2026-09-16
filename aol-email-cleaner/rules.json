@@ -362,6 +362,42 @@
       "id": "zip-hudhomes-name",
       "label": "Zip-HUDHomes spam (by name)",
       "display_name_contains": "Zip-HUDHomes"
+    },
+    {
+      "id": "buyhavenhub-spam",
+      "label": "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)",
+      "from_email": "shop@buyhavenhub.com"
+    },
+    {
+      "id": "homecomfort-zone-spam",
+      "label": "HomeComfort-Zone spam (Window Nation offers, ...)",
+      "from_email": "newsletter@homecomfort-zone.info"
+    },
+    {
+      "id": "homewarranty-name",
+      "label": "HomeWarranty spam (by name)",
+      "display_name_contains": "HomeWarranty"
+    },
+    {
+      "id": "metalroofing-name",
+      "label": "MetalRoofing spam (by name)",
+      "display_name_contains": "MetalRoofing"
+    },
+    {
+      "id": "america-residential-name",
+      "label": "America Residential Services spam (by name)",
+      "display_name_contains": "America Residential Services"
+    },
+    {
+      "id": "window-nation-impersonation",
+      "label": "Window Nation offers from a non-Window Nation domain",
+      "display_name_contains": "Window Nation",
+      "from_domain_not_in": ["windownation.com"]
+    },
+    {
+      "id": "throwaway-shop-domain-pattern",
+      "label": "Throwaway shop-domain spam (naming pattern)",
+      "from_regex": "^(hello|shop|market|modern|newsletters?|noreply|no-reply|reminder|concierge|offers?|deals?|info|support)@(buy|shop|grand|modern|smart|trendy|daily|best|save|home|dream|super|mega|prime|top|quick|easy)[a-z]*-?(hub|store|cart|shop|zone|market|basket|space|day|now|pro|deal|deals|mart|outlet)[a-z]*\\.(info|com|net|store|shop|site|online)$"
     }
   ]
 }

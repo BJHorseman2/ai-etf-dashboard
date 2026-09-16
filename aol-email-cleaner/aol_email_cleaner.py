@@ -184,6 +184,8 @@ def match_rule(rule, ctx):
       listed — for brand impersonation: the brand's name from a domain the
       brand does not own.
     - subject_regex: case-insensitive regex on the decoded Subject.
+    - from_regex: case-insensitive regex on the full From address (for
+      families of throwaway domains that follow a naming formula).
 
     Content conditions (message fetched lazily, only if the header conditions
     above all passed):
@@ -205,16 +207,19 @@ def match_rule(rule, ctx):
     want_domains = [d.strip().lower() for d in rule.get("from_domain_in", [])]
     banned_domains = [d.strip().lower() for d in rule.get("from_domain_not_in", [])]
     subject_re = rule.get("subject_regex", "")
+    from_re = rule.get("from_regex", "")
     body_all = [p.lower() for p in rule.get("body_contains_all", [])]
     body_any = [p.lower() for p in rule.get("body_contains_any", [])]
     max_text = rule.get("max_text_chars")
     att_types = [t.lower() for t in rule.get("attachment_types_any", [])]
     att_name_re = rule.get("attachment_name_regex", "")
 
-    if not (want_email or want_name or want_domains or subject_re
+    if not (want_email or want_name or want_domains or subject_re or from_re
             or body_all or body_any or max_text is not None
             or att_types or att_name_re):
         return False  # from_domain_not_in alone is never a rule
+    if from_re and not re.search(from_re, ctx["from_addr"], re.I):
+        return False
 
     if want_email and not (ctx["from_addr"] == want_email
                            or ctx["reply_addr"] == want_email):
@@ -766,6 +771,26 @@ TEST_CASES = [
     ("Zip-HUDHomes.com <x@seventh-domain.example>", "", "zip-hudhomes-name"),
     # the real university, written normally, is not the spam name
     ("South University Admissions <info@southuniversity.edu>", "", None),
+    ("AmerIca ResIdentIal ServIces. <hello@buymorestore.info>", "", "buymorestore-spam"),
+    ("AmerIca ResIdentIal ServIces. <x@eighth-domain.example>", "", "america-residential-name"),
+    ("Your Trusted HomeWarranty Provider <shop@buyhavenhub.com>", "", "buyhavenhub-spam"),
+    ("Your Trusted HomeWarranty Provider <x@ninth-domain.example>", "", "homewarranty-name"),
+    ("MetalRoofing InnovationsQuote <shop@buyhavenhub.com>", "", "buyhavenhub-spam"),
+    ("MetalRoofing InnovationsQuote <x@tenth-domain.example>", "", "metalroofing-name"),
+    # a real home-warranty company writes it as two words: untouched
+    ("American Home Shield <news@ahs.com>", "", None),
+    ("Window Nation - 0ffers <newsletter@homecomfort-zone.info>", "", "homecomfort-zone-spam"),
+    ("Window Nation - 0ffers <promo@another-junk-host.example>", "", "window-nation-impersonation"),
+    ("Window Nation <offers@email.windownation.com>", "", None),
+    # the throwaway-domain naming formula catches new mills before they're listed
+    ("Brand New Pitch <hello@buysavvyhub.info>", "", "throwaway-shop-domain-pattern"),
+    ("Brand New Pitch <shop@trendydealsmart.com>", "", "throwaway-shop-domain-pattern"),
+    ("Brand New Pitch <newsletter@homevaluezone.net>", "", "throwaway-shop-domain-pattern"),
+    # ... but ordinary retailers do not fit it
+    ("Best Buy <BestBuyInfo@emailinfo.bestbuy.com>", "", None),
+    ("The Home Depot <homedepot@email.homedepot.com>", "", None),
+    ("Shopify <noreply@shopify.com>", "", None),
+    ("Target <target@e.target.com>", "", None),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),
