@@ -191,6 +191,9 @@ def match_rule(rule, ctx):
     above all passed):
     - body_contains_all: every phrase must appear in the message text.
     - body_contains_any: at least one phrase must appear.
+    - body_contains_any_groups: a list of phrase lists; EACH group must
+      have at least one phrase present (an AND of ORs).
+    - body_regex: case-insensitive regex that must match the message text.
     - max_text_chars: the message text is at most this long (near-empty
       bodies whose payload is an attachment).
     - attachment_types_any: at least one attachment has one of these MIME
@@ -210,13 +213,15 @@ def match_rule(rule, ctx):
     from_re = rule.get("from_regex", "")
     body_all = [p.lower() for p in rule.get("body_contains_all", [])]
     body_any = [p.lower() for p in rule.get("body_contains_any", [])]
+    body_groups = [[p.lower() for p in g] for g in rule.get("body_contains_any_groups", [])]
+    body_re = rule.get("body_regex", "")
     max_text = rule.get("max_text_chars")
     att_types = [t.lower() for t in rule.get("attachment_types_any", [])]
     att_name_re = rule.get("attachment_name_regex", "")
 
     if not (want_email or want_name or want_domains or subject_re or from_re
-            or body_all or body_any or max_text is not None
-            or att_types or att_name_re):
+            or body_all or body_any or body_groups or body_re
+            or max_text is not None or att_types or att_name_re):
         return False  # from_domain_not_in alone is never a rule
     if from_re and not re.search(from_re, ctx["from_addr"], re.I):
         return False
@@ -236,13 +241,17 @@ def match_rule(rule, ctx):
     if subject_re and not re.search(subject_re, ctx["subject"], re.I):
         return False
 
-    if body_all or body_any or max_text is not None:
+    if body_all or body_any or body_groups or body_re or max_text is not None:
         body = ctx["get_body"]()
         if body is None:
             return False
         if body_all and not all(p in body for p in body_all):
             return False
         if body_any and not any(p in body for p in body_any):
+            return False
+        if body_groups and not all(any(p in body for p in g) for g in body_groups):
+            return False
+        if body_re and not re.search(body_re, body, re.I):
             return False
         if max_text is not None and len(body.strip()) > int(max_text):
             return False
@@ -812,8 +821,26 @@ Invoice Id: OQ-R2PE-L3BT2WFQRLNAPQ Transaction Id: 846821
 cancellation ... HELP DESK:+1 (816) 216-8408</p>
 <small>Copyright, 2024 Windows Defender. All Rights Reserved.</small></body></html>"""
 
+SCAM_BODY_V2 = """<html><body><h2>Receipt</h2><p>Thank you for your order.</p>
+<table><tr><td>GEEK<b>SQUAD</b></td><td>September 16, 2026<br>$539.00<br>+1 (805) 612 9185</td></tr></table>
+<h3>McAfee+ Ultimate 3 Years Subscription Renewal</h3>
+<p>We've received your Best Buy order. Your card will be charged within 24 hours.
+Questions? Connect with us at: <a href="tel:+18056129185">+1 (805) 612 9185</a>.</p>
+<p>Total: $539.00<br>Invoice Id: #MXR-61927<br>Description / Plan: McAfee+ Ultimate Family Plan</p>
+<p>License Key : xxxxx xxxxx xxxxx F3L7A</p>
+<p>You have 24 hours to stop this charge if you have not done so previously. Don't hesitate to
+get in touch with our customer service to cancel your annual subscription and receive a refund.</p>
+<p>Tech Support Team<br>GeekSquad Inc.</p></body></html>"""
+
 # (From header, Subject, raw body, expected rule id or None)
 BODY_TEST_CASES = [
+    # the HTML-receipt variant with no PDF, new wording, phone number in body
+    ("Philip M. Lawson <randomname@gmail.com>", "Receipt", SCAM_BODY_V2, "fake-receipt-scam-content-v2"),
+    # a friend on gmail mentioning McAfee and a renewal, but no phone-number hook: untouched
+    ("Old Friend <friend@gmail.com>", "antivirus?",
+     "<p>Do you still use McAfee? My subscription renewal came up and customer service was useless.</p>", None),
+    # same text from a corporate domain is outside the free-mail gate
+    ("Best Buy <BestBuyInfo@emailinfo.bestbuy.com>", "Your receipt", SCAM_BODY_V2, None),
     # the rotating-identity scam: new name, new gmail address, same template
     ("Jayne Mann <qzv81hd@gmail.com>", "Re: Thank You for Your Order UCTVDI06OHE8P32",
      SCAM_BODY, "fake-invoice-scam-content"),
