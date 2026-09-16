@@ -759,6 +759,13 @@ TEST_CASES = [
     ("State Farm Insurance <promo@some-random-host.example>", "", "fake-statefarm-name"),
     # ... but the real brand from its own (sub)domain is left alone
     ("State Farm <statefarm@email.statefarm.com>", "", None),
+    ("SouthUnIversIty <shop@grandshophub.info>", "", "grandshophub-spam"),
+    ("SouthUnIversIty <x@sixth-domain.example>", "", "southuniversity-name"),
+    ("Personal - Loan. <concierge@trendyshop-zone.com>", "", "trendyshop-zone-spam"),
+    ("Zip-HUDHomes.com <hello@buymorestore.info>", "", "buymorestore-spam"),
+    ("Zip-HUDHomes.com <x@seventh-domain.example>", "", "zip-hudhomes-name"),
+    # the real university, written normally, is not the spam name
+    ("South University Admissions <info@southuniversity.edu>", "", None),
     # other towns / businesses on shared platforms must NOT match
     ("Scarsdale Parks Dept <info@communitypass.net>", "", None),
     ("Some Yoga Studio <confirm@mindbodyonline.com>", "", None),
