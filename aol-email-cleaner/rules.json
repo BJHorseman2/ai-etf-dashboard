@@ -286,6 +286,25 @@
       "body_contains_any": ["geek squad", "windows defender", "norton", "mcafee", "best buy", "paypal"]
     },
     {
+      "id": "fake-receipt-scam-content-v2",
+      "label": "Fake security-subscription receipt scam (content match v2)",
+      "from_domain_in": [
+        "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
+        "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
+      ],
+      "body_contains_any_groups": [
+        ["geek squad", "geeksquad", "mcafee", "norton", "windows defender", "avast", "kaspersky", "webroot", "lifelock", "best buy"],
+        ["invoice id", "invoice #", "invoice no", "order id", "order no", "transaction id", "subscription renewal", "renewal date", "license key"],
+        ["hours to", "help desk", "customer support", "customer service", "connect with us", "call us", "reach out", "tech support"]
+      ],
+      "body_regex": "\\+\\s?1\\s*[\\(\\-]?\\s*\\d{3}\\s*[\\)\\-]?\\s*\\d{3}\\s*[\\-\\s]?\\s*\\d{4}"
+    },
+    {
+      "id": "geeksquad-scam-4",
+      "label": "Fake invoice scam (Philip M. Lawson)",
+      "from_email": "willsmith78545@gmail.com"
+    },
+    {
       "id": "fake-invoice-pdf-named-for-account",
       "label": "Fake invoice scam (PDF named after this mailbox, empty body)",
       "from_domain_in": [
