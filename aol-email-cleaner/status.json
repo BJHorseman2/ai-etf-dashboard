@@ -1,5 +1,5 @@
 {
-  "total_moved": 160,
+  "total_moved": 155,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 17,
@@ -30,11 +30,14 @@
     "Fake invoice scam (Mikayla Parisian)": 1,
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1,
     "Fake invoice scam (PDF named after this mailbox, empty body)": 7,
-    "Throwaway shop-domain spam (naming pattern)": 10,
-    "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 5,
-    "GrandShopHub spam (SouthUniversity, ...)": 3,
-    "Window Nation offers from a non-Window Nation domain": 1,
-    "Personal - Loan spam (by name)": 1
+    "LibertyRoofing spam (by name)": 3,
+    "Vehicle Protections spam (by name)": 1,
+    "AutoInsurance spam (by name)": 3,
+    "LendWyse loan spam (by name)": 2,
+    "Fake State Farm (brand name from a non-State Farm domain)": 1,
+    "BuyMoreStore spam (libertyroofing, ...)": 2,
+    "Fake State Farm (dearhunk.com)": 1,
+    "Fake invoice scam (Philip M. Lawson)": 1
   },
   "history": [
     {
@@ -156,12 +159,18 @@
       "moved": 20,
       "scanned": 951,
       "ok": true
+    },
+    {
+      "t": "2026-09-16T17:51:18Z",
+      "moved": 1,
+      "scanned": 925,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-16T17:44:40Z",
+  "last_run": "2026-09-16T17:51:18Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 951,
-  "last_moved": 20
+  "last_scanned": 925,
+  "last_moved": 1
 }
