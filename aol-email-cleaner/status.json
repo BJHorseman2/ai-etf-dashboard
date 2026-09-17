@@ -1,5 +1,5 @@
 {
-  "total_moved": 437,
+  "total_moved": 440,
   "totals_by_rule": {
     "The Prof G Pod": 6,
     "NBA Top Shot": 33,
@@ -14,7 +14,7 @@
     "Discord": 27,
     "The Capitol Theatre": 4,
     "Yutori": 22,
-    "Acme Markets": 20,
+    "Acme Markets": 21,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 15,
@@ -42,20 +42,15 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 1,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 10,
+    "Throwaway shop-domain spam (naming pattern)": 11,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 5,
     "GrandShopHub spam (SouthUniversity, ...)": 4,
     "Window Nation offers from a non-Window Nation domain": 1,
     "Personal - Loan spam (by name)": 1,
-    "Fake invoice scam (Philip M. Lawson)": 1
+    "Fake invoice scam (Philip M. Lawson)": 1,
+    "MetalRoofing spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-08-26T18:10:20Z",
-      "moved": 2,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-08-26T23:48:48Z",
       "moved": 4,
@@ -589,12 +584,18 @@
       "moved": 1,
       "scanned": 907,
       "ok": true
+    },
+    {
+      "t": "2026-09-17T13:37:55Z",
+      "moved": 3,
+      "scanned": 922,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-17T05:02:15Z",
+  "last_run": "2026-09-17T13:37:55Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 907,
-  "last_moved": 1
+  "last_scanned": 922,
+  "last_moved": 3
 }
