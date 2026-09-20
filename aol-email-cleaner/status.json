@@ -1,5 +1,5 @@
 {
-  "total_moved": 479,
+  "total_moved": 481,
   "totals_by_rule": {
     "The Prof G Pod": 6,
     "NBA Top Shot": 37,
@@ -10,7 +10,7 @@
     "YCharts": 6,
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 34,
-    "StubHub events": 20,
+    "StubHub events": 22,
     "Discord": 27,
     "The Capitol Theatre": 4,
     "Yutori": 24,
@@ -51,12 +51,6 @@
     "MetalRoofing spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-08-31T05:49:41Z",
-      "moved": 0,
-      "scanned": 963,
-      "ok": true
-    },
     {
       "t": "2026-08-31T16:14:52Z",
       "moved": 2,
@@ -590,12 +584,18 @@
       "moved": 6,
       "scanned": 970,
       "ok": true
+    },
+    {
+      "t": "2026-09-20T22:33:55Z",
+      "moved": 2,
+      "scanned": 971,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-20T18:54:56Z",
+  "last_run": "2026-09-20T22:33:55Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 970,
-  "last_moved": 6
+  "last_scanned": 971,
+  "last_moved": 2
 }
