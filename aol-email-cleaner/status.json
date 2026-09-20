@@ -1,9 +1,9 @@
 {
-  "total_moved": 471,
+  "total_moved": 473,
   "totals_by_rule": {
     "The Prof G Pod": 6,
-    "NBA Top Shot": 36,
-    "The Economist Today": 143,
+    "NBA Top Shot": 37,
+    "The Economist Today": 144,
     "AI Automation Agency Hub (Skool)": 21,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -51,12 +51,6 @@
     "MetalRoofing spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-08-30T19:21:45Z",
-      "moved": 3,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-08-30T22:50:37Z",
       "moved": 2,
@@ -590,12 +584,18 @@
       "moved": 1,
       "scanned": 944,
       "ok": true
+    },
+    {
+      "t": "2026-09-20T13:06:46Z",
+      "moved": 2,
+      "scanned": 954,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-20T05:04:19Z",
+  "last_run": "2026-09-20T13:06:46Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 944,
-  "last_moved": 1
+  "last_scanned": 954,
+  "last_moved": 2
 }
