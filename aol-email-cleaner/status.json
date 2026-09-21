@@ -1,15 +1,15 @@
 {
-  "total_moved": 490,
+  "total_moved": 494,
   "totals_by_rule": {
     "The Prof G Pod": 7,
-    "NBA Top Shot": 37,
-    "The Economist Today": 147,
+    "NBA Top Shot": 38,
+    "The Economist Today": 148,
     "AI Automation Agency Hub (Skool)": 23,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
     "YCharts": 7,
     "Scott Galloway / Prof G Media": 3,
-    "Rye Recreation (CommunityPass)": 34,
+    "Rye Recreation (CommunityPass)": 35,
     "StubHub events": 22,
     "Discord": 27,
     "The Capitol Theatre": 4,
@@ -48,15 +48,9 @@
     "Window Nation offers from a non-Window Nation domain": 2,
     "Personal - Loan spam (by name)": 1,
     "Fake invoice scam (Philip M. Lawson)": 1,
-    "MetalRoofing spam (by name)": 1
+    "MetalRoofing spam (by name)": 2
   },
   "history": [
-    {
-      "t": "2026-09-01T03:41:34Z",
-      "moved": 6,
-      "scanned": 948,
-      "ok": true
-    },
     {
       "t": "2026-09-01T05:22:22Z",
       "moved": 0,
@@ -590,12 +584,18 @@
       "moved": 7,
       "scanned": 948,
       "ok": true
+    },
+    {
+      "t": "2026-09-21T20:28:45Z",
+      "moved": 4,
+      "scanned": 953,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-21T15:11:36Z",
+  "last_run": "2026-09-21T20:28:45Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 948,
-  "last_moved": 7
+  "last_scanned": 953,
+  "last_moved": 4
 }
