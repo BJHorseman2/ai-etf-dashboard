@@ -1,8 +1,8 @@
 {
-  "total_moved": 498,
+  "total_moved": 502,
   "totals_by_rule": {
-    "The Prof G Pod": 7,
-    "NBA Top Shot": 38,
+    "The Prof G Pod": 8,
+    "NBA Top Shot": 39,
     "The Economist Today": 149,
     "AI Automation Agency Hub (Skool)": 24,
     "Costa Dentistry": 2,
@@ -33,7 +33,7 @@
     "ModernCartHub spam (KeepsHairGrowth, ...)": 5,
     "BuyMoreMarket spam (SPHomeWarranty, ...)": 1,
     "Fake invoice scam (Mikayla Parisian)": 1,
-    "Fake invoice scam (PDF named after this mailbox, empty body)": 8,
+    "Fake invoice scam (PDF named after this mailbox, empty body)": 9,
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1,
     "LibertyRoofing spam (by name)": 3,
     "Vehicle Protections spam (by name)": 1,
@@ -45,18 +45,12 @@
     "Throwaway shop-domain spam (naming pattern)": 16,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
-    "Window Nation offers from a non-Window Nation domain": 2,
+    "Window Nation offers from a non-Window Nation domain": 3,
     "Personal - Loan spam (by name)": 1,
     "Fake invoice scam (Philip M. Lawson)": 1,
     "MetalRoofing spam (by name)": 2
   },
   "history": [
-    {
-      "t": "2026-09-01T19:27:04Z",
-      "moved": 1,
-      "scanned": 990,
-      "ok": true
-    },
     {
       "t": "2026-09-01T22:40:14Z",
       "moved": 3,
@@ -590,12 +584,18 @@
       "moved": 0,
       "scanned": 941,
       "ok": true
+    },
+    {
+      "t": "2026-09-22T19:47:26Z",
+      "moved": 4,
+      "scanned": 958,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-22T13:30:22Z",
+  "last_run": "2026-09-22T19:47:26Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 941,
-  "last_moved": 0
+  "last_scanned": 958,
+  "last_moved": 4
 }
