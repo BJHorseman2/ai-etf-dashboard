@@ -1,5 +1,5 @@
 {
-  "total_moved": 545,
+  "total_moved": 546,
   "totals_by_rule": {
     "The Prof G Pod": 9,
     "NBA Top Shot": 43,
@@ -42,7 +42,7 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 2,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 29,
+    "Throwaway shop-domain spam (naming pattern)": 30,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 4,
@@ -51,12 +51,6 @@
     "MetalRoofing spam (by name)": 2
   },
   "history": [
-    {
-      "t": "2026-09-05T04:42:08Z",
-      "moved": 1,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-09-05T11:53:00Z",
       "moved": 3,
@@ -590,12 +584,18 @@
       "moved": 3,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-09-26T05:11:19Z",
+      "moved": 1,
+      "scanned": 997,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-25T23:21:25Z",
+  "last_run": "2026-09-26T05:11:19Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1000,
-  "last_moved": 3
+  "last_scanned": 997,
+  "last_moved": 1
 }
