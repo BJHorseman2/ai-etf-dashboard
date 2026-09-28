@@ -1,13 +1,13 @@
 {
-  "total_moved": 562,
+  "total_moved": 568,
   "totals_by_rule": {
-    "The Prof G Pod": 9,
+    "The Prof G Pod": 10,
     "NBA Top Shot": 43,
     "The Economist Today": 165,
-    "AI Automation Agency Hub (Skool)": 25,
+    "AI Automation Agency Hub (Skool)": 26,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
-    "YCharts": 7,
+    "YCharts": 8,
     "Scott Galloway / Prof G Media": 3,
     "Rye Recreation (CommunityPass)": 40,
     "StubHub events": 26,
@@ -35,14 +35,14 @@
     "Fake invoice scam (Mikayla Parisian)": 1,
     "Fake invoice scam (PDF named after this mailbox, empty body)": 9,
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1,
-    "LibertyRoofing spam (by name)": 3,
+    "LibertyRoofing spam (by name)": 4,
     "Vehicle Protections spam (by name)": 1,
     "AutoInsurance spam (by name)": 5,
     "LendWyse loan spam (by name)": 2,
     "Fake State Farm (brand name from a non-State Farm domain)": 2,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 34,
+    "Throwaway shop-domain spam (naming pattern)": 36,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 4,
@@ -51,12 +51,6 @@
     "MetalRoofing spam (by name)": 3
   },
   "history": [
-    {
-      "t": "2026-09-06T22:10:59Z",
-      "moved": 5,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-09-07T04:57:49Z",
       "moved": 0,
@@ -590,12 +584,18 @@
       "moved": 1,
       "scanned": 928,
       "ok": true
+    },
+    {
+      "t": "2026-09-28T16:50:44Z",
+      "moved": 6,
+      "scanned": 956,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-28T05:37:21Z",
+  "last_run": "2026-09-28T16:50:44Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 928,
-  "last_moved": 1
+  "last_scanned": 956,
+  "last_moved": 6
 }
