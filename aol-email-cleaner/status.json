@@ -1,9 +1,9 @@
 {
-  "total_moved": 578,
+  "total_moved": 583,
   "totals_by_rule": {
     "The Prof G Pod": 11,
-    "NBA Top Shot": 44,
-    "The Economist Today": 167,
+    "NBA Top Shot": 45,
+    "The Economist Today": 169,
     "AI Automation Agency Hub (Skool)": 26,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -37,12 +37,12 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 1,
     "LibertyRoofing spam (by name)": 4,
     "Vehicle Protections spam (by name)": 1,
-    "AutoInsurance spam (by name)": 5,
+    "AutoInsurance spam (by name)": 6,
     "LendWyse loan spam (by name)": 2,
     "Fake State Farm (brand name from a non-State Farm domain)": 2,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 39,
+    "Throwaway shop-domain spam (naming pattern)": 40,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 4,
@@ -51,12 +51,6 @@
     "MetalRoofing spam (by name)": 3
   },
   "history": [
-    {
-      "t": "2026-09-07T22:53:56Z",
-      "moved": 2,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-09-08T04:54:08Z",
       "moved": 1,
@@ -590,12 +584,18 @@
       "moved": 3,
       "scanned": 979,
       "ok": true
+    },
+    {
+      "t": "2026-09-29T23:48:17Z",
+      "moved": 5,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-29T18:09:16Z",
+  "last_run": "2026-09-29T23:48:17Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 979,
-  "last_moved": 3
+  "last_scanned": 1000,
+  "last_moved": 5
 }
