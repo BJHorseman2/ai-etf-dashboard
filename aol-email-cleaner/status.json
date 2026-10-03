@@ -1,9 +1,9 @@
 {
-  "total_moved": 613,
+  "total_moved": 618,
   "totals_by_rule": {
     "The Prof G Pod": 11,
     "NBA Top Shot": 51,
-    "The Economist Today": 175,
+    "The Economist Today": 177,
     "AI Automation Agency Hub (Skool)": 27,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -14,7 +14,7 @@
     "Discord": 27,
     "The Capitol Theatre": 4,
     "Yutori": 29,
-    "Acme Markets": 26,
+    "Acme Markets": 28,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 24,
@@ -48,15 +48,9 @@
     "Window Nation offers from a non-Window Nation domain": 5,
     "Personal - Loan spam (by name)": 2,
     "Fake invoice scam (Philip M. Lawson)": 1,
-    "MetalRoofing spam (by name)": 3
+    "MetalRoofing spam (by name)": 4
   },
   "history": [
-    {
-      "t": "2026-09-10T19:09:47Z",
-      "moved": 3,
-      "scanned": 997,
-      "ok": true
-    },
     {
       "t": "2026-09-10T22:40:33Z",
       "moved": 3,
@@ -590,12 +584,18 @@
       "moved": 0,
       "scanned": 953,
       "ok": true
+    },
+    {
+      "t": "2026-10-03T13:32:56Z",
+      "moved": 5,
+      "scanned": 967,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-03T05:30:12Z",
+  "last_run": "2026-10-03T13:32:56Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 953,
-  "last_moved": 0
+  "last_scanned": 967,
+  "last_moved": 5
 }
