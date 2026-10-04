@@ -1,9 +1,9 @@
 {
-  "total_moved": 623,
+  "total_moved": 626,
   "totals_by_rule": {
     "The Prof G Pod": 11,
-    "NBA Top Shot": 53,
-    "The Economist Today": 179,
+    "NBA Top Shot": 54,
+    "The Economist Today": 180,
     "AI Automation Agency Hub (Skool)": 27,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -14,7 +14,7 @@
     "Discord": 27,
     "The Capitol Theatre": 4,
     "Yutori": 29,
-    "Acme Markets": 28,
+    "Acme Markets": 29,
     "Bloomingdale's Loyallist": 2,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 24,
@@ -51,12 +51,6 @@
     "MetalRoofing spam (by name)": 4
   },
   "history": [
-    {
-      "t": "2026-09-11T15:15:36Z",
-      "moved": 8,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-09-11T19:12:01Z",
       "moved": 1,
@@ -590,12 +584,18 @@
       "moved": 0,
       "scanned": 945,
       "ok": true
+    },
+    {
+      "t": "2026-10-04T14:10:38Z",
+      "moved": 3,
+      "scanned": 960,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-04T06:04:47Z",
+  "last_run": "2026-10-04T14:10:38Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 945,
-  "last_moved": 0
+  "last_scanned": 960,
+  "last_moved": 3
 }
