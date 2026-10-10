@@ -1,0 +1,1 @@
+{"name":"ai-etf-dashboard","private":true,"type":"module","scripts":{"test":"node --test","refresh":"node scripts/refresh-market-data.mjs"}}

@@ -1,0 +1,55 @@
+name: Refresh ETF market data
+on:
+  schedule:
+    - cron: '17 22 * * 1-5'
+    - cron: '17 2 * * 2-6'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  refresh:
+    if: github.ref == 'refs/heads/main' && vars.MARKET_DATA_PUBLICATION_APPROVED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm test
+      - name: Fetch licensed daily data
+        id: fetch
+        continue-on-error: true
+        env:
+          ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
+          MARKET_DATA_PUBLICATION_APPROVED: ${{ vars.MARKET_DATA_PUBLICATION_APPROVED }}
+        run: npm run refresh
+      - name: Save snapshot and refresh status
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/market-data.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh ETF market data'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      # GITHUB_TOKEN commits do not trigger the existing Pages push workflow.
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Publish refreshed snapshot
+        id: deploy
+        uses: actions/deploy-pages@v4
+      - name: Report refresh failure after publishing explicit error status
+        if: steps.fetch.outcome == 'failure'
+        run: exit 1
