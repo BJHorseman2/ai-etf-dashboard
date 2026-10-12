@@ -55,6 +55,8 @@ jobs:
           # a push whose commit message contains [diag] adds content-rule
           # diagnostics for recent free-mail messages to the dry-run report
           AOL_CLEANER_DIAG: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[diag]') && '1' || '0' }}
+          # [inventory] adds a catalog of unmatched inbox senders to the dry-run report
+          AOL_CLEANER_INVENTORY: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[inventory]') && '1' || '0' }}
           # schedule = real run; push = dry-run unless the commit message
           # says [real-run]; manual dispatch = whichever mode was chosen
           MODE: ${{ github.event_name == 'schedule' && 'run' || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[real-run]') && 'run' || 'dry-run')) || inputs.mode }}
