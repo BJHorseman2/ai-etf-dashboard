@@ -1,5 +1,5 @@
 {
-  "total_moved": 716,
+  "total_moved": 734,
   "totals_by_rule": {
     "The Prof G Pod": 11,
     "NBA Top Shot": 58,
@@ -63,15 +63,11 @@
     "Fake parking violation (ipsenforcement.com)": 1,
     "Fake GEICO (khxbutton.com)": 1,
     "Fake Paramount+ (oneplaceforshopping.in)": 1,
-    "Fake Healthcare.com Medicare (pervasionradiate.com)": 1
+    "Fake Healthcare.com Medicare (pervasionradiate.com)": 1,
+    "Facebook notifications (all except security/login codes)": 10,
+    "Petco": 6
   },
   "history": [
-    {
-      "t": "2026-09-17T13:37:55Z",
-      "moved": 3,
-      "scanned": 922,
-      "ok": true
-    },
     {
       "t": "2026-09-17T19:46:17Z",
       "moved": 6,
@@ -605,12 +601,18 @@
       "moved": 56,
       "scanned": 1000,
       "ok": true
+    },
+    {
+      "t": "2026-10-12T21:32:58Z",
+      "moved": 18,
+      "scanned": 952,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-12T21:23:23Z",
+  "last_run": "2026-10-12T21:32:58Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1000,
-  "last_moved": 56
+  "last_scanned": 952,
+  "last_moved": 18
 }
