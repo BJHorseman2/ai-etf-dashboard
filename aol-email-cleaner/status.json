@@ -1,9 +1,9 @@
 {
-  "total_moved": 155,
+  "total_moved": 211,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 17,
-    "The Economist Today": 38,
+    "The Economist Today": 40,
     "AI Automation Agency Hub (Skool)": 8,
     "Costa Dentistry": 2,
     "Fast5GInternet": 6,
@@ -37,7 +37,23 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 1,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Fake invoice scam (Philip M. Lawson)": 1
+    "Fake invoice scam (Philip M. Lawson)": 1,
+    "Throwaway shop-domain spam (naming pattern)": 36,
+    "Scare-mail 'photos deleted' (wwdhuman.org)": 1,
+    "Scare-mail 'MyChart Medicare kit' (whalearum.com)": 1,
+    "Fake Progressive (couragesociete.com)": 1,
+    "Scare-mail 'photos deleted' (bouquetgranola.de)": 1,
+    "Scare-mail 'MyChart Medicare kit' (vziorigin.com)": 1,
+    "Scare-mail 'GLP-1 delivered' (dwhapple.com)": 1,
+    "StyleGridHub spam (HouseProjectPro)": 1,
+    "HomeHavenly spam (Longevity Support)": 1,
+    "Scare-mail 'Endurance coverage' (uxbfeature.com)": 1,
+    "Fake parking violation (ipsenforcement.com)": 1,
+    "ShopDirectly spam (Globe Life)": 3,
+    "Fake GEICO (khxbutton.com)": 1,
+    "Fake Paramount+ (oneplaceforshopping.in)": 1,
+    "PredictiveBuy spam (MiracleMade)": 2,
+    "Fake Healthcare.com Medicare (pervasionradiate.com)": 1
   },
   "history": [
     {
@@ -165,12 +181,18 @@
       "moved": 1,
       "scanned": 925,
       "ok": true
+    },
+    {
+      "t": "2026-10-12T21:23:23Z",
+      "moved": 56,
+      "scanned": 1000,
+      "ok": true
     }
   ],
-  "last_run": "2026-09-16T17:51:18Z",
+  "last_run": "2026-10-12T21:23:23Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 925,
-  "last_moved": 1
+  "last_scanned": 1000,
+  "last_moved": 56
 }
