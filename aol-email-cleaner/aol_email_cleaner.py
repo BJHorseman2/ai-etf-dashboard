@@ -136,6 +136,13 @@ def parse_addr(header_value):
     """Return (display_name, email_address) lowered-address from a header."""
     decoded = decode_header_str(header_value)
     name, addr = email.utils.parseaddr(decoded)
+    if "<" in addr or "@" not in addr:
+        # unquoted display names containing '@' confuse parseaddr; take the
+        # angle-bracketed address explicitly
+        m = re.search(r"<([^<>\s]+@[^<>\s]+)>", decoded)
+        if m:
+            addr = m.group(1)
+            name = decoded[:m.start()].strip().strip('"')
     return name.strip(), addr.strip().lower()
 
 
@@ -283,14 +290,19 @@ def message_attachments(msg):
 
 
 def prepare_rules(rules, account):
-    """Expand {account_local} in regex fields to the mailbox local part."""
-    local = re.escape((account or "").split("@")[0])
+    """Expand {account_local} in regex and name fields to the mailbox local
+    part (regex-escaped where used inside a regex)."""
+    raw_local = (account or "").split("@")[0]
+    local = re.escape(raw_local)
     prepared = []
     for r in rules:
         r = dict(r)
         for key in ("subject_regex", "attachment_name_regex"):
             if r.get(key):
                 r[key] = r[key].replace("{account_local}", local)
+        if r.get("display_name_contains"):
+            r["display_name_contains"] = r["display_name_contains"].replace(
+                "{account_local}", raw_local)
         prepared.append(r)
     return prepared
 
@@ -821,6 +833,30 @@ TEST_CASES = [
     ("Zip-HUDHomes.com <x@seventh-domain.example>", "", "zip-hudhomes-name"),
     # the real university, written normally, is not the spam name
     ("South University Admissions <info@southuniversity.edu>", "", None),
+    # the mailbox's own name used as a sender name (scare-mail), any domain
+    ("msbb224 <vortexgravity@wwdhuman.org>", "", "scare-photos-1"),
+    ("Congrats msbb224 <x@eleventh-domain.example>", "", "mailbox-name-as-sender"),
+    # brand impersonation vs. the real brands
+    ("GElC0 <steak@khxbutton.com>", "", "fake-geico-address"),
+    ("GElC0 <x@twelfth-domain.example>", "", "fake-geico-name"),
+    ("GEICO <geico@email.geico.com>", "", None),
+    ("Amazon Deals <deals@thehappybuyer.com>", "", "throwaway-shop-domain-pattern"),
+    ("Amazon Deals <x@thirteenth-domain.example>", "", "fake-amazon-name"),
+    ("Amazon.com <order-update@amazon.com>", "", None),
+    ("Paramount + 0ffers. <x@fourteenth-domain.example>", "", "fake-paramount-name"),
+    ("Paramount+ on Prime Video <no-reply@channels.primevideo.com>", "", None),
+    # hospitals send real MyChart mail from their own domains: untouched
+    ("donotreply_mychart@ehmchealth.org <donotreply_mychart@ehmchealth.org>", "", None),
+    # the widened throwaway pattern catches the new mills unseen...
+    ("Anything <news@luxestylehub.org>", "", "throwaway-shop-domain-pattern"),
+    ("Anything <point@homecomfortpoint.in>", "", "throwaway-shop-domain-pattern"),
+    # ... but not real retailers with similar words
+    ("FreshDirect <freshdirect@email.freshdirect.com>", "", None),
+    ("Best Buy <info@bestbuy.com>", "", None),
+    ("QuickBooks <quickbooks@notification.intuit.com>", "", None),
+    # display name that is itself an address, unquoted
+    ("support@ipsenforcement.com <support@ipsenforcement.com>", "", "fake-parking-violation"),
+    ("return@amazon.com <return@amazon.com>", "", None),
     ("AmerIca ResIdentIal ServIces. <hello@buymorestore.info>", "", "buymorestore-spam"),
     ("AmerIca ResIdentIal ServIces. <x@eighth-domain.example>", "", "america-residential-name"),
     ("Your Trusted HomeWarranty Provider <shop@buyhavenhub.com>", "", "buyhavenhub-spam"),
