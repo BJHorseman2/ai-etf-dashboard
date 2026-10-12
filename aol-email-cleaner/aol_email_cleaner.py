@@ -517,6 +517,49 @@ FREEMAIL_DOMAINS = (
 )
 
 
+SEARCH_CAP = 1000      # AOL silently truncates SEARCH results at this size
+SEARCH_WINDOW_DAYS = 14
+
+
+def _imap_date(days_ago):
+    return time.strftime("%d-%b-%Y", time.localtime(time.time() - days_ago * 86400))
+
+
+def search_window(conn, newest_days_ago, oldest_days_ago):
+    """UIDs dated within (oldest_days_ago .. newest_days_ago]. A window whose
+    result looks capped is split in half recursively (down to one day) so
+    no messages are silently dropped."""
+    crit = ["SINCE", _imap_date(oldest_days_ago)]
+    if newest_days_ago > 0:
+        crit += ["BEFORE", _imap_date(newest_days_ago - 1)]
+    typ, data = conn.uid("SEARCH", None, *crit)
+    if typ != "OK":
+        raise RuntimeError("IMAP SEARCH failed")
+    uids = [u for u in (data[0].split() if data and data[0] else []) if u]
+    if len(uids) >= SEARCH_CAP and oldest_days_ago - newest_days_ago > 1:
+        mid = (oldest_days_ago + newest_days_ago) // 2
+        return search_window(conn, newest_days_ago, mid) + search_window(conn, mid, oldest_days_ago)
+    return uids
+
+
+def search_since(conn, lookback_days):
+    """All inbox UIDs from the last lookback_days, immune to the search cap:
+    one query when it fits, otherwise fixed windows from oldest to newest."""
+    uids = search_window(conn, 0, lookback_days)
+    if len(uids) < SEARCH_CAP and lookback_days <= SEARCH_WINDOW_DAYS * 3:
+        return uids
+    seen, out = set(), []
+    oldest = lookback_days
+    while oldest > 0:
+        newest = max(0, oldest - SEARCH_WINDOW_DAYS)
+        for u in search_window(conn, newest, oldest):
+            if u not in seen:
+                seen.add(u)
+                out.append(u)
+        oldest = newest
+    return sorted(out, key=int)
+
+
 def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=None):
     """Return (matches, highest_uid, examined_count).
 
@@ -546,15 +589,12 @@ def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=
     last_uid = int(state.get("last_uid", 0))
     if last_uid > 0:
         typ, data = conn.uid("SEARCH", None, "UID %d:*" % (last_uid + 1))
+        if typ != "OK":
+            raise RuntimeError("IMAP SEARCH failed")
+        uids = [u for u in (data[0].split() if data and data[0] else []) if u]
     else:
-        since = time.strftime(
-            "%d-%b-%Y", time.localtime(time.time() - lookback_days * 86400)
-        )
-        typ, data = conn.uid("SEARCH", None, "SINCE", since)
-    if typ != "OK":
-        raise RuntimeError("IMAP SEARCH failed")
+        uids = search_since(conn, lookback_days)
 
-    uids = [u for u in (data[0].split() if data and data[0] else []) if u]
     uids = [u for u in uids if int(u) > last_uid]  # "UID n:*" can echo the last-seen UID
     matches = []
     highest = max([last_uid] + [int(u) for u in uids])
