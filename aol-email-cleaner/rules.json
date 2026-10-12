@@ -696,6 +696,21 @@
         "cbs.com",
         "paramountnetwork.com"
       ]
+    },
+    {
+      "id": "petco",
+      "label": "Petco",
+      "from_email": "petco@e.petco.com"
+    },
+    {
+      "id": "petco-name",
+      "label": "Petco (by name)",
+      "display_name_contains": "Petco"
+    },
+    {
+      "id": "facebook-all-but-security",
+      "label": "Facebook notifications (all except security/login codes)",
+      "from_regex": "^(?!security@)[^@]+@facebookmail\\.com$"
     }
   ]
 }
