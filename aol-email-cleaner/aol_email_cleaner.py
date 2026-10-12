@@ -136,6 +136,13 @@ def parse_addr(header_value):
     """Return (display_name, email_address) lowered-address from a header."""
     decoded = decode_header_str(header_value)
     name, addr = email.utils.parseaddr(decoded)
+    if "<" in addr or "@" not in addr:
+        # unquoted display names containing '@' confuse parseaddr; take the
+        # angle-bracketed address explicitly
+        m = re.search(r"<([^<>\s]+@[^<>\s]+)>", decoded)
+        if m:
+            addr = m.group(1)
+            name = decoded[:m.start()].strip().strip('"')
     return name.strip(), addr.strip().lower()
 
 
@@ -283,14 +290,19 @@ def message_attachments(msg):
 
 
 def prepare_rules(rules, account):
-    """Expand {account_local} in regex fields to the mailbox local part."""
-    local = re.escape((account or "").split("@")[0])
+    """Expand {account_local} in regex and name fields to the mailbox local
+    part (regex-escaped where used inside a regex)."""
+    raw_local = (account or "").split("@")[0]
+    local = re.escape(raw_local)
     prepared = []
     for r in rules:
         r = dict(r)
         for key in ("subject_regex", "attachment_name_regex"):
             if r.get(key):
                 r[key] = r[key].replace("{account_local}", local)
+        if r.get("display_name_contains"):
+            r["display_name_contains"] = r["display_name_contains"].replace(
+                "{account_local}", raw_local)
         prepared.append(r)
     return prepared
 
@@ -388,7 +400,8 @@ def ensure_folder(conn, folder):
 
 def fetch_headers(conn, uid):
     typ, data = conn.uid(
-        "FETCH", uid, "(BODY.PEEK[HEADER.FIELDS (FROM REPLY-TO SUBJECT DATE)])"
+        "FETCH", uid,
+        "(BODY.PEEK[HEADER.FIELDS (FROM REPLY-TO SUBJECT DATE LIST-UNSUBSCRIBE)])"
     )
     if typ != "OK" or not data or data[0] is None:
         return None
@@ -458,12 +471,25 @@ def diagnose_message(conn, uid, headers, phrases):
                ", ".join(hits) or "-", ", ".join(misses) or "-"))
 
 
-def scan(conn, rules, state, lookback_days, diag=None):
+FREEMAIL_DOMAINS = (
+    "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
+    "yahoo.com", "icloud.com", "me.com", "mac.com", "proton.me",
+    "protonmail.com", "aol.com", "comcast.net", "verizon.net", "att.net",
+    "optonline.net", "msn.com",
+)
+
+
+def scan(conn, rules, state, lookback_days, diag=None, inventory=None):
     """Return (matches, highest_uid, examined_count).
 
-    matches: list of (uid, rule, info) for inbox messages matching a rule.
-    diag:    if a list is given, append a diagnostic line per recent message
-             from a content-rule gate domain (dry-run troubleshooting)."""
+    matches:   list of (uid, rule, info) for inbox messages matching a rule.
+    diag:      if a list is given, append a diagnostic line per recent message
+               from a content-rule gate domain (dry-run troubleshooting).
+    inventory: if a dict is given, aggregate every UNMATCHED sender into it
+               keyed by address: {name, count, last_subject, last_date,
+               list_unsubscribe}. Free-mail senders are only counted under
+               the key "_freemail" to keep personal correspondents out of
+               reports."""
     diag_domains, diag_phrases = content_rule_terms(rules) if diag is not None else (set(), [])
     diag_cutoff = time.time() - int(os.environ.get("AOL_CLEANER_DIAG_DAYS", "4")) * 86400
     typ, _ = conn.select("INBOX")
@@ -519,6 +545,19 @@ def scan(conn, rules, state, lookback_days, diag=None):
                 "subject": decode_header_str(headers.get("Subject", "")).strip(),
                 "date": decode_header_str(headers.get("Date", "")).strip(),
             }))
+        elif inventory is not None:
+            i_name, i_addr = parse_addr(headers.get("From", ""))
+            if domain_in(i_addr.rsplit("@", 1)[-1], FREEMAIL_DOMAINS):
+                inventory["_freemail"] = inventory.get("_freemail", 0) + 1
+            else:
+                ent = inventory.setdefault(i_addr, {
+                    "name": i_name, "count": 0, "last_subject": "",
+                    "last_date": "", "list_unsubscribe": False})
+                ent["count"] += 1
+                ent["name"] = i_name or ent["name"]
+                ent["last_subject"] = decode_header_str(headers.get("Subject", "")).strip()[:70]
+                ent["last_date"] = decode_header_str(headers.get("Date", "")).strip()[:16]
+                ent["list_unsubscribe"] = ent["list_unsubscribe"] or bool(headers.get("List-Unsubscribe"))
     return matches, highest, len(uids)
 
 
@@ -627,7 +666,9 @@ def run(dry_run):
         if not dry_run:
             ensure_folder(conn, folder)
         diag = [] if (dry_run and os.environ.get("AOL_CLEANER_DIAG") == "1") else None
-        matches, highest_uid, scanned = scan(conn, rules, state, lookback, diag=diag)
+        inventory = {} if (dry_run and os.environ.get("AOL_CLEANER_INVENTORY") == "1") else None
+        matches, highest_uid, scanned = scan(conn, rules, state, lookback,
+                                             diag=diag, inventory=inventory)
         log("scan: %d message(s) examined, %d match(es)" % (scanned, len(matches)))
 
         if dry_run:
@@ -637,6 +678,18 @@ def run(dry_run):
             if diag is not None:
                 report += ("\n\n===== CONTENT-RULE DIAGNOSTICS (%d recent free-mail messages) =====\n"
                            % len(diag)) + "\n\n".join(diag)
+            if inventory is not None:
+                freemail = inventory.pop("_freemail", 0)
+                rows = sorted(inventory.items(), key=lambda kv: -kv[1]["count"])
+                lines = ["%3d | %s | %s <%s> | %s | %s" % (
+                    e["count"], "list" if e["list_unsubscribe"] else "    ",
+                    e["name"] or "(no name)", addr, e["last_date"], e["last_subject"])
+                    for addr, e in rows]
+                report += ("\n\n===== INBOX SENDER INVENTORY (unmatched, last %d days) =====\n"
+                           "count | list? | sender | last date | last subject\n%s\n\n"
+                           "(+ %d messages from %s free-mail/personal senders, not listed)"
+                           % (lookback, "\n".join(lines), freemail,
+                              "various" if freemail else "no"))
             by_rule = {}
             for _, rule, _info in matches:
                 label = rule.get("label", rule.get("id", "?"))
@@ -780,6 +833,30 @@ TEST_CASES = [
     ("Zip-HUDHomes.com <x@seventh-domain.example>", "", "zip-hudhomes-name"),
     # the real university, written normally, is not the spam name
     ("South University Admissions <info@southuniversity.edu>", "", None),
+    # the mailbox's own name used as a sender name (scare-mail), any domain
+    ("msbb224 <vortexgravity@wwdhuman.org>", "", "scare-photos-1"),
+    ("Congrats msbb224 <x@eleventh-domain.example>", "", "mailbox-name-as-sender"),
+    # brand impersonation vs. the real brands
+    ("GElC0 <steak@khxbutton.com>", "", "fake-geico-address"),
+    ("GElC0 <x@twelfth-domain.example>", "", "fake-geico-name"),
+    ("GEICO <geico@email.geico.com>", "", None),
+    ("Amazon Deals <deals@thehappybuyer.com>", "", "throwaway-shop-domain-pattern"),
+    ("Amazon Deals <x@thirteenth-domain.example>", "", "fake-amazon-name"),
+    ("Amazon.com <order-update@amazon.com>", "", None),
+    ("Paramount + 0ffers. <x@fourteenth-domain.example>", "", "fake-paramount-name"),
+    ("Paramount+ on Prime Video <no-reply@channels.primevideo.com>", "", None),
+    # hospitals send real MyChart mail from their own domains: untouched
+    ("donotreply_mychart@ehmchealth.org <donotreply_mychart@ehmchealth.org>", "", None),
+    # the widened throwaway pattern catches the new mills unseen...
+    ("Anything <news@luxestylehub.org>", "", "throwaway-shop-domain-pattern"),
+    ("Anything <point@homecomfortpoint.in>", "", "throwaway-shop-domain-pattern"),
+    # ... but not real retailers with similar words
+    ("FreshDirect <freshdirect@email.freshdirect.com>", "", None),
+    ("Best Buy <info@bestbuy.com>", "", None),
+    ("QuickBooks <quickbooks@notification.intuit.com>", "", None),
+    # display name that is itself an address, unquoted
+    ("support@ipsenforcement.com <support@ipsenforcement.com>", "", "fake-parking-violation"),
+    ("return@amazon.com <return@amazon.com>", "", None),
     ("AmerIca ResIdentIal ServIces. <hello@buymorestore.info>", "", "buymorestore-spam"),
     ("AmerIca ResIdentIal ServIces. <x@eighth-domain.example>", "", "america-residential-name"),
     ("Your Trusted HomeWarranty Provider <shop@buyhavenhub.com>", "", "buyhavenhub-spam"),

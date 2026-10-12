@@ -279,23 +279,82 @@
       "id": "fake-invoice-scam-content",
       "label": "Fake Geek Squad / Windows Defender invoice scam (content match)",
       "from_domain_in": [
-        "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
-        "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
+        "gmail.com",
+        "googlemail.com",
+        "outlook.com",
+        "hotmail.com",
+        "live.com",
+        "yahoo.com",
+        "icloud.com",
+        "me.com",
+        "proton.me",
+        "protonmail.com",
+        "aol.com"
       ],
-      "body_contains_all": ["billing summary", "help desk", "did not authorize"],
-      "body_contains_any": ["geek squad", "windows defender", "norton", "mcafee", "best buy", "paypal"]
+      "body_contains_all": [
+        "billing summary",
+        "help desk",
+        "did not authorize"
+      ],
+      "body_contains_any": [
+        "geek squad",
+        "windows defender",
+        "norton",
+        "mcafee",
+        "best buy",
+        "paypal"
+      ]
     },
     {
       "id": "fake-receipt-scam-content-v2",
       "label": "Fake security-subscription receipt scam (content match v2)",
       "from_domain_in": [
-        "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
-        "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
+        "gmail.com",
+        "googlemail.com",
+        "outlook.com",
+        "hotmail.com",
+        "live.com",
+        "yahoo.com",
+        "icloud.com",
+        "me.com",
+        "proton.me",
+        "protonmail.com",
+        "aol.com"
       ],
       "body_contains_any_groups": [
-        ["geek squad", "geeksquad", "mcafee", "norton", "windows defender", "avast", "kaspersky", "webroot", "lifelock", "best buy"],
-        ["invoice id", "invoice #", "invoice no", "order id", "order no", "transaction id", "subscription renewal", "renewal date", "license key"],
-        ["hours to", "help desk", "customer support", "customer service", "connect with us", "call us", "reach out", "tech support"]
+        [
+          "geek squad",
+          "geeksquad",
+          "mcafee",
+          "norton",
+          "windows defender",
+          "avast",
+          "kaspersky",
+          "webroot",
+          "lifelock",
+          "best buy"
+        ],
+        [
+          "invoice id",
+          "invoice #",
+          "invoice no",
+          "order id",
+          "order no",
+          "transaction id",
+          "subscription renewal",
+          "renewal date",
+          "license key"
+        ],
+        [
+          "hours to",
+          "help desk",
+          "customer support",
+          "customer service",
+          "connect with us",
+          "call us",
+          "reach out",
+          "tech support"
+        ]
       ],
       "body_regex": "\\+\\s?1\\s*[\\(\\-]?\\s*\\d{3}\\s*[\\)\\-]?\\s*\\d{3}\\s*[\\-\\s]?\\s*\\d{4}"
     },
@@ -308,10 +367,21 @@
       "id": "fake-invoice-pdf-named-for-account",
       "label": "Fake invoice scam (PDF named after this mailbox, empty body)",
       "from_domain_in": [
-        "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
-        "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
+        "gmail.com",
+        "googlemail.com",
+        "outlook.com",
+        "hotmail.com",
+        "live.com",
+        "yahoo.com",
+        "icloud.com",
+        "me.com",
+        "proton.me",
+        "protonmail.com",
+        "aol.com"
       ],
-      "attachment_types_any": ["application/pdf"],
+      "attachment_types_any": [
+        "application/pdf"
+      ],
       "attachment_name_regex": "^\\d{8}_{account_local}_[A-Za-z0-9-]+\\.pdf$",
       "max_text_chars": 100
     },
@@ -319,11 +389,22 @@
       "id": "fake-invoice-pdf-order-subject",
       "label": "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)",
       "from_domain_in": [
-        "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
-        "yahoo.com", "icloud.com", "me.com", "proton.me", "protonmail.com", "aol.com"
+        "gmail.com",
+        "googlemail.com",
+        "outlook.com",
+        "hotmail.com",
+        "live.com",
+        "yahoo.com",
+        "icloud.com",
+        "me.com",
+        "proton.me",
+        "protonmail.com",
+        "aol.com"
       ],
       "subject_regex": "^\\s*(re:\\s*)?thank you for your order\\s+[A-Z0-9]{10,}\\s*$",
-      "attachment_types_any": ["application/pdf"],
+      "attachment_types_any": [
+        "application/pdf"
+      ],
       "max_text_chars": 60
     },
     {
@@ -355,7 +436,9 @@
       "id": "fake-statefarm-name",
       "label": "Fake State Farm (brand name from a non-State Farm domain)",
       "display_name_contains": "State Farm",
-      "from_domain_not_in": ["statefarm.com"]
+      "from_domain_not_in": [
+        "statefarm.com"
+      ]
     },
     {
       "id": "grandshophub-spam",
@@ -411,12 +494,208 @@
       "id": "window-nation-impersonation",
       "label": "Window Nation offers from a non-Window Nation domain",
       "display_name_contains": "Window Nation",
-      "from_domain_not_in": ["windownation.com"]
+      "from_domain_not_in": [
+        "windownation.com"
+      ]
     },
     {
       "id": "throwaway-shop-domain-pattern",
       "label": "Throwaway shop-domain spam (naming pattern)",
-      "from_regex": "^(hello|shop|market|modern|newsletters?|noreply|no-reply|reminder|concierge|offers?|deals?|info|support)@(buy|shop|grand|modern|smart|trendy|daily|best|save|home|dream|super|mega|prime|top|quick|easy)[a-z]*-?(hub|store|cart|shop|zone|market|basket|space|day|now|pro|deal|deals|mart|outlet)[a-z]*\\.(info|com|net|store|shop|site|online)$"
+      "from_regex": "^(hello|shop|market|modern|newsletters?|noreply|no-reply|reminder|concierge|offers?|deals?|info|support|news|point|easy|store|fresh|sales?|team|promo|notifications?|updates?)@(the)?(buy|shop|grand|modern|smart|trendy|daily|best|save|home|dream|super|mega|prime|top|quick|easy|luxe|luxury|style|premium|fresh|pure|omni|cart|one|value|happy|price|deal|rate|fusion)[a-z]*-?(hub|store|cart|shop|zone|market|basket|space|day|now|pro|deals?|mart|outlet|point|savings|buyer|care|trend|finds|place|shopping|living|project|choice|haven|value|everyday|fusion)[a-z]*\\.(info|com|net|store|shop|site|online|org|in|de|xyz|club|top)$"
+    },
+    {
+      "id": "shopchoicepoint-spam",
+      "label": "ShopChoicePoint spam (Bathroom Remodeling Guide)",
+      "from_email": "shop@shopchoicepoint.com"
+    },
+    {
+      "id": "styleaislehub-spam",
+      "label": "StyleAisleHub spam (Bathroom Remodeling Guide)",
+      "from_email": "newsletter@styleaislehub.com"
+    },
+    {
+      "id": "homelivingpoint-spam",
+      "label": "HomeLivingPoint spam (Lend Wyse)",
+      "from_email": "point@homelivingpoint.com"
+    },
+    {
+      "id": "cartsavings-spam",
+      "label": "CartSavings spam (Window Nation offers)",
+      "from_email": "newsletter@cartsavings.info"
+    },
+    {
+      "id": "buyeveryday-spam",
+      "label": "BuyEveryday spam (WestShoreHomes)",
+      "from_email": "newsletter@buyeveryday.in"
+    },
+    {
+      "id": "shopdirectly-spam",
+      "label": "ShopDirectly spam (Globe Life)",
+      "from_email": "news@shopdirectly.org"
+    },
+    {
+      "id": "luxebuystore-spam",
+      "label": "LuxeBuyStore spam (HomePolicyUpdates)",
+      "from_email": "shop@luxebuystore.com"
+    },
+    {
+      "id": "luxuryshophub-spam",
+      "label": "LuxuryShopHub spam (Home Warranty offer)",
+      "from_email": "newsletter@luxuryshophub.info"
+    },
+    {
+      "id": "omnishopdirect-spam",
+      "label": "OmniShopDirect spam (Rate Haven)",
+      "from_email": "newsletter@omnishopdirect.com"
+    },
+    {
+      "id": "buyfusionstore-spam",
+      "label": "BuyFusionStore spam (Daily Moment of Calm)",
+      "from_email": "news@buyfusionstore.info"
+    },
+    {
+      "id": "homehavenly-spam",
+      "label": "HomeHavenly spam (Longevity Support)",
+      "from_email": "jomalone@homehavenly.info"
+    },
+    {
+      "id": "smartvaluestore-spam",
+      "label": "SmartValueStore spam (MEDVI)",
+      "from_email": "store@smartvaluestore.in"
+    },
+    {
+      "id": "predictivebuy-spam",
+      "label": "PredictiveBuy spam (MiracleMade)",
+      "from_email": "fabletics@predictivebuy.com"
+    },
+    {
+      "id": "homeprojectcare-spam",
+      "label": "HomeProjectCare spam (RYH Flooring)",
+      "from_email": "news@homeprojectcare.com"
+    },
+    {
+      "id": "stylegridhub-spam",
+      "label": "StyleGridHub spam (HouseProjectPro)",
+      "from_email": "belk@stylegridhub.org"
+    },
+    {
+      "id": "purefindscart-spam",
+      "label": "PureFindsCart spam (Solar Services)",
+      "from_email": "hello@purefindscart.net"
+    },
+    {
+      "id": "fake-geico-address",
+      "label": "Fake GEICO (khxbutton.com)",
+      "from_email": "steak@khxbutton.com"
+    },
+    {
+      "id": "fake-progressive-address",
+      "label": "Fake Progressive (couragesociete.com)",
+      "from_email": "novawave@couragesociete.com"
+    },
+    {
+      "id": "fake-paramount-1",
+      "label": "Fake Paramount+ (easybuyhub.info)",
+      "from_email": "easy@easybuyhub.info"
+    },
+    {
+      "id": "fake-paramount-2",
+      "label": "Fake Paramount+ (oneplaceforshopping.in)",
+      "from_email": "j.mclaughlin@oneplaceforshopping.in"
+    },
+    {
+      "id": "fake-amazon-deals",
+      "label": "Fake Amazon Deals (thehappybuyer.com)",
+      "from_email": "deals@thehappybuyer.com"
+    },
+    {
+      "id": "fake-healthcare-medicare",
+      "label": "Fake Healthcare.com Medicare (pervasionradiate.com)",
+      "from_email": "cholascap@pervasionradiate.com"
+    },
+    {
+      "id": "fake-mychart-1",
+      "label": "Fake MyChart survey (premiumbuyhub.com)",
+      "from_email": "hello@premiumbuyhub.com"
+    },
+    {
+      "id": "fake-mychart-2",
+      "label": "Fake MyChart survey (freshtrendcart.com)",
+      "from_email": "fresh@freshtrendcart.com"
+    },
+    {
+      "id": "fake-parking-violation",
+      "label": "Fake parking violation (ipsenforcement.com)",
+      "from_email": "support@ipsenforcement.com"
+    },
+    {
+      "id": "scare-photos-1",
+      "label": "Scare-mail 'photos deleted' (wwdhuman.org)",
+      "from_email": "vortexgravity@wwdhuman.org"
+    },
+    {
+      "id": "scare-photos-2",
+      "label": "Scare-mail 'photos deleted' (bouquetgranola.de)",
+      "from_email": "amexwbjyh@bouquetgranola.de"
+    },
+    {
+      "id": "scare-medicare-1",
+      "label": "Scare-mail 'MyChart Medicare kit' (whalearum.com)",
+      "from_email": "notifications@whalearum.com"
+    },
+    {
+      "id": "scare-medicare-2",
+      "label": "Scare-mail 'MyChart Medicare kit' (vziorigin.com)",
+      "from_email": "updates@vziorigin.com"
+    },
+    {
+      "id": "scare-endurance",
+      "label": "Scare-mail 'Endurance coverage' (uxbfeature.com)",
+      "from_email": "elmwood@uxbfeature.com"
+    },
+    {
+      "id": "scare-glp1",
+      "label": "Scare-mail 'GLP-1 delivered' (dwhapple.com)",
+      "from_email": "klops@dwhapple.com"
+    },
+    {
+      "id": "mailbox-name-as-sender",
+      "label": "Sender name is this mailbox's own name (scare-mail)",
+      "display_name_contains": "{account_local}"
+    },
+    {
+      "id": "fake-geico-name",
+      "label": "GEICO name from a non-GEICO domain",
+      "display_name_contains": "GEICO",
+      "from_domain_not_in": [
+        "geico.com"
+      ]
+    },
+    {
+      "id": "fake-amazon-name",
+      "label": "Amazon name from a non-Amazon domain",
+      "display_name_contains": "Amazon",
+      "from_domain_not_in": [
+        "amazon.com",
+        "amazon.co.uk",
+        "amazon.ca",
+        "primevideo.com",
+        "audible.com",
+        "amazonaws.com"
+      ]
+    },
+    {
+      "id": "fake-paramount-name",
+      "label": "Paramount name from a non-Paramount domain",
+      "display_name_contains": "Paramount",
+      "from_domain_not_in": [
+        "paramount.com",
+        "paramountplus.com",
+        "primevideo.com",
+        "amazon.com",
+        "cbs.com",
+        "paramountnetwork.com"
+      ]
     }
   ]
 }
