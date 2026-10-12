@@ -24,7 +24,7 @@ concurrency:
 jobs:
   clean:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: ${{ (github.event_name == 'push' && contains(github.event.head_commit.message, '[deep-clean]')) && 350 || 25 }}
     # skip pushes made by the status-update step below
     if: ${{ !contains(github.event.head_commit.message, '[skip-clean]') }}
     steps:
@@ -52,6 +52,8 @@ jobs:
           AOL_CLEANER_QUIET: "1"
           AOL_CLEANER_REPORT: ${{ runner.temp }}/dry-run-report.txt
           AOL_CLEANER_STATS: ${{ runner.temp }}/run-stats.json
+          # [deep-clean] in a push's commit message = one-off real run over the last year
+          AOL_CLEANER_LOOKBACK: ${{ (github.event_name == 'push' && contains(github.event.head_commit.message, '[deep-clean]')) && '365' || '30' }}
           # a push whose commit message contains [diag] adds content-rule
           # diagnostics for recent free-mail messages to the dry-run report
           AOL_CLEANER_DIAG: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[diag]') && '1' || '0' }}
@@ -59,7 +61,7 @@ jobs:
           AOL_CLEANER_INVENTORY: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[inventory]') && '1' || '0' }}
           # schedule = real run; push = dry-run unless the commit message
           # says [real-run]; manual dispatch = whichever mode was chosen
-          MODE: ${{ github.event_name == 'schedule' && 'run' || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[real-run]') && 'run' || 'dry-run')) || inputs.mode }}
+          MODE: ${{ github.event_name == 'schedule' && 'run' || (github.event_name == 'push' && ((contains(github.event.head_commit.message, '[real-run]') || contains(github.event.head_commit.message, '[deep-clean]')) && 'run' || 'dry-run')) || inputs.mode }}
         run: |
           echo "mode: $MODE"
           python3 aol-email-cleaner/aol_email_cleaner.py "--$MODE"
@@ -83,7 +85,7 @@ jobs:
 
       - name: Update dashboard status
         # only real runs update the dashboard (scheduled, or [real-run] push)
-        if: ${{ always() && (github.event_name == 'schedule' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[real-run]'))) }}
+        if: ${{ always() && (github.event_name == 'schedule' || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[real-run]') || contains(github.event.head_commit.message, '[deep-clean]')))) }}
         env:
           STATS_FILE: ${{ runner.temp }}/run-stats.json
         run: |

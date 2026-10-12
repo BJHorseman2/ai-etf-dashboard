@@ -398,11 +398,12 @@ def ensure_folder(conn, folder):
         log('folder: created "%s"' % folder)
 
 
+HEADER_FIELDS = "(UID BODY.PEEK[HEADER.FIELDS (FROM REPLY-TO SUBJECT DATE LIST-UNSUBSCRIBE)])"
+FETCH_CHUNK = 200  # UIDs per bulk FETCH / processing batch
+
+
 def fetch_headers(conn, uid):
-    typ, data = conn.uid(
-        "FETCH", uid,
-        "(BODY.PEEK[HEADER.FIELDS (FROM REPLY-TO SUBJECT DATE LIST-UNSUBSCRIBE)])"
-    )
+    typ, data = conn.uid("FETCH", uid, HEADER_FIELDS)
     if typ != "OK" or not data or data[0] is None:
         return None
     raw = b""
@@ -411,6 +412,43 @@ def fetch_headers(conn, uid):
             raw = part[1]
             break
     return email.message_from_bytes(raw)
+
+
+def parse_bulk_fetch(data):
+    """Map UID (bytes) -> parsed header Message from a multi-message FETCH
+    response. Each message arrives as a (b'<seq> (UID <n> BODY[...] {len}',
+    b'<raw headers>') tuple followed by a closing b')'."""
+    out = {}
+    for part in data or []:
+        if not isinstance(part, tuple) or len(part) < 2:
+            continue
+        m = re.search(rb"UID (\d+)", part[0])
+        if not m:
+            continue
+        try:
+            out[m.group(1)] = email.message_from_bytes(part[1])
+        except Exception:
+            continue
+    return out
+
+
+def fetch_headers_bulk(conn, uids):
+    """Headers for many UIDs in one round trip; falls back to per-message
+    fetches for anything the bulk response did not cover."""
+    found = {}
+    if uids:
+        try:
+            typ, data = conn.uid("FETCH", b",".join(uids), HEADER_FIELDS)
+            if typ == "OK":
+                found = parse_bulk_fetch(data)
+        except imaplib.IMAP4.error as e:
+            log("bulk fetch failed (%s); falling back to single fetches" % e)
+    for uid in uids:
+        if uid not in found:
+            h = fetch_headers(conn, uid)
+            if h is not None:
+                found[uid] = h
+    return found
 
 
 BODY_FETCH_LIMIT = 200_000  # bytes; enough for any HTML invoice template
@@ -479,7 +517,7 @@ FREEMAIL_DOMAINS = (
 )
 
 
-def scan(conn, rules, state, lookback_days, diag=None, inventory=None):
+def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=None):
     """Return (matches, highest_uid, examined_count).
 
     matches:   list of (uid, rule, info) for inbox messages matching a rule.
@@ -489,7 +527,10 @@ def scan(conn, rules, state, lookback_days, diag=None, inventory=None):
                keyed by address: {name, count, last_subject, last_date,
                list_unsubscribe}. Free-mail senders are only counted under
                the key "_freemail" to keep personal correspondents out of
-               reports."""
+               reports.
+    on_chunk:  optional callback(chunk_matches, examined_so_far, total)
+               invoked after each batch, so callers can act (move mail,
+               checkpoint stats) incrementally on long scans."""
     diag_domains, diag_phrases = content_rule_terms(rules) if diag is not None else (set(), [])
     diag_cutoff = time.time() - int(os.environ.get("AOL_CLEANER_DIAG_DAYS", "4")) * 86400
     typ, _ = conn.select("INBOX")
@@ -514,50 +555,58 @@ def scan(conn, rules, state, lookback_days, diag=None, inventory=None):
         raise RuntimeError("IMAP SEARCH failed")
 
     uids = [u for u in (data[0].split() if data and data[0] else []) if u]
+    uids = [u for u in uids if int(u) > last_uid]  # "UID n:*" can echo the last-seen UID
     matches = []
-    highest = last_uid
-    for uid in uids:
-        uid_int = int(uid)
-        if uid_int <= last_uid:
-            continue  # "UID n:*" can echo back the last-seen UID
-        highest = max(highest, uid_int)
-        headers = fetch_headers(conn, uid)
-        if headers is None:
-            continue
-        rule = find_matching_rule(
-            rules, headers, get_msg=lambda u=uid: fetch_message(conn, u))
-        if diag is not None:
-            d_name, d_addr = parse_addr(headers.get("From", ""))
-            d_dt = email.utils.parsedate_to_datetime(headers.get("Date", "")) \
-                if headers.get("Date") else None
-            recent = d_dt is None or d_dt.timestamp() >= diag_cutoff
-            if recent and d_addr.rsplit("@", 1)[-1] in diag_domains:
-                diag.append("%s <%s>\n  subject: %s\n  matched: %s\n%s" % (
-                    d_name, d_addr,
-                    decode_header_str(headers.get("Subject", "")).strip()[:90],
-                    rule.get("id") if rule else "-",
-                    diagnose_message(conn, uid, headers, diag_phrases)))
-        if rule:
-            from_name, from_addr = parse_addr(headers.get("From", ""))
-            matches.append((uid, rule, {
-                "from_name": from_name,
-                "from_addr": from_addr,
-                "subject": decode_header_str(headers.get("Subject", "")).strip(),
-                "date": decode_header_str(headers.get("Date", "")).strip(),
-            }))
-        elif inventory is not None:
-            i_name, i_addr = parse_addr(headers.get("From", ""))
-            if domain_in(i_addr.rsplit("@", 1)[-1], FREEMAIL_DOMAINS):
-                inventory["_freemail"] = inventory.get("_freemail", 0) + 1
-            else:
-                ent = inventory.setdefault(i_addr, {
-                    "name": i_name, "count": 0, "last_subject": "",
-                    "last_date": "", "list_unsubscribe": False})
-                ent["count"] += 1
-                ent["name"] = i_name or ent["name"]
-                ent["last_subject"] = decode_header_str(headers.get("Subject", "")).strip()[:70]
-                ent["last_date"] = decode_header_str(headers.get("Date", "")).strip()[:16]
-                ent["list_unsubscribe"] = ent["list_unsubscribe"] or bool(headers.get("List-Unsubscribe"))
+    highest = max([last_uid] + [int(u) for u in uids])
+    examined = 0
+    for start in range(0, len(uids), FETCH_CHUNK):
+        chunk = uids[start:start + FETCH_CHUNK]
+        headers_by_uid = fetch_headers_bulk(conn, chunk)
+        chunk_matches = []
+        for uid in chunk:
+            headers = headers_by_uid.get(uid)
+            examined += 1
+            if headers is None:
+                continue
+            rule = find_matching_rule(
+                rules, headers, get_msg=lambda u=uid: fetch_message(conn, u))
+            if diag is not None:
+                d_name, d_addr = parse_addr(headers.get("From", ""))
+                d_dt = email.utils.parsedate_to_datetime(headers.get("Date", "")) \
+                    if headers.get("Date") else None
+                recent = d_dt is None or d_dt.timestamp() >= diag_cutoff
+                if recent and d_addr.rsplit("@", 1)[-1] in diag_domains:
+                    diag.append("%s <%s>\n  subject: %s\n  matched: %s\n%s" % (
+                        d_name, d_addr,
+                        decode_header_str(headers.get("Subject", "")).strip()[:90],
+                        rule.get("id") if rule else "-",
+                        diagnose_message(conn, uid, headers, diag_phrases)))
+            if rule:
+                from_name, from_addr = parse_addr(headers.get("From", ""))
+                chunk_matches.append((uid, rule, {
+                    "from_name": from_name,
+                    "from_addr": from_addr,
+                    "subject": decode_header_str(headers.get("Subject", "")).strip(),
+                    "date": decode_header_str(headers.get("Date", "")).strip(),
+                }))
+            elif inventory is not None:
+                i_name, i_addr = parse_addr(headers.get("From", ""))
+                if domain_in(i_addr.rsplit("@", 1)[-1], FREEMAIL_DOMAINS):
+                    inventory["_freemail"] = inventory.get("_freemail", 0) + 1
+                else:
+                    ent = inventory.setdefault(i_addr, {
+                        "name": i_name, "count": 0, "last_subject": "",
+                        "last_date": "", "list_unsubscribe": False})
+                    ent["count"] += 1
+                    ent["name"] = i_name or ent["name"]
+                    ent["last_subject"] = decode_header_str(headers.get("Subject", "")).strip()[:70]
+                    ent["last_date"] = decode_header_str(headers.get("Date", "")).strip()[:16]
+                    ent["list_unsubscribe"] = ent["list_unsubscribe"] or bool(headers.get("List-Unsubscribe"))
+        matches.extend(chunk_matches)
+        if on_chunk is not None:
+            on_chunk(chunk_matches, examined, len(uids))
+        if len(uids) > FETCH_CHUNK:
+            log("progress: %d/%d examined, %d matched so far" % (examined, len(uids), len(matches)))
     return matches, highest, len(uids)
 
 
@@ -667,8 +716,27 @@ def run(dry_run):
             ensure_folder(conn, folder)
         diag = [] if (dry_run and os.environ.get("AOL_CLEANER_DIAG") == "1") else None
         inventory = {} if (dry_run and os.environ.get("AOL_CLEANER_INVENTORY") == "1") else None
+
+        # Real runs move each batch as soon as it is scanned and checkpoint
+        # the stats, so a long (e.g. one-year) run that hits a time limit
+        # still keeps everything it has done so far.
+        moved = []
+
+        def move_chunk(chunk_matches, examined, total):
+            if chunk_matches:
+                moved.extend(move_messages(conn, chunk_matches, folder))
+            by_rule = {}
+            for _, r, _i in moved:
+                lbl = r.get("label", r.get("id", "?"))
+                by_rule[lbl] = by_rule.get(lbl, 0) + 1
+            write_stats({"time": now_iso, "mode": mode, "ok": True,
+                         "scanned": examined, "matched": len(moved),
+                         "moved": len(moved), "by_rule": by_rule,
+                         "partial": examined < total})
+
         matches, highest_uid, scanned = scan(conn, rules, state, lookback,
-                                             diag=diag, inventory=inventory)
+                                             diag=diag, inventory=inventory,
+                                             on_chunk=None if dry_run else move_chunk)
         log("scan: %d message(s) examined, %d match(es)" % (scanned, len(matches)))
 
         if dry_run:
@@ -711,7 +779,7 @@ def run(dry_run):
                 print("==========================")
             return 0
 
-        moved = move_messages(conn, matches, folder)
+        # matches were already moved batch-by-batch via move_chunk
         state["last_uid"] = highest_uid
         save_json(STATE_PATH, state)
 
@@ -996,6 +1064,13 @@ def self_test():
     ruleset = load_json(os.path.join(here, "rules.json")) or load_json(RULES_PATH)
     rules = prepare_rules(ruleset["rules"], "msbb224@aol.com")
     failures = 0
+    # bulk FETCH response parsing (two messages + closing parens, as imaplib returns them)
+    fake = [(b"1 (UID 101 BODY[HEADER.FIELDS (FROM SUBJECT)] {40}", b"From: A <a@x.com>\r\nSubject: one\r\n\r\n"), b")",
+            (b"2 (UID 102 BODY[HEADER.FIELDS (FROM SUBJECT)] {40}", b"From: B <b@y.com>\r\nSubject: two\r\n\r\n"), b")"]
+    parsed = parse_bulk_fetch(fake)
+    ok = set(parsed) == {b"101", b"102"} and parsed[b"102"]["Subject"] == "two"
+    print("%s  bulk FETCH parsing -> %s" % ("PASS" if ok else "FAIL", sorted(parsed)))
+    failures += 0 if ok else 1
     for msg, expected in MIME_TEST_CASES():
         rule = find_matching_rule(rules, msg, get_msg=lambda m=msg: m)
         got = rule["id"] if rule else None
@@ -1021,7 +1096,7 @@ def self_test():
         if got != expected:
             failures += 1
         print("%s  From=%-55s expected=%-28s got=%s  [body]" % (status, from_h, expected, got))
-    total = len(TEST_CASES) + len(BODY_TEST_CASES) + len(MIME_TEST_CASES())
+    total = len(TEST_CASES) + len(BODY_TEST_CASES) + len(MIME_TEST_CASES()) + 1
     print("\n%d/%d passed" % (total - failures, total))
     return 0 if failures == 0 else 1
 
