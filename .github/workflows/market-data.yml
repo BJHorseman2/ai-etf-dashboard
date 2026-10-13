@@ -13,7 +13,10 @@ concurrency:
   cancel-in-progress: false
 jobs:
   refresh:
-    if: github.ref == 'refs/heads/main' && vars.MARKET_DATA_PUBLICATION_APPROVED == 'true'
+    # Hard-disabled pending reviewed written public display/download and permanent
+    # public Git-history rights. Enabling requires a later reviewed code change;
+    # repository variables or credentials alone must never activate this job.
+    if: ${{ false && github.ref == 'refs/heads/main' && vars.MARKET_DATA_PUBLICATION_APPROVED == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment:
