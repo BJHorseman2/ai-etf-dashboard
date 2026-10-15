@@ -1,15 +1,15 @@
 {
-  "total_moved": 940,
+  "total_moved": 946,
   "totals_by_rule": {
     "The Prof G Pod": 12,
-    "NBA Top Shot": 66,
-    "The Economist Today": 232,
+    "NBA Top Shot": 67,
+    "The Economist Today": 235,
     "AI Automation Agency Hub (Skool)": 33,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
     "YCharts": 22,
     "Scott Galloway / Prof G Media": 5,
-    "Rye Recreation (CommunityPass)": 73,
+    "Rye Recreation (CommunityPass)": 74,
     "StubHub events": 64,
     "Discord": 33,
     "The Capitol Theatre": 5,
@@ -64,7 +64,7 @@
     "Fake GEICO (khxbutton.com)": 1,
     "Fake Paramount+ (oneplaceforshopping.in)": 1,
     "Fake Healthcare.com Medicare (pervasionradiate.com)": 1,
-    "Facebook notifications (all except security/login codes)": 34,
+    "Facebook notifications (all except security/login codes)": 35,
     "Petco": 12,
     "Sender name is this mailbox's own name (scare-mail)": 2,
     "Petco (by name)": 3,
@@ -72,12 +72,6 @@
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-20T22:33:55Z",
-      "moved": 2,
-      "scanned": 971,
-      "ok": true
-    },
     {
       "t": "2026-09-21T05:10:04Z",
       "moved": 2,
@@ -611,12 +605,18 @@
       "moved": 4,
       "scanned": 1047,
       "ok": true
+    },
+    {
+      "t": "2026-10-15T23:07:52Z",
+      "moved": 6,
+      "scanned": 1061,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-15T19:56:28Z",
+  "last_run": "2026-10-15T23:07:52Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1047,
-  "last_moved": 4
+  "last_scanned": 1061,
+  "last_moved": 6
 }
