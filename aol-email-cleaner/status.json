@@ -1,9 +1,9 @@
 {
-  "total_moved": 963,
+  "total_moved": 965,
   "totals_by_rule": {
     "The Prof G Pod": 12,
     "NBA Top Shot": 68,
-    "The Economist Today": 241,
+    "The Economist Today": 242,
     "AI Automation Agency Hub (Skool)": 34,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -67,17 +67,11 @@
     "Facebook notifications (all except security/login codes)": 36,
     "Petco": 14,
     "Sender name is this mailbox's own name (scare-mail)": 2,
-    "Petco (by name)": 3,
+    "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 1,
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-23T23:00:28Z",
-      "moved": 4,
-      "scanned": 995,
-      "ok": true
-    },
     {
       "t": "2026-09-24T05:05:39Z",
       "moved": 1,
@@ -611,12 +605,18 @@
       "moved": 1,
       "scanned": 1035,
       "ok": true
+    },
+    {
+      "t": "2026-10-18T12:40:27Z",
+      "moved": 2,
+      "scanned": 1048,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-18T04:49:31Z",
+  "last_run": "2026-10-18T12:40:27Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1035,
-  "last_moved": 1
+  "last_scanned": 1048,
+  "last_moved": 2
 }
