@@ -1,15 +1,15 @@
 {
-  "total_moved": 974,
+  "total_moved": 980,
   "totals_by_rule": {
     "The Prof G Pod": 13,
-    "NBA Top Shot": 68,
-    "The Economist Today": 245,
+    "NBA Top Shot": 69,
+    "The Economist Today": 247,
     "AI Automation Agency Hub (Skool)": 35,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
     "YCharts": 23,
     "Scott Galloway / Prof G Media": 5,
-    "Rye Recreation (CommunityPass)": 74,
+    "Rye Recreation (CommunityPass)": 75,
     "StubHub events": 66,
     "Discord": 33,
     "The Capitol Theatre": 5,
@@ -42,7 +42,7 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 4,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 93,
+    "Throwaway shop-domain spam (naming pattern)": 94,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 6,
@@ -65,19 +65,13 @@
     "Fake Paramount+ (oneplaceforshopping.in)": 1,
     "Fake Healthcare.com Medicare (pervasionradiate.com)": 1,
     "Facebook notifications (all except security/login codes)": 37,
-    "Petco": 14,
+    "Petco": 15,
     "Sender name is this mailbox's own name (scare-mail)": 2,
     "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 1,
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-25T05:07:46Z",
-      "moved": 2,
-      "scanned": 996,
-      "ok": true
-    },
     {
       "t": "2026-09-25T13:57:59Z",
       "moved": 3,
@@ -611,12 +605,18 @@
       "moved": 4,
       "scanned": 1047,
       "ok": true
+    },
+    {
+      "t": "2026-10-19T21:10:09Z",
+      "moved": 6,
+      "scanned": 1072,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-19T15:44:52Z",
+  "last_run": "2026-10-19T21:10:09Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1047,
-  "last_moved": 4
+  "last_scanned": 1072,
+  "last_moved": 6
 }
