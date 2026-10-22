@@ -1,5 +1,5 @@
 {
-  "total_moved": 996,
+  "total_moved": 998,
   "totals_by_rule": {
     "The Prof G Pod": 13,
     "NBA Top Shot": 72,
@@ -64,7 +64,7 @@
     "Fake GEICO (khxbutton.com)": 1,
     "Fake Paramount+ (oneplaceforshopping.in)": 1,
     "Fake Healthcare.com Medicare (pervasionradiate.com)": 1,
-    "Facebook notifications (all except security/login codes)": 38,
+    "Facebook notifications (all except security/login codes)": 40,
     "Petco": 16,
     "Sender name is this mailbox's own name (scare-mail)": 2,
     "Petco (by name)": 4,
@@ -72,12 +72,6 @@
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-27T14:09:01Z",
-      "moved": 5,
-      "scanned": 933,
-      "ok": true
-    },
     {
       "t": "2026-09-27T19:48:30Z",
       "moved": 2,
@@ -611,12 +605,18 @@
       "moved": 2,
       "scanned": 1122,
       "ok": true
+    },
+    {
+      "t": "2026-10-22T05:05:46Z",
+      "moved": 2,
+      "scanned": 1101,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-21T23:28:24Z",
+  "last_run": "2026-10-22T05:05:46Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1122,
+  "last_scanned": 1101,
   "last_moved": 2
 }
