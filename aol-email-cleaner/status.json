@@ -1,5 +1,5 @@
 {
-  "total_moved": 998,
+  "total_moved": 999,
   "totals_by_rule": {
     "The Prof G Pod": 13,
     "NBA Top Shot": 72,
@@ -14,7 +14,7 @@
     "Discord": 33,
     "The Capitol Theatre": 5,
     "Yutori": 32,
-    "Acme Markets": 35,
+    "Acme Markets": 36,
     "Bloomingdale's Loyallist": 3,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 35,
@@ -72,12 +72,6 @@
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-27T19:48:30Z",
-      "moved": 2,
-      "scanned": 945,
-      "ok": true
-    },
     {
       "t": "2026-09-27T23:10:25Z",
       "moved": 3,
@@ -611,12 +605,18 @@
       "moved": 2,
       "scanned": 1101,
       "ok": true
+    },
+    {
+      "t": "2026-10-22T13:56:41Z",
+      "moved": 1,
+      "scanned": 1117,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-22T05:05:46Z",
+  "last_run": "2026-10-22T13:56:41Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1101,
-  "last_moved": 2
+  "last_scanned": 1117,
+  "last_moved": 1
 }
