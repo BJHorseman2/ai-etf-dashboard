@@ -1,15 +1,15 @@
 {
-  "total_moved": 1012,
+  "total_moved": 1016,
   "totals_by_rule": {
     "The Prof G Pod": 13,
-    "NBA Top Shot": 72,
+    "NBA Top Shot": 73,
     "The Economist Today": 255,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
     "YCharts": 23,
     "Scott Galloway / Prof G Media": 6,
-    "Rye Recreation (CommunityPass)": 79,
+    "Rye Recreation (CommunityPass)": 81,
     "StubHub events": 68,
     "Discord": 33,
     "The Capitol Theatre": 5,
@@ -42,7 +42,7 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 4,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 98,
+    "Throwaway shop-domain spam (naming pattern)": 99,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 6,
@@ -72,12 +72,6 @@
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-29T10:48:06Z",
-      "moved": 3,
-      "scanned": 963,
-      "ok": true
-    },
     {
       "t": "2026-09-29T18:09:16Z",
       "moved": 3,
@@ -611,12 +605,18 @@
       "moved": 1,
       "scanned": 1151,
       "ok": true
+    },
+    {
+      "t": "2026-10-23T19:59:22Z",
+      "moved": 4,
+      "scanned": 1179,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-23T13:38:19Z",
+  "last_run": "2026-10-23T19:59:22Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1151,
-  "last_moved": 1
+  "last_scanned": 1179,
+  "last_moved": 4
 }
