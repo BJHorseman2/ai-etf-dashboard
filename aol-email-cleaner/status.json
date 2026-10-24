@@ -1,9 +1,9 @@
 {
-  "total_moved": 1023,
+  "total_moved": 1025,
   "totals_by_rule": {
     "The Prof G Pod": 13,
     "NBA Top Shot": 73,
-    "The Economist Today": 259,
+    "The Economist Today": 261,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -72,12 +72,6 @@
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-30T15:01:00Z",
-      "moved": 5,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-09-30T20:53:17Z",
       "moved": 7,
@@ -611,12 +605,18 @@
       "moved": 5,
       "scanned": 1172,
       "ok": true
+    },
+    {
+      "t": "2026-10-24T18:52:49Z",
+      "moved": 2,
+      "scanned": 1185,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-24T12:48:11Z",
+  "last_run": "2026-10-24T18:52:49Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1172,
-  "last_moved": 5
+  "last_scanned": 1185,
+  "last_moved": 2
 }
