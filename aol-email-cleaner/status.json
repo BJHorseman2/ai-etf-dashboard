@@ -1,9 +1,9 @@
 {
-  "total_moved": 1018,
+  "total_moved": 1023,
   "totals_by_rule": {
     "The Prof G Pod": 13,
     "NBA Top Shot": 73,
-    "The Economist Today": 257,
+    "The Economist Today": 259,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -42,7 +42,7 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 4,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 99,
+    "Throwaway shop-domain spam (naming pattern)": 101,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 6,
@@ -65,19 +65,13 @@
     "Fake Paramount+ (oneplaceforshopping.in)": 1,
     "Fake Healthcare.com Medicare (pervasionradiate.com)": 1,
     "Facebook notifications (all except security/login codes)": 41,
-    "Petco": 17,
+    "Petco": 18,
     "Sender name is this mailbox's own name (scare-mail)": 2,
     "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 1,
     "HomeWarranty spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-09-30T05:45:03Z",
-      "moved": 0,
-      "scanned": 982,
-      "ok": true
-    },
     {
       "t": "2026-09-30T15:01:00Z",
       "moved": 5,
@@ -611,12 +605,18 @@
       "moved": 0,
       "scanned": 1160,
       "ok": true
+    },
+    {
+      "t": "2026-10-24T12:48:11Z",
+      "moved": 5,
+      "scanned": 1172,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-24T04:49:48Z",
+  "last_run": "2026-10-24T12:48:11Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1160,
-  "last_moved": 0
+  "last_scanned": 1172,
+  "last_moved": 5
 }
