@@ -314,8 +314,9 @@ def html_to_text(html):
     return re.sub(r"\s+", " ", text)
 
 
-def message_text(msg):
-    """Lower-cased plain text of all text/plain and text/html parts."""
+def message_text(msg, lower=True):
+    """Plain text of all text/plain and text/html parts (lower-cased for
+    matching by default)."""
     chunks = []
     for part in msg.walk():
         ctype = part.get_content_type()
@@ -330,7 +331,11 @@ def message_text(msg):
         except LookupError:
             text = payload.decode("utf-8", errors="replace")
         chunks.append(html_to_text(text) if ctype == "text/html" else text)
-    return re.sub(r"\s+", " ", " ".join(chunks)).lower()
+    if lower:  # rule matching: fully whitespace-normalised, lower-cased
+        return re.sub(r"\s+", " ", " ".join(chunks)).lower()
+    # readable excerpt: keep line breaks, squeeze blank runs
+    text = re.sub(r"[ \t]+", " ", "\n".join(chunks))
+    return re.sub(r"\n\s*\n+", "\n", text).strip()
 
 
 def find_matching_rule(rules, msg_headers, get_msg=lambda: None, get_body=None):
@@ -560,7 +565,8 @@ def search_since(conn, lookback_days):
     return sorted(out, key=int)
 
 
-def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=None):
+def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=None,
+         search=None):
     """Return (matches, highest_uid, examined_count).
 
     matches:   list of (uid, rule, info) for inbox messages matching a rule.
@@ -573,7 +579,11 @@ def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=
                reports.
     on_chunk:  optional callback(chunk_matches, examined_so_far, total)
                invoked after each batch, so callers can act (move mail,
-               checkpoint stats) incrementally on long scans."""
+               checkpoint stats) incrementally on long scans.
+    search:    optional (terms, results_list): messages whose From or Subject
+               contains any term get their text appended to results_list as
+               {from, date, subject, text} (dry-run lookup of specific mail)."""
+    search_terms = [t.lower() for t in (search[0] if search else [])]
     diag_domains, diag_phrases = content_rule_terms(rules) if diag is not None else (set(), [])
     diag_cutoff = time.time() - int(os.environ.get("AOL_CLEANER_DIAG_DAYS", "4")) * 86400
     typ, _ = conn.select("INBOX")
@@ -610,6 +620,17 @@ def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=
                 continue
             rule = find_matching_rule(
                 rules, headers, get_msg=lambda u=uid: fetch_message(conn, u))
+            if search_terms:
+                hay = ("%s %s" % (decode_header_str(headers.get("From", "")),
+                                  decode_header_str(headers.get("Subject", "")))).lower()
+                if any(t in hay for t in search_terms):
+                    full = fetch_message(conn, uid)
+                    search[1].append({
+                        "from": decode_header_str(headers.get("From", "")).strip(),
+                        "date": decode_header_str(headers.get("Date", "")).strip(),
+                        "subject": decode_header_str(headers.get("Subject", "")).strip(),
+                        "text": (message_text(full, lower=False) if full is not None else "")[:6000],
+                    })
             if diag is not None:
                 d_name, d_addr = parse_addr(headers.get("From", ""))
                 d_dt = email.utils.parsedate_to_datetime(headers.get("Date", "")) \
@@ -756,6 +777,9 @@ def run(dry_run):
             ensure_folder(conn, folder)
         diag = [] if (dry_run and os.environ.get("AOL_CLEANER_DIAG") == "1") else None
         inventory = {} if (dry_run and os.environ.get("AOL_CLEANER_INVENTORY") == "1") else None
+        search_env = os.environ.get("AOL_CLEANER_SEARCH", "").strip()
+        search = ([t.strip() for t in search_env.split(",") if t.strip()], []) \
+            if (dry_run and search_env) else None
 
         # Real runs move each batch as soon as it is scanned and checkpoint
         # the stats, so a long (e.g. one-year) run that hits a time limit
@@ -776,7 +800,8 @@ def run(dry_run):
 
         matches, highest_uid, scanned = scan(conn, rules, state, lookback,
                                              diag=diag, inventory=inventory,
-                                             on_chunk=None if dry_run else move_chunk)
+                                             on_chunk=None if dry_run else move_chunk,
+                                             search=search)
         log("scan: %d message(s) examined, %d match(es)" % (scanned, len(matches)))
 
         if dry_run:
@@ -786,6 +811,12 @@ def run(dry_run):
             if diag is not None:
                 report += ("\n\n===== CONTENT-RULE DIAGNOSTICS (%d recent free-mail messages) =====\n"
                            % len(diag)) + "\n\n".join(diag)
+            if search is not None:
+                report += "\n\n===== SEARCH RESULTS for %s (%d messages) =====" % (
+                    ", ".join(search[0]), len(search[1]))
+                for h in search[1]:
+                    report += "\n\n--- From: %s | %s\n    Subject: %s\n%s" % (
+                        h["from"], h["date"], h["subject"], h["text"])
             if inventory is not None:
                 freemail = inventory.pop("_freemail", 0)
                 rows = sorted(inventory.items(), key=lambda kv: -kv[1]["count"])

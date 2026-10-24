@@ -62,16 +62,36 @@ jobs:
           # schedule = real run; push = dry-run unless the commit message
           # says [real-run]; manual dispatch = whichever mode was chosen
           MODE: ${{ github.event_name == 'schedule' && 'run' || (github.event_name == 'push' && ((contains(github.event.head_commit.message, '[real-run]') || contains(github.event.head_commit.message, '[deep-clean]')) && 'run' || 'dry-run')) || inputs.mode }}
+          HEAD_MSG: ${{ github.event_name == 'push' && github.event.head_commit.message || '' }}
         run: |
           echo "mode: $MODE"
+          # [search: term, term] in a push's commit message = dry-run lookup of
+          # inbox mail whose From/Subject contains a term (report is encrypted)
+          SEARCH_TERMS="$(printf '%s' "$HEAD_MSG" | grep -oP '\[search:\s*\K[^\]]+' | head -1 || true)"
+          export AOL_CLEANER_SEARCH="$SEARCH_TERMS"
           python3 aol-email-cleaner/aol_email_cleaner.py "--$MODE"
           # dry-run: emit the report base64-encoded so the operator can
           # retrieve it from the job log without a plaintext public listing
           if [ "$MODE" = "dry-run" ] && [ -f "$AOL_CLEANER_REPORT" ]; then
-            echo "REPORT-B64-BEGIN"
-            base64 -w0 "$AOL_CLEANER_REPORT"
-            echo ""
-            echo "REPORT-B64-END"
+            if [ -n "$SEARCH_TERMS" ] && [ -f aol-email-cleaner/report-public.pem ]; then
+              # search results contain personal mail: encrypt to the operator's
+              # public key (AES-256 for the body, RSA-OAEP for the AES key)
+              KEYFILE="$RUNNER_TEMP/report.key"
+              openssl rand -out "$KEYFILE" 32
+              openssl enc -aes-256-cbc -pbkdf2 -salt -in "$AOL_CLEANER_REPORT" \
+                -out "$RUNNER_TEMP/report.enc" -pass file:"$KEYFILE"
+              openssl pkeyutl -encrypt -pubin -inkey aol-email-cleaner/report-public.pem \
+                -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 \
+                -in "$KEYFILE" -out "$RUNNER_TEMP/report.key.enc"
+              rm -f "$KEYFILE" "$AOL_CLEANER_REPORT"
+              echo "REPORT-KEY-BEGIN"; base64 -w0 "$RUNNER_TEMP/report.key.enc"; echo ""; echo "REPORT-KEY-END"
+              echo "REPORT-ENC-BEGIN"; base64 -w0 "$RUNNER_TEMP/report.enc"; echo ""; echo "REPORT-ENC-END"
+            else
+              echo "REPORT-B64-BEGIN"
+              base64 -w0 "$AOL_CLEANER_REPORT"
+              echo ""
+              echo "REPORT-B64-END"
+            fi
           fi
 
       - name: Upload dry-run report (expires in 1 day)
