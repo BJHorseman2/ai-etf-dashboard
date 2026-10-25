@@ -1,16 +1,16 @@
 {
-  "total_moved": 1034,
+  "total_moved": 1039,
   "totals_by_rule": {
     "The Prof G Pod": 13,
     "NBA Top Shot": 75,
-    "The Economist Today": 263,
+    "The Economist Today": 265,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
     "YCharts": 23,
     "Scott Galloway / Prof G Media": 6,
     "Rye Recreation (CommunityPass)": 81,
-    "StubHub events": 68,
+    "StubHub events": 70,
     "Discord": 33,
     "The Capitol Theatre": 5,
     "Yutori": 32,
@@ -69,15 +69,10 @@
     "Sender name is this mailbox's own name (scare-mail)": 2,
     "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 1,
-    "HomeWarranty spam (by name)": 1
+    "HomeWarranty spam (by name)": 1,
+    "Paramount name from a non-Paramount domain": 1
   },
   "history": [
-    {
-      "t": "2026-10-02T05:55:19Z",
-      "moved": 2,
-      "scanned": 980,
-      "ok": true
-    },
     {
       "t": "2026-10-02T14:49:17Z",
       "moved": 3,
@@ -611,12 +606,18 @@
       "moved": 4,
       "scanned": 1177,
       "ok": true
+    },
+    {
+      "t": "2026-10-25T22:40:42Z",
+      "moved": 5,
+      "scanned": 1186,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-25T19:08:12Z",
+  "last_run": "2026-10-25T22:40:42Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1177,
-  "last_moved": 4
+  "last_scanned": 1186,
+  "last_moved": 5
 }
