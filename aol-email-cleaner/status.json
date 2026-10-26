@@ -1,14 +1,14 @@
 {
-  "total_moved": 1039,
+  "total_moved": 1042,
   "totals_by_rule": {
-    "The Prof G Pod": 13,
+    "The Prof G Pod": 14,
     "NBA Top Shot": 75,
     "The Economist Today": 265,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
-    "YCharts": 23,
-    "Scott Galloway / Prof G Media": 6,
+    "YCharts": 24,
+    "Scott Galloway / Prof G Media": 7,
     "Rye Recreation (CommunityPass)": 81,
     "StubHub events": 70,
     "Discord": 33,
@@ -73,12 +73,6 @@
     "Paramount name from a non-Paramount domain": 1
   },
   "history": [
-    {
-      "t": "2026-10-02T20:49:50Z",
-      "moved": 6,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-10-03T05:30:12Z",
       "moved": 0,
@@ -612,12 +606,18 @@
       "moved": 0,
       "scanned": 1156,
       "ok": true
+    },
+    {
+      "t": "2026-10-26T15:19:06Z",
+      "moved": 3,
+      "scanned": 1138,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-26T05:03:09Z",
+  "last_run": "2026-10-26T15:19:06Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1156,
-  "last_moved": 0
+  "last_scanned": 1138,
+  "last_moved": 3
 }
