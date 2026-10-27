@@ -1,9 +1,9 @@
 {
-  "total_moved": 1049,
+  "total_moved": 1052,
   "totals_by_rule": {
     "The Prof G Pod": 14,
     "NBA Top Shot": 78,
-    "The Economist Today": 265,
+    "The Economist Today": 267,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -42,7 +42,7 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 4,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 104,
+    "Throwaway shop-domain spam (naming pattern)": 105,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 6,
@@ -73,12 +73,6 @@
     "Paramount name from a non-Paramount domain": 2
   },
   "history": [
-    {
-      "t": "2026-10-03T13:32:56Z",
-      "moved": 5,
-      "scanned": 967,
-      "ok": true
-    },
     {
       "t": "2026-10-03T19:18:38Z",
       "moved": 5,
@@ -612,12 +606,18 @@
       "moved": 7,
       "scanned": 1170,
       "ok": true
+    },
+    {
+      "t": "2026-10-27T05:18:57Z",
+      "moved": 3,
+      "scanned": 1165,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-26T21:05:57Z",
+  "last_run": "2026-10-27T05:18:57Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1170,
-  "last_moved": 7
+  "last_scanned": 1165,
+  "last_moved": 3
 }
