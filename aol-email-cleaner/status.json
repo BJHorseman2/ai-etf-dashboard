@@ -1,8 +1,8 @@
 {
-  "total_moved": 1066,
+  "total_moved": 1067,
   "totals_by_rule": {
     "The Prof G Pod": 15,
-    "NBA Top Shot": 78,
+    "NBA Top Shot": 79,
     "The Economist Today": 271,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
@@ -73,12 +73,6 @@
     "Paramount name from a non-Paramount domain": 2
   },
   "history": [
-    {
-      "t": "2026-10-05T05:57:38Z",
-      "moved": 0,
-      "scanned": 916,
-      "ok": true
-    },
     {
       "t": "2026-10-05T17:15:05Z",
       "moved": 0,
@@ -612,12 +606,18 @@
       "moved": 3,
       "scanned": 1233,
       "ok": true
+    },
+    {
+      "t": "2026-10-29T15:19:31Z",
+      "moved": 1,
+      "scanned": 1260,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-29T06:04:47Z",
+  "last_run": "2026-10-29T15:19:31Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1233,
-  "last_moved": 3
+  "last_scanned": 1260,
+  "last_moved": 1
 }
