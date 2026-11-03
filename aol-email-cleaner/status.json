@@ -1,5 +1,5 @@
 {
-  "total_moved": 1114,
+  "total_moved": 1117,
   "totals_by_rule": {
     "The Prof G Pod": 16,
     "NBA Top Shot": 87,
@@ -11,7 +11,7 @@
     "Scott Galloway / Prof G Media": 9,
     "Rye Recreation (CommunityPass)": 89,
     "StubHub events": 73,
-    "Discord": 33,
+    "Discord": 34,
     "The Capitol Theatre": 5,
     "Yutori": 32,
     "Acme Markets": 41,
@@ -69,16 +69,10 @@
     "Sender name is this mailbox's own name (scare-mail)": 3,
     "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 1,
-    "HomeWarranty spam (by name)": 1,
+    "HomeWarranty spam (by name)": 3,
     "Paramount name from a non-Paramount domain": 3
   },
   "history": [
-    {
-      "t": "2026-10-10T14:32:39Z",
-      "moved": 2,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-10-10T20:11:10Z",
       "moved": 2,
@@ -612,12 +606,18 @@
       "moved": 1,
       "scanned": 1356,
       "ok": true
+    },
+    {
+      "t": "2026-11-03T19:39:52Z",
+      "moved": 3,
+      "scanned": 1395,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-03T12:07:47Z",
+  "last_run": "2026-11-03T19:39:52Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1356,
-  "last_moved": 1
+  "last_scanned": 1395,
+  "last_moved": 3
 }
