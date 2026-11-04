@@ -1,9 +1,9 @@
 {
-  "total_moved": 1117,
+  "total_moved": 1121,
   "totals_by_rule": {
     "The Prof G Pod": 16,
     "NBA Top Shot": 87,
-    "The Economist Today": 287,
+    "The Economist Today": 289,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -15,7 +15,7 @@
     "The Capitol Theatre": 5,
     "Yutori": 32,
     "Acme Markets": 41,
-    "Bloomingdale's Loyallist": 3,
+    "Bloomingdale's Loyallist": 4,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 37,
     "NFL": 4,
@@ -68,17 +68,11 @@
     "Petco": 19,
     "Sender name is this mailbox's own name (scare-mail)": 3,
     "Petco (by name)": 4,
-    "Amazon name from a non-Amazon domain": 1,
+    "Amazon name from a non-Amazon domain": 2,
     "HomeWarranty spam (by name)": 3,
     "Paramount name from a non-Paramount domain": 3
   },
   "history": [
-    {
-      "t": "2026-10-10T20:11:10Z",
-      "moved": 2,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-10-10T23:40:53Z",
       "moved": 0,
@@ -612,12 +606,18 @@
       "moved": 3,
       "scanned": 1395,
       "ok": true
+    },
+    {
+      "t": "2026-11-04T00:42:56Z",
+      "moved": 4,
+      "scanned": 1400,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-03T19:39:52Z",
+  "last_run": "2026-11-04T00:42:56Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1395,
-  "last_moved": 3
+  "last_scanned": 1400,
+  "last_moved": 4
 }
