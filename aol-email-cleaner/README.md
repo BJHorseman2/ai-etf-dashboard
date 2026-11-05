@@ -1,6 +1,6 @@
 # AOL Email Cleaner
 
-Deterministic, rule-based cleaner for an AOL inbox. Every 4 hours it scans the
+Deterministic, rule-based cleaner for an AOL inbox. Every 30 minutes it scans the
 Inbox over IMAP/SSL (`imap.aol.com:993`) and moves messages that match known
 unwanted-sender rules into the AOL **Spam** folder. No LLM is involved in
 deciding what is junk — matching is exact addresses and explicit display-name
@@ -9,7 +9,7 @@ substrings only.
 ## Option A: run in the cloud via GitHub Actions (no Mac needed)
 
 The workflow `.github/workflows/aol-email-cleanup.yml` runs the cleaner on
-GitHub's servers every 4 hours. One-time setup, all doable from a phone:
+GitHub's servers every 30 minutes. One-time setup, all doable from a phone:
 
 1. Generate an AOL **app password** (see iPhone steps below).
 2. In this repo: **Settings → Secrets and variables → Actions → New
