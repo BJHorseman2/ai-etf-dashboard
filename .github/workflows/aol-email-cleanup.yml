@@ -2,8 +2,8 @@ name: AOL email cleanup
 
 on:
   schedule:
-    # every 4 hours (minute offset avoids GitHub's top-of-hour congestion)
-    - cron: "23 */4 * * *"
+    # every 30 minutes (minute offsets avoid GitHub's top-of-hour congestion)
+    - cron: "23,53 * * * *"
   push:
     branches: ["claude/aol-email-cleanup-w6ro50"]
   workflow_dispatch:
@@ -137,7 +137,7 @@ jobs:
           status["history"].append({
               "t": stats.get("time"), "moved": stats.get("moved", 0),
               "scanned": stats.get("scanned", 0), "ok": stats.get("ok", False)})
-          status["history"] = status["history"][-90:]
+          status["history"] = status["history"][-400:]
           json.dump(status, open(status_path, "w"), indent=2)
           EOF
           git config user.name "github-actions[bot]"
