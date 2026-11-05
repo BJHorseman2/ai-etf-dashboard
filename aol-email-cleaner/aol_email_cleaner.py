@@ -912,6 +912,21 @@ TEST_CASES = [
     ("YourInsuranceTeam-Aflac <random123@other-domain.example>", "", "yourinsuranceteam-name"),
     ("Discord <noreply@discord.com>", "", "discord"),
     ("Yutori <notifications_at_yutori_com_x@privaterelay.appleid.com>", "", "yutori"),
+    # Nov 5 batch: throwaway domains with rotating local parts, plus the names
+    ("VehicleProtectionUSA Affiliate. <sharonmcmahon@alittleluxury.in>", "", "alittleluxury-domain"),
+    ("VehicleProtectionUSA Affiliate. <other@unrelated-esp.example>", "", "vehicleprotection-name"),
+    ("U.S.C.C.A ConcealedCarry. <content@therenovationguide.info>", "", "therenovationguide-domain"),
+    ("U.S.C.C.A ConcealedCarry. <x@unrelated-esp.example>", "", "concealedcarry-name"),
+    ("U.S.C.C.A Map Offer <y@unrelated-esp.example>", "", "uscca-dotted-name"),
+    ("Welcome - to your FI00RING Deal! <service@worldcartdirect.org>", "", "worldcartdirect-domain"),
+    # 0-for-O and I-for-l lookalikes fold to the plain words
+    ("Welcome - to your FI00RING Deal! <z@unrelated-esp.example>", "", "flooring-deal-name"),
+    (".YóurCàr -- Insuráncè. <Clinique@offersource.in>", "", "offersource-domain"),
+    # accents stripped before comparing
+    (".YóurCàr -- Insuráncè. <w@unrelated-esp.example>", "", "yourcar-insurance-name"),
+    # a real flooring store or insurer must not be caught by the name rules
+    ("Floor & Decor <news@e.flooranddecor.com>", "", None),
+    ("GEICO <geico@email.geico.com>", "", None),
     ("Lend ing F0R BAD Cred it <pldaxswkqetmvra@wish-montenegro.com>", "", "loan-spam-address"),
     ("Lend ing F0R BAD Cred it <zznewrandom@other-spam-domain.example>", "", "loan-spam-name"),
     ("ProductReportCard.com <support@productreportcard.com>", "", "productreportcard-address"),

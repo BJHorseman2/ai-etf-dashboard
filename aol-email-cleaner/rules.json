@@ -711,6 +711,51 @@
       "id": "facebook-all-but-security",
       "label": "Facebook notifications (all except security/login codes)",
       "from_regex": "^(?!security@)[^@]+@facebookmail\\.com$"
+    },
+    {
+      "id": "alittleluxury-domain",
+      "label": "alittleluxury.in spam (VehicleProtectionUSA Affiliate)",
+      "from_domain_in": ["alittleluxury.in"]
+    },
+    {
+      "id": "vehicleprotection-name",
+      "label": "VehicleProtection / auto warranty spam (by name)",
+      "display_name_contains": "VehicleProtection"
+    },
+    {
+      "id": "therenovationguide-domain",
+      "label": "therenovationguide.info spam (U.S.C.C.A ConcealedCarry)",
+      "from_domain_in": ["therenovationguide.info"]
+    },
+    {
+      "id": "concealedcarry-name",
+      "label": "ConcealedCarry / USCCA pitch spam (by name)",
+      "display_name_contains": "ConcealedCarry"
+    },
+    {
+      "id": "uscca-dotted-name",
+      "label": "U.S.C.C.A pitch spam (by name)",
+      "display_name_contains": "U.S.C.C.A"
+    },
+    {
+      "id": "worldcartdirect-domain",
+      "label": "worldcartdirect.org spam (FI00RING Deal)",
+      "from_domain_in": ["worldcartdirect.org"]
+    },
+    {
+      "id": "flooring-deal-name",
+      "label": "\"Flooring Deal\" spam (by name, lookalike-proof)",
+      "display_name_contains": "Flooring Deal"
+    },
+    {
+      "id": "offersource-domain",
+      "label": "offersource.in spam (.YóurCàr -- Insuráncè.)",
+      "from_domain_in": ["offersource.in"]
+    },
+    {
+      "id": "yourcar-insurance-name",
+      "label": "YourCar Insurance spam (by name, accent-proof)",
+      "display_name_contains": "YourCar"
     }
   ]
 }
