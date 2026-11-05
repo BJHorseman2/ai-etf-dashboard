@@ -1,5 +1,5 @@
 {
-  "total_moved": 1133,
+  "total_moved": 1136,
   "totals_by_rule": {
     "The Prof G Pod": 16,
     "NBA Top Shot": 89,
@@ -35,14 +35,14 @@
     "Fake invoice scam (Mikayla Parisian)": 1,
     "Fake invoice scam (PDF named after this mailbox, empty body)": 9,
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 2,
-    "LibertyRoofing spam (by name)": 5,
+    "LibertyRoofing spam (by name)": 6,
     "Vehicle Protections spam (by name)": 1,
     "AutoInsurance spam (by name)": 8,
     "LendWyse loan spam (by name)": 2,
     "Fake State Farm (brand name from a non-State Farm domain)": 5,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 112,
+    "Throwaway shop-domain spam (naming pattern)": 113,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 6,
@@ -69,16 +69,10 @@
     "Sender name is this mailbox's own name (scare-mail)": 3,
     "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 2,
-    "HomeWarranty spam (by name)": 3,
+    "HomeWarranty spam (by name)": 4,
     "Paramount name from a non-Paramount domain": 3
   },
   "history": [
-    {
-      "t": "2026-10-11T20:24:47Z",
-      "moved": 6,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-10-12T06:13:05Z",
       "moved": 0,
@@ -612,12 +606,18 @@
       "moved": 3,
       "scanned": 1442,
       "ok": true
+    },
+    {
+      "t": "2026-11-05T12:34:45Z",
+      "moved": 3,
+      "scanned": 1458,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-05T00:56:55Z",
+  "last_run": "2026-11-05T12:34:45Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1442,
+  "last_scanned": 1458,
   "last_moved": 3
 }
