@@ -1,5 +1,5 @@
 {
-  "total_moved": 358,
+  "total_moved": 374,
   "totals_by_rule": {
     "The Prof G Pod": 2,
     "NBA Top Shot": 25,
@@ -47,7 +47,12 @@
     "Amazon name from a non-Amazon domain": 1,
     "Manifold": 2,
     "HomeWarranty spam (by name)": 1,
-    "Petco (by name)": 2
+    "Petco (by name)": 2,
+    "worldcartdirect.org spam (FI00RING Deal)": 9,
+    "\"Flooring Deal\" spam (by name, lookalike-proof)": 2,
+    "offersource.in spam (.Y\u00f3urC\u00e0r -- Insur\u00e1nc\u00e8.)": 2,
+    "therenovationguide.info spam (U.S.C.C.A ConcealedCarry)": 2,
+    "alittleluxury.in spam (VehicleProtectionUSA Affiliate)": 1
   },
   "history": [
     {
@@ -193,12 +198,18 @@
       "moved": 182,
       "scanned": 9130,
       "ok": true
+    },
+    {
+      "t": "2026-11-05T13:34:46Z",
+      "moved": 16,
+      "scanned": 1454,
+      "ok": true
     }
   ],
-  "last_run": "2026-10-12T23:55:15Z",
+  "last_run": "2026-11-05T13:34:46Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 9130,
-  "last_moved": 182
+  "last_scanned": 1454,
+  "last_moved": 16
 }
