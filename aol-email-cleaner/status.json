@@ -1,9 +1,9 @@
 {
-  "total_moved": 1130,
+  "total_moved": 1133,
   "totals_by_rule": {
     "The Prof G Pod": 16,
     "NBA Top Shot": 89,
-    "The Economist Today": 291,
+    "The Economist Today": 293,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -17,7 +17,7 @@
     "Acme Markets": 42,
     "Bloomingdale's Loyallist": 4,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
-    "Reddit": 37,
+    "Reddit": 38,
     "NFL": 4,
     "American Collectors Insurance": 3,
     "Elevate NY (dispensary)": 7,
@@ -73,12 +73,6 @@
     "Paramount name from a non-Paramount domain": 3
   },
   "history": [
-    {
-      "t": "2026-10-11T14:58:40Z",
-      "moved": 0,
-      "scanned": 1000,
-      "ok": true
-    },
     {
       "t": "2026-10-11T20:24:47Z",
       "moved": 6,
@@ -612,12 +606,18 @@
       "moved": 6,
       "scanned": 1461,
       "ok": true
+    },
+    {
+      "t": "2026-11-05T00:56:55Z",
+      "moved": 3,
+      "scanned": 1442,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-04T19:56:44Z",
+  "last_run": "2026-11-05T00:56:55Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1461,
-  "last_moved": 6
+  "last_scanned": 1442,
+  "last_moved": 3
 }
