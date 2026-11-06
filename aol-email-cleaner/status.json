@@ -1,5 +1,5 @@
 {
-  "total_moved": 1165,
+  "total_moved": 1170,
   "totals_by_rule": {
     "The Prof G Pod": 16,
     "NBA Top Shot": 91,
@@ -9,12 +9,12 @@
     "Fast5GInternet": 6,
     "YCharts": 25,
     "Scott Galloway / Prof G Media": 9,
-    "Rye Recreation (CommunityPass)": 89,
+    "Rye Recreation (CommunityPass)": 90,
     "StubHub events": 73,
     "Discord": 36,
     "The Capitol Theatre": 5,
     "Yutori": 32,
-    "Acme Markets": 42,
+    "Acme Markets": 43,
     "Bloomingdale's Loyallist": 4,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 38,
@@ -37,7 +37,7 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 2,
     "LibertyRoofing spam (by name)": 6,
     "Vehicle Protections spam (by name)": 1,
-    "AutoInsurance spam (by name)": 9,
+    "AutoInsurance spam (by name)": 10,
     "LendWyse loan spam (by name)": 2,
     "Fake State Farm (brand name from a non-State Farm domain)": 5,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
@@ -73,9 +73,9 @@
     "Paramount name from a non-Paramount domain": 3,
     "worldcartdirect.org spam (FI00RING Deal)": 9,
     "\"Flooring Deal\" spam (by name, lookalike-proof)": 2,
-    "offersource.in spam (.Y\u00f3urC\u00e0r -- Insur\u00e1nc\u00e8.)": 2,
+    "offersource.in spam (.Y\u00f3urC\u00e0r -- Insur\u00e1nc\u00e8.)": 3,
     "therenovationguide.info spam (U.S.C.C.A ConcealedCarry)": 3,
-    "alittleluxury.in spam (VehicleProtectionUSA Affiliate)": 1,
+    "alittleluxury.in spam (VehicleProtectionUSA Affiliate)": 2,
     "GEICO name from a non-GEICO domain": 1
   },
   "history": [
@@ -630,12 +630,18 @@
       "moved": 1,
       "scanned": 1483,
       "ok": true
+    },
+    {
+      "t": "2026-11-06T15:59:53Z",
+      "moved": 5,
+      "scanned": 1509,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-06T07:59:33Z",
+  "last_run": "2026-11-06T15:59:53Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1483,
-  "last_moved": 1
+  "last_scanned": 1509,
+  "last_moved": 5
 }
