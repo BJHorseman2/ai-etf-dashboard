@@ -927,6 +927,16 @@ TEST_CASES = [
     # a real flooring store or insurer must not be caught by the name rules
     ("Floor & Decor <news@e.flooranddecor.com>", "", None),
     ("GEICO <geico@email.geico.com>", "", None),
+    # Nov 6 batch
+    ("Pure Living Daily <avendoriquex@jackman-tipple.co.uk>", "", "jackman-tipple-domain"),
+    ("Pure Living Daily <q@unrelated-esp.example>", "", "pure-living-daily-name"),
+    ("Stat_Department <qagwqsmrijy@bartiancreative.com>", "", "bartiancreative-domain"),
+    ("Stat_Department <r@unrelated-esp.example>", "", "stat-department-name"),
+    ("1Step <northvista@hippodromesolute.de>", "", "hippodromesolute-domain"),
+    ("Find Car Insurance Quotes.. <belk@homestyleworks.in>", "", "homestyleworks-domain"),
+    ("Find Car Insurance Quotes.. <s@unrelated-esp.example>", "", "find-car-insurance-quotes-name"),
+    # a statistics department at a real school must not be caught
+    ("Statistics Department <stats@columbia.edu>", "", None),
     ("Lend ing F0R BAD Cred it <pldaxswkqetmvra@wish-montenegro.com>", "", "loan-spam-address"),
     ("Lend ing F0R BAD Cred it <zznewrandom@other-spam-domain.example>", "", "loan-spam-name"),
     ("ProductReportCard.com <support@productreportcard.com>", "", "productreportcard-address"),
