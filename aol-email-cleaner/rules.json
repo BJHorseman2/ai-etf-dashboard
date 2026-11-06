@@ -756,6 +756,41 @@
       "id": "yourcar-insurance-name",
       "label": "YourCar Insurance spam (by name, accent-proof)",
       "display_name_contains": "YourCar"
+    },
+    {
+      "id": "jackman-tipple-domain",
+      "label": "jackman-tipple.co.uk spam (Pure Living Daily)",
+      "from_domain_in": ["jackman-tipple.co.uk"]
+    },
+    {
+      "id": "pure-living-daily-name",
+      "label": "Pure Living Daily spam (by name)",
+      "display_name_contains": "Pure Living Daily"
+    },
+    {
+      "id": "bartiancreative-domain",
+      "label": "bartiancreative.com scare mail (Stat_Department)",
+      "from_domain_in": ["bartiancreative.com"]
+    },
+    {
+      "id": "stat-department-name",
+      "label": "Stat_Department scare mail (by name)",
+      "display_name_contains": "Stat_Department"
+    },
+    {
+      "id": "hippodromesolute-domain",
+      "label": "hippodromesolute.de spam (1Step earn-money pitch)",
+      "from_domain_in": ["hippodromesolute.de"]
+    },
+    {
+      "id": "homestyleworks-domain",
+      "label": "homestyleworks.in spam (Find Car Insurance Quotes)",
+      "from_domain_in": ["homestyleworks.in"]
+    },
+    {
+      "id": "find-car-insurance-quotes-name",
+      "label": "Find Car Insurance Quotes spam (by name)",
+      "display_name_contains": "Find Car Insurance Quotes"
     }
   ]
 }

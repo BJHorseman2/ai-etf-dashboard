@@ -16,15 +16,22 @@ on:
 
 permissions:
   contents: write
+  # a continuous run dispatches its own successor when its time is up
+  actions: write
 
 concurrency:
-  group: aol-email-cleanup
+  # continuous runs on main share one lane (so a new one waits for the current
+  # one to finish); pushes to the work branch use their own lane so on-demand
+  # sweeps, dry runs and searches never queue behind a 6-hour run
+  group: aol-email-cleanup-${{ github.event_name == 'push' && 'branch' || 'main' }}
   cancel-in-progress: false
 
 jobs:
   clean:
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ (github.event_name == 'push' && contains(github.event.head_commit.message, '[deep-clean]')) && 350 || 25 }}
+    # continuous runs (schedule / manual "run") stay up ~5h45m scanning every
+    # 30 min, because GitHub starts cron jobs only sporadically on busy days
+    timeout-minutes: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[deep-clean]'))) && 355 || 25 }}
     # skip pushes made by the status-update step below
     if: ${{ !contains(github.event.head_commit.message, '[skip-clean]') }}
     steps:
@@ -63,8 +70,26 @@ jobs:
           # says [real-run]; manual dispatch = whichever mode was chosen
           MODE: ${{ github.event_name == 'schedule' && 'run' || (github.event_name == 'push' && ((contains(github.event.head_commit.message, '[real-run]') || contains(github.event.head_commit.message, '[deep-clean]')) && 'run' || 'dry-run')) || inputs.mode }}
           HEAD_MSG: ${{ github.event_name == 'push' && github.event.head_commit.message || '' }}
+          # schedule or manual "run" = continuous: scan every 30 min for ~5h45m
+          CONTINUOUS: ${{ (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'run')) && '1' || '0' }}
+          SCAN_INTERVAL_SECONDS: "1800"
+          SCANS_PER_RUN: "11"
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "mode: $MODE"
+          if [ "$CONTINUOUS" = "1" ]; then
+            for n in $(seq 1 "$SCANS_PER_RUN"); do
+              echo "scan $n of $SCANS_PER_RUN at $(date -u +%H:%M:%SZ)"
+              rm -f "$AOL_CLEANER_STATS"
+              python3 aol-email-cleaner/aol_email_cleaner.py --run || echo "::warning::scan $n failed (see stats)"
+              bash aol-email-cleaner/publish_status.sh "$AOL_CLEANER_STATS"
+              [ "$n" -lt "$SCANS_PER_RUN" ] && sleep "$SCAN_INTERVAL_SECONDS"
+            done
+            # hand off to the next continuous run (the cron is only a fallback starter)
+            gh workflow run aol-email-cleanup.yml --ref main -f mode=run \
+              || echo "::warning::could not dispatch the next run; the cron will start one"
+            exit 0
+          fi
           # [search: term, term] in a push's commit message = dry-run lookup of
           # inbox mail whose From/Subject contains a term (report is encrypted)
           SEARCH_TERMS="$(printf '%s' "$HEAD_MSG" | grep -oP '\[search:\s*\K[^\]]+' | head -1 || true)"
@@ -104,52 +129,7 @@ jobs:
           retention-days: 1
 
       - name: Update dashboard status
-        # only real runs update the dashboard (scheduled, or [real-run] push)
-        if: ${{ always() && (github.event_name == 'schedule' || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[real-run]') || contains(github.event.head_commit.message, '[deep-clean]')))) }}
-        env:
-          STATS_FILE: ${{ runner.temp }}/run-stats.json
-        run: |
-          python3 - << 'EOF'
-          import json, os, sys
-          stats_path = os.environ["STATS_FILE"]
-          status_path = "aol-email-cleaner/status.json"
-          try:
-              stats = json.load(open(stats_path))
-          except Exception:
-              stats = {"time": None, "mode": "run", "ok": False,
-                       "error": "run produced no stats (crashed early)"}
-          try:
-              status = json.load(open(status_path))
-          except Exception:
-              status = {}
-          status.setdefault("total_moved", 0)
-          status.setdefault("totals_by_rule", {})
-          status.setdefault("history", [])
-          status["last_run"] = stats.get("time")
-          status["last_mode"] = stats.get("mode")
-          status["last_ok"] = stats.get("ok", False)
-          status["last_error"] = stats.get("error")
-          status["last_scanned"] = stats.get("scanned", 0)
-          status["last_moved"] = stats.get("moved", 0)
-          status["total_moved"] += stats.get("moved", 0)
-          for rule, n in (stats.get("by_rule") or {}).items():
-              status["totals_by_rule"][rule] = status["totals_by_rule"].get(rule, 0) + n
-          status["history"].append({
-              "t": stats.get("time"), "moved": stats.get("moved", 0),
-              "scanned": stats.get("scanned", 0), "ok": stats.get("ok", False)})
-          status["history"] = status["history"][-400:]
-          json.dump(status, open(status_path, "w"), indent=2)
-          EOF
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add aol-email-cleaner/status.json
-          # status is bookkeeping: retry around concurrent pushes, and never
-          # fail the run over it — the mail cleaning already succeeded
-          git diff --cached --quiet || {
-            git commit -m "Update cleaner status [skip-clean]"
-            for i in 1 2 3; do
-              git push && break
-              git pull --rebase -X theirs || git rebase --abort
-              sleep 3
-            done || echo "::warning::status push failed after retries (bookkeeping only)"
-          }
+        # single-shot real runs ([real-run] / [deep-clean] pushes) publish here;
+        # continuous runs publish after every scan inside the step above
+        if: ${{ always() && github.event_name == 'push' && (contains(github.event.head_commit.message, '[real-run]') || contains(github.event.head_commit.message, '[deep-clean]')) }}
+        run: bash aol-email-cleaner/publish_status.sh "${{ runner.temp }}/run-stats.json"
