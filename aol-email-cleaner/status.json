@@ -1,5 +1,5 @@
 {
-  "total_moved": 1182,
+  "total_moved": 1183,
   "totals_by_rule": {
     "The Prof G Pod": 16,
     "NBA Top Shot": 92,
@@ -75,7 +75,7 @@
     "\"Flooring Deal\" spam (by name, lookalike-proof)": 2,
     "offersource.in spam (.Y\u00f3urC\u00e0r -- Insur\u00e1nc\u00e8.)": 3,
     "therenovationguide.info spam (U.S.C.C.A ConcealedCarry)": 4,
-    "alittleluxury.in spam (VehicleProtectionUSA Affiliate)": 2,
+    "alittleluxury.in spam (VehicleProtectionUSA Affiliate)": 3,
     "GEICO name from a non-GEICO domain": 1,
     "homestyleworks.in spam (Find Car Insurance Quotes)": 2,
     "bartiancreative.com scare mail (Stat_Department)": 2,
@@ -712,12 +712,18 @@
       "moved": 0,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-07T03:38:25Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-07T03:08:20Z",
+  "last_run": "2026-11-07T03:38:25Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 2,
-  "last_moved": 0
+  "last_scanned": 1,
+  "last_moved": 1
 }
