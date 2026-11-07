@@ -802,12 +802,18 @@
       "moved": 1,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-07T10:10:33Z",
+      "moved": 0,
+      "scanned": 0,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-07T09:40:27Z",
+  "last_run": "2026-11-07T10:10:33Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 2,
-  "last_moved": 1
+  "last_scanned": 0,
+  "last_moved": 0
 }
