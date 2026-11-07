@@ -1,8 +1,8 @@
 {
-  "total_moved": 1193,
+  "total_moved": 1194,
   "totals_by_rule": {
     "The Prof G Pod": 16,
-    "NBA Top Shot": 92,
+    "NBA Top Shot": 93,
     "The Economist Today": 303,
     "AI Automation Agency Hub (Skool)": 36,
     "Costa Dentistry": 4,
@@ -934,12 +934,18 @@
       "moved": 0,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-07T20:13:07Z",
+      "moved": 1,
+      "scanned": 2,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-07T19:43:03Z",
+  "last_run": "2026-11-07T20:13:07Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
-  "last_moved": 0
+  "last_scanned": 2,
+  "last_moved": 1
 }
