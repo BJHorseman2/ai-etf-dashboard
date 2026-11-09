@@ -1,5 +1,5 @@
 {
-  "total_moved": 1216,
+  "total_moved": 1217,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 96,
@@ -8,7 +8,7 @@
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
     "YCharts": 26,
-    "Scott Galloway / Prof G Media": 9,
+    "Scott Galloway / Prof G Media": 10,
     "Rye Recreation (CommunityPass)": 90,
     "StubHub events": 75,
     "Discord": 37,
@@ -1558,12 +1558,18 @@
       "moved": 0,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-09T19:56:18Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-09T19:26:14Z",
+  "last_run": "2026-11-09T19:56:18Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 1,
-  "last_moved": 0
+  "last_moved": 1
 }
