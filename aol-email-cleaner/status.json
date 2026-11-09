@@ -1492,12 +1492,18 @@
       "moved": 1,
       "scanned": 3,
       "ok": true
+    },
+    {
+      "t": "2026-11-09T14:54:59Z",
+      "moved": 0,
+      "scanned": 2,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-09T14:24:53Z",
+  "last_run": "2026-11-09T14:54:59Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 3,
-  "last_moved": 1
+  "last_scanned": 2,
+  "last_moved": 0
 }
