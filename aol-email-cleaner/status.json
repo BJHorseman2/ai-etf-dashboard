@@ -1874,13 +1874,13 @@
       "ok": true
     },
     {
-      "t": "2026-11-10T19:24:30Z",
-      "moved": 12,
-      "scanned": 1524,
+      "t": "2026-11-10T19:32:42Z",
+      "moved": 0,
+      "scanned": 2,
       "ok": true
     }
   ],
-  "last_run": "2026-11-10T19:02:38Z",
+  "last_run": "2026-11-10T19:32:42Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
