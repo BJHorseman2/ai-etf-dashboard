@@ -791,6 +791,66 @@
       "id": "find-car-insurance-quotes-name",
       "label": "Find Car Insurance Quotes spam (by name)",
       "display_name_contains": "Find Car Insurance Quotes"
+    },
+    {
+      "id": "yourdailystore-domain",
+      "label": "yourdailystore.info spam (GlobeLife0ffer)",
+      "from_domain_in": ["yourdailystore.info"]
+    },
+    {
+      "id": "globelifeoffer-name",
+      "label": "GlobeLifeOffer spam (by name, 0-for-O folded)",
+      "display_name_contains": "GlobeLifeOffer"
+    },
+    {
+      "id": "zyeagency-domain",
+      "label": "zyeagency.com spam (GLP-1Delivered / MEDVi)",
+      "from_domain_in": ["zyeagency.com"]
+    },
+    {
+      "id": "glp1delivered-name",
+      "label": "GLP-1Delivered spam (by name)",
+      "display_name_contains": "GLP-1Delivered"
+    },
+    {
+      "id": "everydaystylestore-domain",
+      "label": "everydaystylestore.com spam (Save Money with FBZ)",
+      "from_domain_in": ["everydaystylestore.com"]
+    },
+    {
+      "id": "fbz-money-name",
+      "label": "\"Save Money with FBZ\" spam (by name, accent-proof)",
+      "display_name_contains": "Money with FBZ"
+    },
+    {
+      "id": "venanswer-domain",
+      "label": "venanswer.org spam (BF.Omaha fake Omaha Steaks prize)",
+      "from_domain_in": ["venanswer.org"]
+    },
+    {
+      "id": "bf-omaha-name",
+      "label": "BF.Omaha fake prize spam (by name)",
+      "display_name_contains": "BF.Omaha"
+    },
+    {
+      "id": "jcjbelief-domain",
+      "label": "jcjbelief.com spam (Food Benefits Team)",
+      "from_domain_in": ["jcjbelief.com"]
+    },
+    {
+      "id": "food-benefits-team-name",
+      "label": "Food Benefits Team spam (by name)",
+      "display_name_contains": "Food Benefits Team"
+    },
+    {
+      "id": "financetechreport-domain",
+      "label": "financetechreport.com spam (OxiGuard)",
+      "from_domain_in": ["financetechreport.com"]
+    },
+    {
+      "id": "oxiguard-name",
+      "label": "OxiGuard spam (by name)",
+      "display_name_contains": "OxiGuard"
     }
   ]
 }
