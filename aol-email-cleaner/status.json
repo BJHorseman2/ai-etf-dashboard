@@ -1,5 +1,5 @@
 {
-  "total_moved": 1224,
+  "total_moved": 1236,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 97,
@@ -80,7 +80,9 @@
     "homestyleworks.in spam (Find Car Insurance Quotes)": 3,
     "bartiancreative.com scare mail (Stat_Department)": 2,
     "Pure Living Daily spam (by name)": 1,
-    "hippodromesolute.de spam (1Step earn-money pitch)": 1
+    "hippodromesolute.de spam (1Step earn-money pitch)": 1,
+    "GlobeLifeOffer spam (by name, 0-for-O folded)": 5,
+    "everydaystylestore.com spam (Save Money with FBZ)": 7
   },
   "history": [
     {
@@ -1869,6 +1871,12 @@
       "t": "2026-11-10T19:02:38Z",
       "moved": 0,
       "scanned": 2,
+      "ok": true
+    },
+    {
+      "t": "2026-11-10T19:24:30Z",
+      "moved": 12,
+      "scanned": 1524,
       "ok": true
     }
   ],
