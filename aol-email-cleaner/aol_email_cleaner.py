@@ -937,6 +937,22 @@ TEST_CASES = [
     ("Find Car Insurance Quotes.. <s@unrelated-esp.example>", "", "find-car-insurance-quotes-name"),
     # a statistics department at a real school must not be caught
     ("Statistics Department <stats@columbia.edu>", "", None),
+    # Nov 10 batch
+    ("GlobeLife0ffer. <direct@yourdailystore.info>", "", "yourdailystore-domain"),
+    ("GlobeLife0ffer. <t@unrelated-esp.example>", "", "globelifeoffer-name"),
+    ("GLP-1Delivered <AxyvoraCore@zyeagency.com>", "", "zyeagency-domain"),
+    ("GLP-1Delivered <u@unrelated-esp.example>", "", "glp1delivered-name"),
+    ("See If You Could Save Móney with FBZ <news@everydaystylestore.com>", "", "everydaystylestore-domain"),
+    ("See If You Could Save Móney with FBZ <v@unrelated-esp.example>", "", "fbz-money-name"),
+    ("BF.Omaha <qbdlsrv@venanswer.org>", "", "venanswer-domain"),
+    ("BF.Omaha <w@unrelated-esp.example>", "", "bf-omaha-name"),
+    ("Food Benefits Team <narev@jcjbelief.com>", "", "jcjbelief-domain"),
+    ("Food Benefits Team <x@unrelated-esp.example>", "", "food-benefits-team-name"),
+    ("OxiGuard <guadalupecrider@financetechreport.com>", "", "financetechreport-domain"),
+    ("OxiGuard <y@unrelated-esp.example>", "", "oxiguard-name"),
+    # the real Globe Life and Omaha Steaks must not be caught by the name rules
+    ("Globe Life <customerservice@globelifeinsurance.com>", "", None),
+    ("Omaha Steaks <omahasteaks@email.omahasteaks.com>", "", None),
     ("Lend ing F0R BAD Cred it <pldaxswkqetmvra@wish-montenegro.com>", "", "loan-spam-address"),
     ("Lend ing F0R BAD Cred it <zznewrandom@other-spam-domain.example>", "", "loan-spam-name"),
     ("ProductReportCard.com <support@productreportcard.com>", "", "productreportcard-address"),
