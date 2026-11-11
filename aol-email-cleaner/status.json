@@ -1,5 +1,5 @@
 {
-  "total_moved": 1250,
+  "total_moved": 1251,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 99,
@@ -70,7 +70,7 @@
     "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 3,
     "HomeWarranty spam (by name)": 4,
-    "Paramount name from a non-Paramount domain": 4,
+    "Paramount name from a non-Paramount domain": 5,
     "worldcartdirect.org spam (FI00RING Deal)": 9,
     "\"Flooring Deal\" spam (by name, lookalike-proof)": 2,
     "offersource.in spam (.Y\u00f3urC\u00e0r -- Insur\u00e1nc\u00e8.)": 9,
@@ -2190,12 +2190,18 @@
       "moved": 0,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-11T19:39:30Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-11T19:09:25Z",
+  "last_run": "2026-11-11T19:39:30Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 2,
-  "last_moved": 0
+  "last_scanned": 1,
+  "last_moved": 1
 }
