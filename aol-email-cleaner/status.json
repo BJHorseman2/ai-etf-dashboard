@@ -1980,12 +1980,18 @@
       "moved": 0,
       "scanned": 1527,
       "ok": true
+    },
+    {
+      "t": "2026-11-11T03:35:20Z",
+      "moved": 0,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-11T03:04:45Z",
+  "last_run": "2026-11-11T03:35:20Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1527,
+  "last_scanned": 1,
   "last_moved": 0
 }
