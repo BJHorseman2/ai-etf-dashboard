@@ -1,5 +1,5 @@
 {
-  "total_moved": 1260,
+  "total_moved": 1261,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 100,
@@ -82,7 +82,7 @@
     "Pure Living Daily spam (by name)": 1,
     "hippodromesolute.de spam (1Step earn-money pitch)": 1,
     "GlobeLifeOffer spam (by name, 0-for-O folded)": 5,
-    "everydaystylestore.com spam (Save Money with FBZ)": 12,
+    "everydaystylestore.com spam (Save Money with FBZ)": 13,
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1
   },
   "history": [
@@ -2407,12 +2407,18 @@
       "moved": 2,
       "scanned": 4,
       "ok": true
+    },
+    {
+      "t": "2026-11-12T12:14:05Z",
+      "moved": 1,
+      "scanned": 3,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-12T11:43:56Z",
+  "last_run": "2026-11-12T12:14:05Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 4,
-  "last_moved": 2
+  "last_scanned": 3,
+  "last_moved": 1
 }
