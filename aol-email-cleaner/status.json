@@ -2305,12 +2305,18 @@
       "moved": 0,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-12T04:11:42Z",
+      "moved": 0,
+      "scanned": 1535,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-12T04:11:29Z",
+  "last_run": "2026-11-12T04:11:42Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
+  "last_scanned": 1535,
   "last_moved": 0
 }
