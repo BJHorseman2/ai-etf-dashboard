@@ -1,5 +1,5 @@
 {
-  "total_moved": 1268,
+  "total_moved": 1270,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 100,
@@ -69,7 +69,7 @@
     "Sender name is this mailbox's own name (scare-mail)": 3,
     "Petco (by name)": 4,
     "Amazon name from a non-Amazon domain": 3,
-    "HomeWarranty spam (by name)": 4,
+    "HomeWarranty spam (by name)": 5,
     "Paramount name from a non-Paramount domain": 5,
     "worldcartdirect.org spam (FI00RING Deal)": 9,
     "\"Flooring Deal\" spam (by name, lookalike-proof)": 2,
@@ -82,16 +82,10 @@
     "Pure Living Daily spam (by name)": 1,
     "hippodromesolute.de spam (1Step earn-money pitch)": 1,
     "GlobeLifeOffer spam (by name, 0-for-O folded)": 5,
-    "everydaystylestore.com spam (Save Money with FBZ)": 14,
+    "everydaystylestore.com spam (Save Money with FBZ)": 15,
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1
   },
   "history": [
-    {
-      "t": "2026-10-13T02:07:48Z",
-      "moved": 0,
-      "scanned": 941,
-      "ok": true
-    },
     {
       "t": "2026-10-13T11:58:38Z",
       "moved": 3,
@@ -2485,12 +2479,18 @@
       "moved": 1,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-12T20:16:51Z",
+      "moved": 2,
+      "scanned": 5,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-12T19:46:46Z",
+  "last_run": "2026-11-12T20:16:51Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 2,
-  "last_moved": 1
+  "last_scanned": 5,
+  "last_moved": 2
 }
