@@ -1,9 +1,9 @@
 {
-  "total_moved": 1267,
+  "total_moved": 1268,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 100,
-    "The Economist Today": 314,
+    "The Economist Today": 315,
     "AI Automation Agency Hub (Skool)": 38,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -86,12 +86,6 @@
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1
   },
   "history": [
-    {
-      "t": "2026-10-12T23:55:15Z",
-      "moved": 182,
-      "scanned": 9130,
-      "ok": true
-    },
     {
       "t": "2026-10-13T02:07:48Z",
       "moved": 0,
@@ -2485,12 +2479,18 @@
       "moved": 0,
       "scanned": 1589,
       "ok": true
+    },
+    {
+      "t": "2026-11-12T19:46:46Z",
+      "moved": 1,
+      "scanned": 2,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-12T19:16:25Z",
+  "last_run": "2026-11-12T19:46:46Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1589,
-  "last_moved": 0
+  "last_scanned": 2,
+  "last_moved": 1
 }
