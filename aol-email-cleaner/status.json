@@ -1,5 +1,5 @@
 {
-  "total_moved": 1308,
+  "total_moved": 1309,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 103,
@@ -78,7 +78,7 @@
     "alittleluxury.in spam (VehicleProtectionUSA Affiliate)": 6,
     "GEICO name from a non-GEICO domain": 2,
     "homestyleworks.in spam (Find Car Insurance Quotes)": 3,
-    "bartiancreative.com scare mail (Stat_Department)": 2,
+    "bartiancreative.com scare mail (Stat_Department)": 3,
     "Pure Living Daily spam (by name)": 1,
     "hippodromesolute.de spam (1Step earn-money pitch)": 1,
     "GlobeLifeOffer spam (by name, 0-for-O folded)": 5,
@@ -94,12 +94,6 @@
     "onsitehomeclaims.com spam (fake Civil Eats)": 1
   },
   "history": [
-    {
-      "t": "2026-10-26T05:03:09Z",
-      "moved": 0,
-      "scanned": 1156,
-      "ok": true
-    },
     {
       "t": "2026-10-26T15:19:06Z",
       "moved": 3,
@@ -2493,12 +2487,18 @@
       "moved": 1,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-13T20:24:18Z",
+      "moved": 1,
+      "scanned": 2,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-13T19:54:14Z",
+  "last_run": "2026-11-13T20:24:18Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
+  "last_scanned": 2,
   "last_moved": 1
 }
