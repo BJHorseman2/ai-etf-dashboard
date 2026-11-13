@@ -1,9 +1,9 @@
 {
-  "total_moved": 1310,
+  "total_moved": 1312,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 103,
-    "The Economist Today": 317,
+    "The Economist Today": 318,
     "AI Automation Agency Hub (Skool)": 38,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -82,7 +82,7 @@
     "Pure Living Daily spam (by name)": 1,
     "hippodromesolute.de spam (1Step earn-money pitch)": 1,
     "GlobeLifeOffer spam (by name, 0-for-O folded)": 5,
-    "everydaystylestore.com spam (Save Money with FBZ)": 16,
+    "everydaystylestore.com spam (Save Money with FBZ)": 17,
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1,
     "Fake Empire Today flooring (name from a non-Empire domain)": 5,
     "Fake Americor (name from a non-Americor domain)": 4,
@@ -94,12 +94,6 @@
     "onsitehomeclaims.com spam (fake Civil Eats)": 1
   },
   "history": [
-    {
-      "t": "2026-10-27T14:43:30Z",
-      "moved": 2,
-      "scanned": 1190,
-      "ok": true
-    },
     {
       "t": "2026-10-27T20:48:44Z",
       "moved": 3,
@@ -2493,12 +2487,18 @@
       "moved": 0,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-13T21:55:04Z",
+      "moved": 2,
+      "scanned": 4,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-13T21:25:00Z",
+  "last_run": "2026-11-13T21:55:04Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
-  "last_moved": 0
+  "last_scanned": 4,
+  "last_moved": 2
 }
