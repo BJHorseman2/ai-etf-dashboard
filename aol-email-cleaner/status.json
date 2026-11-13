@@ -87,12 +87,6 @@
   },
   "history": [
     {
-      "t": "2026-10-20T23:14:56Z",
-      "moved": 2,
-      "scanned": 1101,
-      "ok": true
-    },
-    {
       "t": "2026-10-21T05:03:51Z",
       "moved": 1,
       "scanned": 1080,
@@ -2485,12 +2479,18 @@
       "moved": 1,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-13T10:21:28Z",
+      "moved": 0,
+      "scanned": 1564,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-13T10:21:03Z",
+  "last_run": "2026-11-13T10:21:28Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
-  "last_moved": 1
+  "last_scanned": 1564,
+  "last_moved": 0
 }
