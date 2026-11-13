@@ -2489,16 +2489,16 @@
       "ok": true
     },
     {
-      "t": "2026-11-13T18:35:45Z",
-      "moved": 22,
-      "scanned": 1586,
+      "t": "2026-11-13T18:54:00Z",
+      "moved": 0,
+      "scanned": 6,
       "ok": true
     }
   ],
-  "last_run": "2026-11-13T18:23:56Z",
+  "last_run": "2026-11-13T18:54:00Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 4,
+  "last_scanned": 6,
   "last_moved": 0
 }
