@@ -1,5 +1,5 @@
 {
-  "total_moved": 1276,
+  "total_moved": 1277,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 103,
@@ -48,7 +48,7 @@
     "Window Nation offers from a non-Window Nation domain": 6,
     "Personal - Loan spam (by name)": 2,
     "Fake invoice scam (Philip M. Lawson)": 1,
-    "MetalRoofing spam (by name)": 5,
+    "MetalRoofing spam (by name)": 6,
     "ShopDirectly spam (Globe Life)": 3,
     "PredictiveBuy spam (MiracleMade)": 2,
     "Scare-mail 'photos deleted' (wwdhuman.org)": 1,
@@ -86,12 +86,6 @@
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1
   },
   "history": [
-    {
-      "t": "2026-10-16T19:36:21Z",
-      "moved": 2,
-      "scanned": 1075,
-      "ok": true
-    },
     {
       "t": "2026-10-16T22:54:48Z",
       "moved": 2,
@@ -2485,12 +2479,18 @@
       "moved": 0,
       "scanned": 0,
       "ok": false
+    },
+    {
+      "t": "2026-11-13T02:49:12Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-13T02:18:56Z",
+  "last_run": "2026-11-13T02:49:12Z",
   "last_mode": "run",
-  "last_ok": false,
-  "last_error": "authentication failed",
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_ok": true,
+  "last_error": null,
+  "last_scanned": 1,
+  "last_moved": 1
 }
