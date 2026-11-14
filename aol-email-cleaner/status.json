@@ -1,5 +1,5 @@
 {
-  "total_moved": 1315,
+  "total_moved": 1316,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 104,
@@ -91,15 +91,10 @@
     "dracoofficemate.com spam (The Thoughtful Note)": 2,
     "InsuranceReview spam (by name)": 1,
     "smarthomeharbor.info spam (H0ME InsuranceReview)": 1,
-    "onsitehomeclaims.com spam (fake Civil Eats)": 1
+    "onsitehomeclaims.com spam (fake Civil Eats)": 1,
+    "ConcealedCarry / USCCA pitch spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-10-31T05:59:43Z",
-      "moved": 1,
-      "scanned": 1284,
-      "ok": true
-    },
     {
       "t": "2026-10-31T14:37:14Z",
       "moved": 4,
@@ -2493,12 +2488,18 @@
       "moved": 0,
       "scanned": 0,
       "ok": true
+    },
+    {
+      "t": "2026-11-14T02:56:20Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-14T02:26:16Z",
+  "last_run": "2026-11-14T02:56:20Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_scanned": 1,
+  "last_moved": 1
 }
