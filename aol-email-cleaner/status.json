@@ -1,5 +1,5 @@
 {
-  "total_moved": 1314,
+  "total_moved": 1315,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 104,
@@ -68,7 +68,7 @@
     "Petco": 19,
     "Sender name is this mailbox's own name (scare-mail)": 3,
     "Petco (by name)": 4,
-    "Amazon name from a non-Amazon domain": 3,
+    "Amazon name from a non-Amazon domain": 4,
     "HomeWarranty spam (by name)": 5,
     "Paramount name from a non-Paramount domain": 5,
     "worldcartdirect.org spam (FI00RING Deal)": 9,
@@ -94,12 +94,6 @@
     "onsitehomeclaims.com spam (fake Civil Eats)": 1
   },
   "history": [
-    {
-      "t": "2026-10-29T06:04:47Z",
-      "moved": 3,
-      "scanned": 1233,
-      "ok": true
-    },
     {
       "t": "2026-10-29T15:19:31Z",
       "moved": 1,
@@ -2493,12 +2487,18 @@
       "moved": 0,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-14T00:25:26Z",
+      "moved": 1,
+      "scanned": 3,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-13T23:55:22Z",
+  "last_run": "2026-11-14T00:25:26Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
-  "last_moved": 0
+  "last_scanned": 3,
+  "last_moved": 1
 }
