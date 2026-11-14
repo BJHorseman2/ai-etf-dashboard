@@ -1,5 +1,5 @@
 {
-  "total_moved": 1324,
+  "total_moved": 1326,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 104,
@@ -86,8 +86,8 @@
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1,
     "Fake Empire Today flooring (name from a non-Empire domain)": 5,
     "Fake Americor (name from a non-Americor domain)": 4,
-    "shopwithtrust.info spam (Americor Financial)": 6,
-    "shoptheworld.info spam (H0ME InsuranceReview)": 5,
+    "shopwithtrust.info spam (Americor Financial)": 7,
+    "shoptheworld.info spam (H0ME InsuranceReview)": 6,
     "dracoofficemate.com spam (The Thoughtful Note)": 2,
     "InsuranceReview spam (by name)": 1,
     "smarthomeharbor.info spam (H0ME InsuranceReview)": 1,
@@ -95,12 +95,6 @@
     "ConcealedCarry / USCCA pitch spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-07T00:38:00Z",
-      "moved": 0,
-      "scanned": 1,
-      "ok": true
-    },
     {
       "t": "2026-11-07T01:08:05Z",
       "moved": 0,
@@ -2494,12 +2488,18 @@
       "moved": 0,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-14T15:29:48Z",
+      "moved": 2,
+      "scanned": 3,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-14T14:59:43Z",
+  "last_run": "2026-11-14T15:29:48Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
-  "last_moved": 0
+  "last_scanned": 3,
+  "last_moved": 2
 }
