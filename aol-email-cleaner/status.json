@@ -1,16 +1,16 @@
 {
-  "total_moved": 1344,
+  "total_moved": 1346,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 106,
-    "The Economist Today": 325,
+    "The Economist Today": 326,
     "AI Automation Agency Hub (Skool)": 38,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
     "YCharts": 26,
     "Scott Galloway / Prof G Media": 11,
     "Rye Recreation (CommunityPass)": 92,
-    "StubHub events": 78,
+    "StubHub events": 79,
     "Discord": 39,
     "The Capitol Theatre": 5,
     "Yutori": 32,
@@ -95,12 +95,6 @@
     "ConcealedCarry / USCCA pitch spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-08T05:45:35Z",
-      "moved": 1,
-      "scanned": 1,
-      "ok": true
-    },
     {
       "t": "2026-11-08T06:15:40Z",
       "moved": 0,
@@ -2494,12 +2488,18 @@
       "moved": 1,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-15T20:38:36Z",
+      "moved": 2,
+      "scanned": 3,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-15T20:08:31Z",
+  "last_run": "2026-11-15T20:38:36Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1,
-  "last_moved": 1
+  "last_scanned": 3,
+  "last_moved": 2
 }
