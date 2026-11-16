@@ -1,8 +1,8 @@
 {
-  "total_moved": 1367,
+  "total_moved": 1368,
   "totals_by_rule": {
     "The Prof G Pod": 18,
-    "NBA Top Shot": 106,
+    "NBA Top Shot": 107,
     "The Economist Today": 329,
     "AI Automation Agency Hub (Skool)": 39,
     "Costa Dentistry": 4,
@@ -95,12 +95,6 @@
     "ConcealedCarry / USCCA pitch spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-09T07:22:54Z",
-      "moved": 0,
-      "scanned": 0,
-      "ok": true
-    },
     {
       "t": "2026-11-09T07:52:58Z",
       "moved": 2,
@@ -2494,12 +2488,18 @@
       "moved": 1,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-16T22:16:17Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-16T21:46:13Z",
+  "last_run": "2026-11-16T22:16:17Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 2,
+  "last_scanned": 1,
   "last_moved": 1
 }
