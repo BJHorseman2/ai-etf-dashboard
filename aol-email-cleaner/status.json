@@ -1,7 +1,7 @@
 {
-  "total_moved": 1358,
+  "total_moved": 1361,
   "totals_by_rule": {
-    "The Prof G Pod": 17,
+    "The Prof G Pod": 18,
     "NBA Top Shot": 106,
     "The Economist Today": 327,
     "AI Automation Agency Hub (Skool)": 39,
@@ -42,7 +42,7 @@
     "Fake State Farm (brand name from a non-State Farm domain)": 6,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
     "Fake State Farm (dearhunk.com)": 1,
-    "Throwaway shop-domain spam (naming pattern)": 130,
+    "Throwaway shop-domain spam (naming pattern)": 131,
     "BuyHavenHub spam (HomeWarranty, MetalRoofing, ...)": 6,
     "GrandShopHub spam (SouthUniversity, ...)": 6,
     "Window Nation offers from a non-Window Nation domain": 6,
@@ -82,7 +82,7 @@
     "Pure Living Daily spam (by name)": 1,
     "hippodromesolute.de spam (1Step earn-money pitch)": 1,
     "GlobeLifeOffer spam (by name, 0-for-O folded)": 5,
-    "everydaystylestore.com spam (Save Money with FBZ)": 23,
+    "everydaystylestore.com spam (Save Money with FBZ)": 24,
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1,
     "Fake Empire Today flooring (name from a non-Empire domain)": 5,
     "Fake Americor (name from a non-Americor domain)": 4,
@@ -95,12 +95,6 @@
     "ConcealedCarry / USCCA pitch spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-09T00:50:44Z",
-      "moved": 0,
-      "scanned": 1453,
-      "ok": true
-    },
     {
       "t": "2026-11-09T01:21:16Z",
       "moved": 0,
@@ -2494,12 +2488,18 @@
       "moved": 2,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-16T15:44:37Z",
+      "moved": 3,
+      "scanned": 3,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-16T15:14:30Z",
+  "last_run": "2026-11-16T15:44:37Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 2,
-  "last_moved": 2
+  "last_scanned": 3,
+  "last_moved": 3
 }
