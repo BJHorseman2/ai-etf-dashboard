@@ -1,5 +1,5 @@
 {
-  "total_moved": 1355,
+  "total_moved": 1356,
   "totals_by_rule": {
     "The Prof G Pod": 17,
     "NBA Top Shot": 106,
@@ -7,7 +7,7 @@
     "AI Automation Agency Hub (Skool)": 39,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
-    "YCharts": 26,
+    "YCharts": 27,
     "Scott Galloway / Prof G Media": 11,
     "Rye Recreation (CommunityPass)": 92,
     "StubHub events": 79,
@@ -95,12 +95,6 @@
     "ConcealedCarry / USCCA pitch spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-09T00:20:28Z",
-      "moved": 1,
-      "scanned": 1,
-      "ok": true
-    },
     {
       "t": "2026-11-09T00:50:32Z",
       "moved": 0,
@@ -2494,12 +2488,18 @@
       "moved": 0,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-16T14:44:24Z",
+      "moved": 1,
+      "scanned": 2,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-16T14:14:20Z",
+  "last_run": "2026-11-16T14:44:24Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 2,
-  "last_moved": 0
+  "last_moved": 1
 }
