@@ -1,5 +1,5 @@
 {
-  "total_moved": 1382,
+  "total_moved": 1384,
   "totals_by_rule": {
     "The Prof G Pod": 18,
     "NBA Top Shot": 107,
@@ -11,7 +11,7 @@
     "Scott Galloway / Prof G Media": 12,
     "Rye Recreation (CommunityPass)": 93,
     "StubHub events": 79,
-    "Discord": 40,
+    "Discord": 41,
     "The Capitol Theatre": 5,
     "Yutori": 32,
     "Acme Markets": 50,
@@ -34,7 +34,7 @@
     "BuyMoreMarket spam (SPHomeWarranty, ...)": 1,
     "Fake invoice scam (Mikayla Parisian)": 1,
     "Fake invoice scam (PDF named after this mailbox, empty body)": 9,
-    "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 2,
+    "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 3,
     "LibertyRoofing spam (by name)": 6,
     "Vehicle Protections spam (by name)": 1,
     "AutoInsurance spam (by name)": 11,
@@ -96,12 +96,6 @@
     "Food Benefits Team spam (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-10T02:58:24Z",
-      "moved": 0,
-      "scanned": 0,
-      "ok": true
-    },
     {
       "t": "2026-11-10T03:28:27Z",
       "moved": 0,
@@ -2495,12 +2489,18 @@
       "moved": 0,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-17T17:51:31Z",
+      "moved": 2,
+      "scanned": 2,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-17T17:21:26Z",
+  "last_run": "2026-11-17T17:51:31Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
   "last_scanned": 2,
-  "last_moved": 0
+  "last_moved": 2
 }
