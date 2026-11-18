@@ -1,8 +1,8 @@
 {
-  "total_moved": 1394,
+  "total_moved": 1395,
   "totals_by_rule": {
     "The Prof G Pod": 18,
-    "NBA Top Shot": 108,
+    "NBA Top Shot": 109,
     "The Economist Today": 331,
     "AI Automation Agency Hub (Skool)": 39,
     "Costa Dentistry": 4,
@@ -97,12 +97,6 @@
     "jcjbelief.com spam (Food Benefits Team)": 1
   },
   "history": [
-    {
-      "t": "2026-11-11T02:04:24Z",
-      "moved": 1,
-      "scanned": 2,
-      "ok": true
-    },
     {
       "t": "2026-11-11T02:34:29Z",
       "moved": 0,
@@ -2496,12 +2490,18 @@
       "moved": 0,
       "scanned": 1558,
       "ok": true
+    },
+    {
+      "t": "2026-11-18T16:28:20Z",
+      "moved": 1,
+      "scanned": 2,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-18T15:57:46Z",
+  "last_run": "2026-11-18T16:28:20Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1558,
-  "last_moved": 0
+  "last_scanned": 2,
+  "last_moved": 1
 }
