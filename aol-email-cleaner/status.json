@@ -1,5 +1,5 @@
 {
-  "total_moved": 1403,
+  "total_moved": 1404,
   "totals_by_rule": {
     "The Prof G Pod": 18,
     "NBA Top Shot": 109,
@@ -8,7 +8,7 @@
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
     "YCharts": 27,
-    "Scott Galloway / Prof G Media": 13,
+    "Scott Galloway / Prof G Media": 14,
     "Rye Recreation (CommunityPass)": 95,
     "StubHub events": 80,
     "Discord": 41,
@@ -97,12 +97,6 @@
     "jcjbelief.com spam (Food Benefits Team)": 1
   },
   "history": [
-    {
-      "t": "2026-11-12T01:41:05Z",
-      "moved": 1,
-      "scanned": 1,
-      "ok": true
-    },
     {
       "t": "2026-11-12T02:11:11Z",
       "moved": 1,
@@ -2496,12 +2490,18 @@
       "moved": 0,
       "scanned": 3,
       "ok": true
+    },
+    {
+      "t": "2026-11-19T16:34:32Z",
+      "moved": 1,
+      "scanned": 4,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-19T16:04:28Z",
+  "last_run": "2026-11-19T16:34:32Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 3,
-  "last_moved": 0
+  "last_scanned": 4,
+  "last_moved": 1
 }
