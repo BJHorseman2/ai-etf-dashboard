@@ -1,5 +1,5 @@
 {
-  "total_moved": 1449,
+  "total_moved": 1450,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -9,7 +9,7 @@
     "Fast5GInternet": 6,
     "YCharts": 28,
     "Scott Galloway / Prof G Media": 14,
-    "Rye Recreation (CommunityPass)": 96,
+    "Rye Recreation (CommunityPass)": 97,
     "StubHub events": 82,
     "Discord": 44,
     "The Capitol Theatre": 5,
@@ -97,12 +97,6 @@
     "jcjbelief.com spam (Food Benefits Team)": 1
   },
   "history": [
-    {
-      "t": "2026-11-16T01:39:53Z",
-      "moved": 0,
-      "scanned": 0,
-      "ok": true
-    },
     {
       "t": "2026-11-16T02:09:56Z",
       "moved": 0,
@@ -2496,12 +2490,18 @@
       "moved": 0,
       "scanned": 2,
       "ok": true
+    },
+    {
+      "t": "2026-11-23T18:45:39Z",
+      "moved": 1,
+      "scanned": 3,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-23T18:15:34Z",
+  "last_run": "2026-11-23T18:45:39Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 2,
-  "last_moved": 0
+  "last_scanned": 3,
+  "last_moved": 1
 }
