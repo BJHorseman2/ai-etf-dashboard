@@ -652,17 +652,17 @@ def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=
                 }))
             elif inventory is not None:
                 i_name, i_addr = parse_addr(headers.get("From", ""))
-                if domain_in(i_addr.rsplit("@", 1)[-1], FREEMAIL_DOMAINS):
-                    inventory["_freemail"] = inventory.get("_freemail", 0) + 1
-                else:
-                    ent = inventory.setdefault(i_addr, {
-                        "name": i_name, "count": 0, "last_subject": "",
-                        "last_date": "", "list_unsubscribe": False})
-                    ent["count"] += 1
-                    ent["name"] = i_name or ent["name"]
-                    ent["last_subject"] = decode_header_str(headers.get("Subject", "")).strip()[:70]
-                    ent["last_date"] = decode_header_str(headers.get("Date", "")).strip()[:16]
-                    ent["list_unsubscribe"] = ent["list_unsubscribe"] or bool(headers.get("List-Unsubscribe"))
+                ent = inventory.setdefault(i_addr, {
+                    "name": i_name, "count": 0, "subjects": [],
+                    "last_date": "", "list_unsubscribe": False,
+                    "freemail": domain_in(i_addr.rsplit("@", 1)[-1], FREEMAIL_DOMAINS)})
+                ent["count"] += 1
+                ent["name"] = i_name or ent["name"]
+                subj = decode_header_str(headers.get("Subject", "")).strip()[:70]
+                if subj not in ent["subjects"]:
+                    ent["subjects"] = (ent["subjects"] + [subj])[-4:]
+                ent["last_date"] = decode_header_str(headers.get("Date", "")).strip()[:16]
+                ent["list_unsubscribe"] = ent["list_unsubscribe"] or bool(headers.get("List-Unsubscribe"))
         matches.extend(chunk_matches)
         if on_chunk is not None:
             on_chunk(chunk_matches, examined, len(uids))
@@ -818,17 +818,16 @@ def run(dry_run):
                     report += "\n\n--- From: %s | %s\n    Subject: %s\n%s" % (
                         h["from"], h["date"], h["subject"], h["text"])
             if inventory is not None:
-                freemail = inventory.pop("_freemail", 0)
                 rows = sorted(inventory.items(), key=lambda kv: -kv[1]["count"])
-                lines = ["%3d | %s | %s <%s> | %s | %s" % (
+                lines = ["%3d | %s%s | %s <%s> | %s | %s" % (
                     e["count"], "list" if e["list_unsubscribe"] else "    ",
-                    e["name"] or "(no name)", addr, e["last_date"], e["last_subject"])
+                    " free" if e["freemail"] else "",
+                    e["name"] or "(no name)", addr, e["last_date"],
+                    " || ".join(e["subjects"]))
                     for addr, e in rows]
                 report += ("\n\n===== INBOX SENDER INVENTORY (unmatched, last %d days) =====\n"
-                           "count | list? | sender | last date | last subject\n%s\n\n"
-                           "(+ %d messages from %s free-mail/personal senders, not listed)"
-                           % (lookback, "\n".join(lines), freemail,
-                              "various" if freemail else "no"))
+                           "count | list? | sender | last date | recent subjects\n%s"
+                           % (lookback, "\n".join(lines)))
             by_rule = {}
             for _, rule, _info in matches:
                 label = rule.get("label", rule.get("id", "?"))
