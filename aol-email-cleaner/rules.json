@@ -8,11 +8,6 @@
       "from_email": "shop@dailycartstore.info"
     },
     {
-      "id": "profg-media-substack",
-      "label": "Scott Galloway / Prof G Media",
-      "from_email": "profgmedia@substack.com"
-    },
-    {
       "id": "ai-automation-agency-skool",
       "label": "AI Automation Agency Hub (Skool)",
       "from_email": "noreply@skool.com",
@@ -42,11 +37,6 @@
       "id": "manifold",
       "label": "Manifold",
       "display_name_contains": "Manifold"
-    },
-    {
-      "id": "prof-g-pod",
-      "label": "The Prof G Pod",
-      "display_name_contains": "The Prof G Pod"
     },
     {
       "id": "horsepowerduck",
@@ -112,12 +102,6 @@
       "id": "bloomingdales-loyallist",
       "label": "Bloomingdale's Loyallist",
       "display_name_contains": "Loyallist"
-    },
-    {
-      "id": "rye-recreation",
-      "label": "Rye Recreation (CommunityPass)",
-      "from_email": "info@communitypass.net",
-      "display_name_contains": "Rye Recreation"
     },
     {
       "id": "smartcartnow-spam",
@@ -947,6 +931,146 @@
       "display_name_contains": "Empire Today",
       "from_domain_not_in": [
         "empiretoday.com"
+      ]
+    },
+    {
+      "id": "junk-domains-nov26",
+      "label": "Throwaway junk domains (Nov 26 review)",
+      "from_domain_in": [
+        "financeflashpoint.com",
+        "thegoldenstore.info",
+        "myfavouritemarket.in",
+        "betterhomebeginnings.com",
+        "theultimatecartworld.info",
+        "theshoppingnest.in",
+        "investmentbosses.com",
+        "ladymaeve.com",
+        "solublechortle.net",
+        "theonlinecorner.in",
+        "freshtradeinsider.com",
+        "andresalerno.org",
+        "homerefreshworks.com",
+        "lvhrivera.com",
+        "wqhbrown.com",
+        "dubhecurbside.com",
+        "blooperagencia.com",
+        "wellesshortstop.com",
+        "thyratronsimper.org",
+        "shopyourworld.in",
+        "theproductgallery.in",
+        "hometransformed.info",
+        "pnivisit.com",
+        "seashorebahama.com",
+        "cobrawaste.org",
+        "bestinvestchoice.com",
+        "modernretailhouse.info",
+        "turbiditydemeter.com",
+        "zyfsight.org",
+        "monogamygreenberg.net"
+      ]
+    },
+    {
+      "id": "fake-order-gmail-1",
+      "label": "Fake order receipt (Sheila Kalita)",
+      "from_email": "lvezbbzfyhdvxxqk@gmail.com"
+    },
+    {
+      "id": "fake-order-gmail-2",
+      "label": "Fake order receipt (Linda Palladino)",
+      "from_email": "medicivarnish@gmail.com"
+    },
+    {
+      "id": "aarp-dotted-name",
+      "label": "Fake A.A.R.P. membership pitch (by name)",
+      "display_name_contains": "A.A.R.P"
+    },
+    {
+      "id": "home-internet-offers-name",
+      "label": "Home Internet Offers spam (by name, lookalike-proof)",
+      "display_name_contains": "Home Internet Offers"
+    },
+    {
+      "id": "internetoffers-name",
+      "label": "InternetOffers spam (by name, lookalike-proof)",
+      "display_name_contains": "InternetOffers"
+    },
+    {
+      "id": "fake-empiretoday-joined-name",
+      "label": "Fake EmpireToday flooring (joined-up name)",
+      "display_name_contains": "EmpireToday",
+      "from_domain_not_in": [
+        "empiretoday.com"
+      ]
+    },
+    {
+      "id": "flooringpartners-name",
+      "label": "FlooringPartners spam (by name)",
+      "display_name_contains": "FlooringPartners"
+    },
+    {
+      "id": "fake-sephora-name",
+      "label": "Fake Sephora Cyber Week (name from a domain it does not own)",
+      "display_name_contains": "Sephora Cyber Week",
+      "from_domain_not_in": [
+        "sephora.com"
+      ]
+    },
+    {
+      "id": "fake-atlas-obscura-name",
+      "label": "Fake Atlas Obscura (name from a domain it does not own)",
+      "display_name_contains": "Atlas Obscura",
+      "from_domain_not_in": [
+        "atlasobscura.com"
+      ]
+    },
+    {
+      "id": "fake-trader-joes-name",
+      "label": "Fake Trader Joe's (name from a domain it does not own)",
+      "display_name_contains": "Trader Joe's",
+      "from_domain_not_in": [
+        "traderjoes.com"
+      ]
+    },
+    {
+      "id": "fake-ace-hardware-name",
+      "label": "Fake Ace Hardware (name from a domain it does not own)",
+      "display_name_contains": "Ace Hardware",
+      "from_domain_not_in": [
+        "acehardware.com"
+      ]
+    },
+    {
+      "id": "fake-walmart-bf-name",
+      "label": "Fake Walmart Black Friday (name from a domain it does not own)",
+      "display_name_contains": "Walmart Black Friday",
+      "from_domain_not_in": [
+        "walmart.com"
+      ]
+    },
+    {
+      "id": "fake-fox-news-name",
+      "label": "Fake Fox News Politics (name from a domain it does not own)",
+      "display_name_contains": "Fox News Politics",
+      "from_domain_not_in": [
+        "foxnews.com"
+      ]
+    },
+    {
+      "id": "fake-petmd-name",
+      "label": "Fake PetMD (name from a domain it does not own)",
+      "display_name_contains": "PetMD",
+      "from_domain_not_in": [
+        "petmd.com",
+        "chewy.com"
+      ]
+    },
+    {
+      "id": "fake-hopium-name",
+      "label": "Fake Hopium Chronicles (name from a domain it does not own)",
+      "display_name_contains": "Hopium Chronicles",
+      "from_domain_not_in": [
+        "substack.com",
+        "hopiumchronicles.com"
       ]
     }
   ]
