@@ -652,17 +652,17 @@ def scan(conn, rules, state, lookback_days, diag=None, inventory=None, on_chunk=
                 }))
             elif inventory is not None:
                 i_name, i_addr = parse_addr(headers.get("From", ""))
-                if domain_in(i_addr.rsplit("@", 1)[-1], FREEMAIL_DOMAINS):
-                    inventory["_freemail"] = inventory.get("_freemail", 0) + 1
-                else:
-                    ent = inventory.setdefault(i_addr, {
-                        "name": i_name, "count": 0, "last_subject": "",
-                        "last_date": "", "list_unsubscribe": False})
-                    ent["count"] += 1
-                    ent["name"] = i_name or ent["name"]
-                    ent["last_subject"] = decode_header_str(headers.get("Subject", "")).strip()[:70]
-                    ent["last_date"] = decode_header_str(headers.get("Date", "")).strip()[:16]
-                    ent["list_unsubscribe"] = ent["list_unsubscribe"] or bool(headers.get("List-Unsubscribe"))
+                ent = inventory.setdefault(i_addr, {
+                    "name": i_name, "count": 0, "subjects": [],
+                    "last_date": "", "list_unsubscribe": False,
+                    "freemail": domain_in(i_addr.rsplit("@", 1)[-1], FREEMAIL_DOMAINS)})
+                ent["count"] += 1
+                ent["name"] = i_name or ent["name"]
+                subj = decode_header_str(headers.get("Subject", "")).strip()[:70]
+                if subj not in ent["subjects"]:
+                    ent["subjects"] = (ent["subjects"] + [subj])[-4:]
+                ent["last_date"] = decode_header_str(headers.get("Date", "")).strip()[:16]
+                ent["list_unsubscribe"] = ent["list_unsubscribe"] or bool(headers.get("List-Unsubscribe"))
         matches.extend(chunk_matches)
         if on_chunk is not None:
             on_chunk(chunk_matches, examined, len(uids))
@@ -818,17 +818,16 @@ def run(dry_run):
                     report += "\n\n--- From: %s | %s\n    Subject: %s\n%s" % (
                         h["from"], h["date"], h["subject"], h["text"])
             if inventory is not None:
-                freemail = inventory.pop("_freemail", 0)
                 rows = sorted(inventory.items(), key=lambda kv: -kv[1]["count"])
-                lines = ["%3d | %s | %s <%s> | %s | %s" % (
+                lines = ["%3d | %s%s | %s <%s> | %s | %s" % (
                     e["count"], "list" if e["list_unsubscribe"] else "    ",
-                    e["name"] or "(no name)", addr, e["last_date"], e["last_subject"])
+                    " free" if e["freemail"] else "",
+                    e["name"] or "(no name)", addr, e["last_date"],
+                    " || ".join(e["subjects"]))
                     for addr, e in rows]
                 report += ("\n\n===== INBOX SENDER INVENTORY (unmatched, last %d days) =====\n"
-                           "count | list? | sender | last date | last subject\n%s\n\n"
-                           "(+ %d messages from %s free-mail/personal senders, not listed)"
-                           % (lookback, "\n".join(lines), freemail,
-                              "various" if freemail else "no"))
+                           "count | list? | sender | last date | recent subjects\n%s"
+                           % (lookback, "\n".join(lines)))
             by_rule = {}
             for _, rule, _info in matches:
                 label = rule.get("label", rule.get("id", "?"))
@@ -893,14 +892,16 @@ def run(dry_run):
 TEST_CASES = [
     # (From header, Reply-To header, expected rule id or None)
     ("Fast5GInternet <shop@dailycartstore.info>", "", "fast5g-internet"),
-    ("Scott Galloway <profgmedia@substack.com>", "", "profg-media-substack"),
+    # Scott Galloway / Prof G were un-blocked at the owner's request (Nov 26)
+    ("Scott Galloway <profgmedia@substack.com>", "", None),
+    ("Scott Galloway & Ed Elson <profgmedia+markets-newsletter@substack.com>", "", None),
     ("AI Automation Agency Hub <noreply@skool.com>", "", "ai-automation-agency-skool"),
     # skool.com WITHOUT the AI Automation Agency name must NOT match
     ("Some Other Community <noreply@skool.com>", "", None),
     ("The Economist Today <newsletters@e.economist.com>", "", "economist-today"),
     ("NBA Top Shot <no-reply@nbatopshot.com>", "", "nba-top-shot"),
     ("Manifold <no-reply@manifold.markets>", "", "manifold"),
-    ("The Prof G Pod <podcast@profgmedia.com>", "", "prof-g-pod"),
+    ("The Prof G Pod <podcast@profgmedia.com>", "", None),
     ("HorsepowerDuck <hp@duck.example>", "", "horsepowerduck"),
     # folding makes H0rsep0werDuck equal to HorsepowerDuck; the earlier rule wins
     ("H0rsep0werDuck <hp0@duck.example>", "", "horsepowerduck"),
@@ -966,12 +967,35 @@ TEST_CASES = [
     ("The Thoughtful Note <d@unrelated-esp.example>", "", "thoughtful-note-name"),
     ("Empire Today\u00ae, The Flooring Partner <joyannreid+the-joy@unrelated-esp.example>", "", "fake-empire-today-name"),
     ("Empire Today <offers@email.empiretoday.com>", "", None),
+    # Nov 26 review: junk and scams
+    ("Atlas Obscura <brittneystovall@financeflashpoint.com>", "", "junk-domains-nov26"),
+    ("Cardchase@freedom <dazzling@harvest.solublechortle.net>", "", "junk-domains-nov26"),
+    ("Atlas Obscura <z@unrelated-esp.example>", "", "fake-atlas-obscura-name"),
+    ("Atlas Obscura <newsletter@atlasobscura.com>", "", None),
+    ("Sephora Cyber Week <>", "", "fake-sephora-name"),
+    ("Sephora <shop@beauty.sephora.com>", "", None),
+    ("J0lN @ A.A.R.P. <e@unrelated-esp.example>", "", "aarp-dotted-name"),
+    ("AARP <aarp@email.aarp.org>", "", None),
+    ("5G H0ME lnternet 0ffers <f@unrelated-esp.example>", "", "home-internet-offers-name"),
+    (".\u00c1T&T_lnternet0ffers <g@unrelated-esp.example>", "", "internetoffers-name"),
+    ("EmpireT0day\u00ae FIooring0ffers - Partner. <h@unrelated-esp.example>", "", "fake-empiretoday-joined-name"),
+    (".Empire\u00ae FlooringPARTNERS <i@unrelated-esp.example>", "", "flooringpartners-name"),
+    ("Trader Joe's <j@unrelated-esp.example>", "", "fake-trader-joes-name"),
+    ("Walmart Black Friday <k@unrelated-esp.example>", "", "fake-walmart-bf-name"),
+    ("Walmart <help@walmart.com>", "", None),
+    ("Sheila Kalita <lvezbbzfyhdvxxqk@gmail.com>", "", "fake-order-gmail-1"),
+    # real companies the owner chose to keep
+    ("Amazon.com <store-news@amazon.com>", "", None),
+    ("Uber Eats <ubereats@uber.com>", "", None),
+    ("Hilton Honors <noreply@h5.hilton.com>", "", None),
     ("Lend ing F0R BAD Cred it <pldaxswkqetmvra@wish-montenegro.com>", "", "loan-spam-address"),
     ("Lend ing F0R BAD Cred it <zznewrandom@other-spam-domain.example>", "", "loan-spam-name"),
     ("ProductReportCard.com <support@productreportcard.com>", "", "productreportcard-address"),
     ("ProductReportCard.com <bulk@some-esp.example>", "", "productreportcard-name"),
     ("Bloomingdale's Loyallist <bloomingdalesloyallist@loyallist.bloomingdales.com>", "", "bloomingdales-loyallist"),
-    ("Rye Recreation <info@communitypass.net>", "", "rye-recreation"),
+    # Rye / Rye Brook Recreation un-blocked at the owner's request (Nov 26)
+    ("Rye Recreation <info@communitypass.net>", "", None),
+    ("Rye Brook Recreation <info@communitypass.net>", "", None),
     ("libertyroofingupgrade <hello@smartcartnow.net>", "", "smartcartnow-spam"),
     ("ReliefMDBetterLiving <hello@smartcartnow.net>", "", "smartcartnow-spam"),
     ("IndigoMastercardOffer <visible@visiblecreditline.net>", "", "indigo-mastercard-spam"),

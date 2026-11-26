@@ -94,11 +94,14 @@ jobs:
           # inbox mail whose From/Subject contains a term (report is encrypted)
           SEARCH_TERMS="$(printf '%s' "$HEAD_MSG" | grep -oP '\[search:\s*\K[^\]]+' | head -1 || true)"
           export AOL_CLEANER_SEARCH="$SEARCH_TERMS"
+          # [days: N] in a push's commit message narrows/widens a dry run's window
+          DAYS="$(printf '%s' "$HEAD_MSG" | grep -oP '\[days:\s*\K[0-9]+' | head -1 || true)"
+          if [ -n "$DAYS" ] && [ "$MODE" = "dry-run" ]; then export AOL_CLEANER_LOOKBACK="$DAYS"; fi
           python3 aol-email-cleaner/aol_email_cleaner.py "--$MODE"
           # dry-run: emit the report base64-encoded so the operator can
           # retrieve it from the job log without a plaintext public listing
           if [ "$MODE" = "dry-run" ] && [ -f "$AOL_CLEANER_REPORT" ]; then
-            if [ -n "$SEARCH_TERMS" ] && [ -f aol-email-cleaner/report-public.pem ]; then
+            if { [ -n "$SEARCH_TERMS" ] || [ "$AOL_CLEANER_INVENTORY" = "1" ]; } && [ -f aol-email-cleaner/report-public.pem ]; then
               # search results contain personal mail: encrypt to the operator's
               # public key (AES-256 for the body, RSA-OAEP for the AES key)
               KEYFILE="$RUNNER_TEMP/report.key"
