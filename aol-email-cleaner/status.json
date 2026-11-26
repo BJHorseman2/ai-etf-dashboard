@@ -1,5 +1,5 @@
 {
-  "total_moved": 1477,
+  "total_moved": 1540,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -94,15 +94,17 @@
     "onsitehomeclaims.com spam (fake Civil Eats)": 1,
     "ConcealedCarry / USCCA pitch spam (by name)": 1,
     "Food Benefits Team spam (by name)": 1,
-    "jcjbelief.com spam (Food Benefits Team)": 1
+    "jcjbelief.com spam (Food Benefits Team)": 1,
+    "Throwaway junk domains (Nov 26 review)": 51,
+    "FlooringPartners spam (by name)": 6,
+    "InternetOffers spam (by name, lookalike-proof)": 1,
+    "Home Internet Offers spam (by name, lookalike-proof)": 1,
+    "Fake order receipt (Sheila Kalita)": 1,
+    "Fake order receipt (Linda Palladino)": 1,
+    "Fake Sephora Cyber Week (name from a domain it does not own)": 1,
+    "Fake EmpireToday flooring (joined-up name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-18T23:00:04Z",
-      "moved": 0,
-      "scanned": 5,
-      "ok": true
-    },
     {
       "t": "2026-11-18T23:30:08Z",
       "moved": 0,
@@ -2495,6 +2497,12 @@
       "t": "2026-11-26T15:36:04Z",
       "moved": 0,
       "scanned": 1,
+      "ok": true
+    },
+    {
+      "t": "2026-11-26T15:37:49Z",
+      "moved": 63,
+      "scanned": 1567,
       "ok": true
     }
   ],
