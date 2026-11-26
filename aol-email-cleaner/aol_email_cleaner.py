@@ -218,6 +218,7 @@ def match_rule(rule, ctx):
     banned_domains = [d.strip().lower() for d in rule.get("from_domain_not_in", [])]
     subject_re = rule.get("subject_regex", "")
     from_re = rule.get("from_regex", "")
+    name_re = rule.get("display_name_regex", "")
     body_all = [p.lower() for p in rule.get("body_contains_all", [])]
     body_any = [p.lower() for p in rule.get("body_contains_any", [])]
     body_groups = [[p.lower() for p in g] for g in rule.get("body_contains_any_groups", [])]
@@ -227,10 +228,15 @@ def match_rule(rule, ctx):
     att_name_re = rule.get("attachment_name_regex", "")
 
     if not (want_email or want_name or want_domains or subject_re or from_re
+            or name_re
             or body_all or body_any or body_groups or body_re
             or max_text is not None or att_types or att_name_re):
         return False  # from_domain_not_in alone is never a rule
     if from_re and not re.search(from_re, ctx["from_addr"], re.I):
+        return False
+    # display_name_regex: case-SENSITIVE regex on the raw (unfolded) From
+    # display name, for obfuscation tricks that folding would hide
+    if name_re and not re.search(name_re, ctx["from_name"] or ""):
         return False
 
     if want_email and not (ctx["from_addr"] == want_email
@@ -984,6 +990,34 @@ TEST_CASES = [
     ("Walmart Black Friday <k@unrelated-esp.example>", "", "fake-walmart-bf-name"),
     ("Walmart <help@walmart.com>", "", None),
     ("Sheila Kalita <lvezbbzfyhdvxxqk@gmail.com>", "", "fake-order-gmail-1"),
+    # Nov 27 batch + obfuscation-pattern rules
+    ("hello@twistedwillowwellness.com <hello@twistedwillowwellness.com>", "", "twistedwillow-domain"),
+    ("Envato Market <news_at_m_market_envato_com_z4pvfmtvgf_c7b547b6@privaterelay.appleid.com>", "", "envato-name"),
+    ("Upwork <upwork_at_email_upwork_com_9zcp8z4wkr_af902918@privaterelay.appleid.com>", "", "upwork-name"),
+    ("WashUp GO <consistesem@dfcbeen.com>", "", "junk-domains-nov27"),
+    ("Benefits Information <Seattle@mkrbase.net>", "", "junk-domains-nov27"),
+    ("Inc Navien <navien_inc@birdeye.com>", "", "navien-survey"),
+    ("BlackFridayPromotions... <upgrade@homeupgrade.info>", "", "junk-domains-nov27"),
+    ("Globelife_0ffer.. <Dailydeals@dailydiscountpoint.info>", "", "junk-domains-nov27"),
+    ("Avant <zeteo@homeenhancementservices.info>", "", "junk-domains-nov27"),
+    # the tricks themselves, from addresses never seen before
+    ("NIGHTVISI0N_PR0... <a@brand-new.example>", "", "name-zero-for-o"),
+    ("SomeBrand 0ffers <a@brand-new.example>", "", "name-zero-for-o"),
+    (".Fresh Deals <a@brand-new.example>", "", "name-leading-punct"),
+    ("Great Savings.. <a@brand-new.example>", "", "name-trailing-dots"),
+    ("Big Sale...!! <a@brand-new.example>", "", "name-trailing-dots"),
+    ("Quote_Department <a@brand-new.example>", "", "name-underscore-joined"),
+    ("Nice Things <kendra@cozyhomenest.in>", "", "junk-tld-keyword-domain"),
+    ("Nice Things <belk@brand-new.example>", "", "brand-localpart-wrong-domain"),
+    # look-alikes of those tricks that are legitimate and must stay
+    ("Auth0 <no-reply@auth0.com>", "", None),
+    ("Acme Inc. <billing@acme.com>", "", None),
+    ("John Smith Jr. <jsmith@lawfirm.example>", "", None),
+    ("john_doe <john_doe@gmail.com>", "", None),
+    ("Top 10 Lists <news@lists.example>", "", None),
+    ("Belk <belk@email.belk.com>", "", None),
+    ("Home Depot <homedepot@email.homedepot.com>", "", None),
+    ("H2O Wireless <care@h2owireless.com>", "", None),
     # real companies the owner chose to keep
     ("Amazon.com <store-news@amazon.com>", "", None),
     ("Uber Eats <ubereats@uber.com>", "", None),

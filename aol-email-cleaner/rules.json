@@ -1072,6 +1072,88 @@
         "substack.com",
         "hopiumchronicles.com"
       ]
+    },
+    {
+      "id": "twistedwillow-domain",
+      "label": "Twisted Willow Wellness",
+      "from_domain_in": [
+        "twistedwillowwellness.com"
+      ]
+    },
+    {
+      "id": "envato-name",
+      "label": "Envato Market",
+      "display_name_contains": "Envato"
+    },
+    {
+      "id": "upwork-name",
+      "label": "Upwork",
+      "display_name_contains": "Upwork"
+    },
+    {
+      "id": "navien-survey",
+      "label": "Navien feedback survey (Birdeye)",
+      "from_email": "navien_inc@birdeye.com"
+    },
+    {
+      "id": "junk-domains-nov27",
+      "label": "Throwaway junk domains (Nov 27 batch)",
+      "from_domain_in": [
+        "dfcbeen.com",
+        "mkrbase.net",
+        "homeupgrade.info",
+        "eleganthomeway.com",
+        "dailydiscountpoint.info",
+        "homeenhancementservices.info"
+      ]
+    },
+    {
+      "id": "name-zero-for-o",
+      "label": "Pattern: sender name uses a zero in place of the letter O",
+      "display_name_regex": "[A-Za-z]0[A-Za-z]|(?<![A-Za-z0-9.,$#])0[A-Za-z]{3,}"
+    },
+    {
+      "id": "name-leading-punct",
+      "label": "Pattern: sender name starts with a dot or dash",
+      "display_name_regex": "^\\s*[.\\-_]\\s*[A-Za-z\\u00c0-\\u024f]"
+    },
+    {
+      "id": "name-trailing-dots",
+      "label": "Pattern: sender name ends in '..' or '!!'",
+      "display_name_regex": "(\\.\\.+!*|!!+)\\s*$"
+    },
+    {
+      "id": "name-underscore-joined",
+      "label": "Pattern: sender name joins words with an underscore",
+      "display_name_regex": "^[^@]*[A-Za-z.]_[A-Za-z0-9][^@]*$",
+      "from_domain_not_in": [
+        "gmail.com",
+        "googlemail.com",
+        "yahoo.com",
+        "aol.com",
+        "outlook.com",
+        "hotmail.com",
+        "live.com",
+        "msn.com",
+        "icloud.com",
+        "me.com",
+        "mac.com",
+        "comcast.net",
+        "verizon.net",
+        "optonline.net",
+        "att.net",
+        "sbcglobal.net"
+      ]
+    },
+    {
+      "id": "junk-tld-keyword-domain",
+      "label": "Pattern: shop/home/deal-style domain on a throwaway ending (.info, .in, ...)",
+      "from_regex": "@([a-z0-9-]+\\.)*[a-z0-9-]*(home|shop|store|cart|market|deal|discount|daily|retail|product|buy|style|luxur|world|offer|saving|corner|nest|gallery|finds|trend)[a-z0-9-]*\\.(info|in|store|shop|xyz|club|top|site|online)$"
+    },
+    {
+      "id": "brand-localpart-wrong-domain",
+      "label": "Pattern: a store's name used as the mailbox on an unrelated domain",
+      "from_regex": "^(belk|clinique|fabletics|zeteo|meidastouch)@(?!([a-z0-9-]+\\.)*(belk|clinique|fabletics|zeteo|meidastouch)\\.(com|org)$)"
     }
   ]
 }
