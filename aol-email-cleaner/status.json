@@ -1,5 +1,5 @@
 {
-  "total_moved": 1623,
+  "total_moved": 1624,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -95,7 +95,7 @@
     "ConcealedCarry / USCCA pitch spam (by name)": 1,
     "Food Benefits Team spam (by name)": 1,
     "jcjbelief.com spam (Food Benefits Team)": 1,
-    "Throwaway junk domains (Nov 26 review)": 51,
+    "Throwaway junk domains (Nov 26 review)": 52,
     "FlooringPartners spam (by name)": 6,
     "InternetOffers spam (by name, lookalike-proof)": 1,
     "Home Internet Offers spam (by name, lookalike-proof)": 1,
@@ -116,12 +116,6 @@
     "Navien feedback survey (Birdeye)": 1
   },
   "history": [
-    {
-      "t": "2026-11-19T00:00:12Z",
-      "moved": 0,
-      "scanned": 1,
-      "ok": true
-    },
     {
       "t": "2026-11-19T00:30:16Z",
       "moved": 0,
@@ -2515,12 +2509,18 @@
       "moved": 0,
       "scanned": 4,
       "ok": true
+    },
+    {
+      "t": "2026-11-26T17:06:23Z",
+      "moved": 1,
+      "scanned": 3,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-26T16:36:18Z",
+  "last_run": "2026-11-26T17:06:23Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 4,
-  "last_moved": 0
+  "last_scanned": 3,
+  "last_moved": 1
 }
