@@ -1,5 +1,5 @@
 {
-  "total_moved": 1540,
+  "total_moved": 1623,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -102,15 +102,20 @@
     "Fake order receipt (Sheila Kalita)": 1,
     "Fake order receipt (Linda Palladino)": 1,
     "Fake Sephora Cyber Week (name from a domain it does not own)": 1,
-    "Fake EmpireToday flooring (joined-up name)": 1
+    "Fake EmpireToday flooring (joined-up name)": 1,
+    "Upwork": 10,
+    "Pattern: sender name ends in '..' or '!!'": 8,
+    "Pattern: sender name uses a zero in place of the letter O": 31,
+    "Pattern: sender name starts with a dot or dash": 8,
+    "Pattern: shop/home/deal-style domain on a throwaway ending (.info, .in, ...)": 14,
+    "Pattern: sender name joins words with an underscore": 2,
+    "Twisted Willow Wellness": 3,
+    "Pattern: a store's name used as the mailbox on an unrelated domain": 1,
+    "Envato Market": 1,
+    "Throwaway junk domains (Nov 27 batch)": 4,
+    "Navien feedback survey (Birdeye)": 1
   },
   "history": [
-    {
-      "t": "2026-11-18T23:30:08Z",
-      "moved": 0,
-      "scanned": 0,
-      "ok": true
-    },
     {
       "t": "2026-11-19T00:00:12Z",
       "moved": 0,
@@ -2503,6 +2508,12 @@
       "t": "2026-11-26T15:37:49Z",
       "moved": 63,
       "scanned": 1567,
+      "ok": true
+    },
+    {
+      "t": "2026-11-26T15:53:12Z",
+      "moved": 83,
+      "scanned": 1507,
       "ok": true
     }
   ],
