@@ -1,5 +1,5 @@
 {
-  "total_moved": 1637,
+  "total_moved": 1638,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -95,7 +95,7 @@
     "ConcealedCarry / USCCA pitch spam (by name)": 1,
     "Food Benefits Team spam (by name)": 1,
     "jcjbelief.com spam (Food Benefits Team)": 1,
-    "Throwaway junk domains (Nov 26 review)": 53,
+    "Throwaway junk domains (Nov 26 review)": 54,
     "FlooringPartners spam (by name)": 6,
     "InternetOffers spam (by name, lookalike-proof)": 1,
     "Home Internet Offers spam (by name, lookalike-proof)": 1,
@@ -117,12 +117,6 @@
     "Fake A.A.R.P. membership pitch (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-19T14:04:10Z",
-      "moved": 0,
-      "scanned": 2,
-      "ok": true
-    },
     {
       "t": "2026-11-19T14:34:14Z",
       "moved": 0,
@@ -2516,12 +2510,18 @@
       "moved": 0,
       "scanned": 0,
       "ok": true
+    },
+    {
+      "t": "2026-11-27T07:10:44Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-27T06:40:40Z",
+  "last_run": "2026-11-27T07:10:44Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_scanned": 1,
+  "last_moved": 1
 }
