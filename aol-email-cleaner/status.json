@@ -1,5 +1,5 @@
 {
-  "total_moved": 1638,
+  "total_moved": 1640,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -14,7 +14,7 @@
     "Discord": 47,
     "The Capitol Theatre": 5,
     "Yutori": 32,
-    "Acme Markets": 54,
+    "Acme Markets": 55,
     "Bloomingdale's Loyallist": 4,
     "SmartCartNow spam (LibertyRoofing, ReliefMD, ...)": 2,
     "Reddit": 39,
@@ -85,7 +85,7 @@
     "everydaystylestore.com spam (Save Money with FBZ)": 27,
     "\"Save Money with FBZ\" spam (by name, accent-proof)": 1,
     "Fake Empire Today flooring (name from a non-Empire domain)": 8,
-    "Fake Americor (name from a non-Americor domain)": 5,
+    "Fake Americor (name from a non-Americor domain)": 6,
     "shopwithtrust.info spam (Americor Financial)": 9,
     "shoptheworld.info spam (H0ME InsuranceReview)": 9,
     "dracoofficemate.com spam (The Thoughtful Note)": 6,
@@ -117,12 +117,6 @@
     "Fake A.A.R.P. membership pitch (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-19T18:05:22Z",
-      "moved": 0,
-      "scanned": 3,
-      "ok": true
-    },
     {
       "t": "2026-11-19T18:35:27Z",
       "moved": 0,
@@ -2516,12 +2510,18 @@
       "moved": 0,
       "scanned": 0,
       "ok": true
+    },
+    {
+      "t": "2026-11-27T11:11:58Z",
+      "moved": 2,
+      "scanned": 4,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-27T10:41:54Z",
+  "last_run": "2026-11-27T11:11:58Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_scanned": 4,
+  "last_moved": 2
 }
