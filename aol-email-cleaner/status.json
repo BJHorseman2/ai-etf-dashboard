@@ -1,5 +1,5 @@
 {
-  "total_moved": 1642,
+  "total_moved": 1644,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -48,7 +48,7 @@
     "Window Nation offers from a non-Window Nation domain": 6,
     "Personal - Loan spam (by name)": 2,
     "Fake invoice scam (Philip M. Lawson)": 1,
-    "MetalRoofing spam (by name)": 8,
+    "MetalRoofing spam (by name)": 9,
     "ShopDirectly spam (Globe Life)": 3,
     "PredictiveBuy spam (MiracleMade)": 2,
     "Scare-mail 'photos deleted' (wwdhuman.org)": 1,
@@ -112,17 +112,11 @@
     "Twisted Willow Wellness": 3,
     "Pattern: a store's name used as the mailbox on an unrelated domain": 1,
     "Envato Market": 1,
-    "Throwaway junk domains (Nov 27 batch)": 6,
+    "Throwaway junk domains (Nov 27 batch)": 7,
     "Navien feedback survey (Birdeye)": 1,
     "Fake A.A.R.P. membership pitch (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-19T20:05:43Z",
-      "moved": 1,
-      "scanned": 2,
-      "ok": true
-    },
     {
       "t": "2026-11-19T20:35:48Z",
       "moved": 1,
@@ -2516,12 +2510,18 @@
       "moved": 0,
       "scanned": 0,
       "ok": true
+    },
+    {
+      "t": "2026-11-27T13:12:24Z",
+      "moved": 2,
+      "scanned": 6,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-27T12:42:21Z",
+  "last_run": "2026-11-27T13:12:24Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_scanned": 6,
+  "last_moved": 2
 }
