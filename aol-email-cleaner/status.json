@@ -1,5 +1,5 @@
 {
-  "total_moved": 1658,
+  "total_moved": 1659,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -105,7 +105,7 @@
     "Fake EmpireToday flooring (joined-up name)": 1,
     "Upwork": 10,
     "Pattern: sender name ends in '..' or '!!'": 9,
-    "Pattern: sender name uses a zero in place of the letter O": 32,
+    "Pattern: sender name uses a zero in place of the letter O": 33,
     "Pattern: sender name starts with a dot or dash": 9,
     "Pattern: shop/home/deal-style domain on a throwaway ending (.info, .in, ...)": 18,
     "Pattern: sender name joins words with an underscore": 2,
@@ -117,12 +117,6 @@
     "Fake A.A.R.P. membership pitch (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-20T18:11:58Z",
-      "moved": 0,
-      "scanned": 2,
-      "ok": true
-    },
     {
       "t": "2026-11-20T18:12:12Z",
       "moved": 0,
@@ -2516,12 +2510,18 @@
       "moved": 0,
       "scanned": 1395,
       "ok": true
+    },
+    {
+      "t": "2026-11-28T10:48:49Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-28T10:18:24Z",
+  "last_run": "2026-11-28T10:48:49Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1395,
-  "last_moved": 0
+  "last_scanned": 1,
+  "last_moved": 1
 }
