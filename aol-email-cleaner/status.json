@@ -1,5 +1,5 @@
 {
-  "total_moved": 1656,
+  "total_moved": 1657,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -37,7 +37,7 @@
     "Fake invoice scam (\"Thank You for Your Order\" + PDF, empty body)": 3,
     "LibertyRoofing spam (by name)": 6,
     "Vehicle Protections spam (by name)": 1,
-    "AutoInsurance spam (by name)": 14,
+    "AutoInsurance spam (by name)": 15,
     "LendWyse loan spam (by name)": 2,
     "Fake State Farm (brand name from a non-State Farm domain)": 6,
     "BuyMoreStore spam (libertyroofing, ...)": 2,
@@ -117,12 +117,6 @@
     "Fake A.A.R.P. membership pitch (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-20T13:10:21Z",
-      "moved": 0,
-      "scanned": 4,
-      "ok": true
-    },
     {
       "t": "2026-11-20T13:10:38Z",
       "moved": 0,
@@ -2516,12 +2510,18 @@
       "moved": 0,
       "scanned": 1393,
       "ok": true
+    },
+    {
+      "t": "2026-11-28T05:47:21Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-28T05:16:59Z",
+  "last_run": "2026-11-28T05:47:21Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 1393,
-  "last_moved": 0
+  "last_scanned": 1,
+  "last_moved": 1
 }
