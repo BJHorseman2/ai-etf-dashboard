@@ -1,5 +1,5 @@
 {
-  "total_moved": 1655,
+  "total_moved": 1656,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
@@ -107,7 +107,7 @@
     "Pattern: sender name ends in '..' or '!!'": 9,
     "Pattern: sender name uses a zero in place of the letter O": 31,
     "Pattern: sender name starts with a dot or dash": 9,
-    "Pattern: shop/home/deal-style domain on a throwaway ending (.info, .in, ...)": 17,
+    "Pattern: shop/home/deal-style domain on a throwaway ending (.info, .in, ...)": 18,
     "Pattern: sender name joins words with an underscore": 2,
     "Twisted Willow Wellness": 3,
     "Pattern: a store's name used as the mailbox on an unrelated domain": 1,
@@ -117,12 +117,6 @@
     "Fake A.A.R.P. membership pitch (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-20T11:40:08Z",
-      "moved": 0,
-      "scanned": 1,
-      "ok": true
-    },
     {
       "t": "2026-11-20T12:10:12Z",
       "moved": 0,
@@ -2516,9 +2510,15 @@
       "moved": 1,
       "scanned": 1,
       "ok": true
+    },
+    {
+      "t": "2026-11-28T04:46:38Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-28T04:16:32Z",
+  "last_run": "2026-11-28T04:46:38Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
