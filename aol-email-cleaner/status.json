@@ -1,9 +1,9 @@
 {
-  "total_moved": 1653,
+  "total_moved": 1654,
   "totals_by_rule": {
     "The Prof G Pod": 19,
     "NBA Top Shot": 110,
-    "The Economist Today": 358,
+    "The Economist Today": 359,
     "AI Automation Agency Hub (Skool)": 41,
     "Costa Dentistry": 4,
     "Fast5GInternet": 6,
@@ -117,12 +117,6 @@
     "Fake A.A.R.P. membership pitch (by name)": 1
   },
   "history": [
-    {
-      "t": "2026-11-20T09:39:48Z",
-      "moved": 1,
-      "scanned": 2,
-      "ok": true
-    },
     {
       "t": "2026-11-20T10:09:55Z",
       "moved": 0,
@@ -2516,12 +2510,18 @@
       "moved": 0,
       "scanned": 0,
       "ok": true
+    },
+    {
+      "t": "2026-11-28T02:46:18Z",
+      "moved": 1,
+      "scanned": 1,
+      "ok": true
     }
   ],
-  "last_run": "2026-11-28T02:16:14Z",
+  "last_run": "2026-11-28T02:46:18Z",
   "last_mode": "run",
   "last_ok": true,
   "last_error": null,
-  "last_scanned": 0,
-  "last_moved": 0
+  "last_scanned": 1,
+  "last_moved": 1
 }
